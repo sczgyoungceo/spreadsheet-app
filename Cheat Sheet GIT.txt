@@ -1,0 +1,57 @@
+Cheat Sheet GIT
+
+🎯 Workflow consigliato quando lavori su più PC
+
+    git pull origin master
+    
+    git add .
+    git commit -m "Descrizione delle modifiche"
+    git push origin master
+
+
+
+Configurazione iniziale
+
+    git config --global user.name "IlTuoNome"
+    git config --global user.email "tu@email.com"
+    git config --global --list  # Controlla la configurazione attuale
+
+Creare e inizializzare un repository
+
+    git init  Inizializza un repository Git in una cartella
+    git clone <url>  Clona un repository esistente da GitHub
+
+Stato del repository
+
+    git status  # Controlla lo stato dei file (modificati, non tracciati, ecc.)
+    git log  # Visualizza la cronologia dei commit
+    git log --oneline --graph --all  # Versione compatta con grafico delle branch
+
+Scaricare le ultime modifiche dal repository remoto
+
+    git pull origin master  # Scarica e aggiorna il repository locale con le modifiche da GitHub
+
+Salvare e inviare modifiche
+
+    git add .  # Aggiunge tutti i file modificati alla "staging area"
+    git commit -m "Messaggio descrittivo delle modifiche"  # Registra le modifiche
+    git push origin master  # Invia i commit su GitHub
+
+Gestione delle branch (ramificazioni)
+
+    git branch  # Mostra tutte le branch locali
+    git checkout -b nome-branch  # Crea e passa a una nuova branch
+    git checkout master  # Torna alla branch principale
+    git merge nome-branch  # Unisce una branch nella corrente
+    git branch -d nome-branch  # Elimina una branch locale
+
+Annullare modifiche
+
+    git checkout -- nomefile  # Annulla le modifiche non committate su un file
+    git reset HEAD nomefile  # Rimuove il file dallo staging senza perdere le modifiche
+    git reset --hard HEAD  # Annulla tutte le modifiche non committate (⚠️ ATTENTO!)
+
+Sincronizzare i progetti tra dispositivi
+
+    git pull origin master  # Scarica le ultime modifiche da GitHub prima di iniziare a lavorare
+    git push origin master  # Carica le modifiche su GitHub dopo aver finito di lavorare
