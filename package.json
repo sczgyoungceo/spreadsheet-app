@@ -18,7 +18,9 @@
   "homepage": "https://github.com/sczgyoungceo/spreadsheet-app#readme",
   "description": "",
   "dependencies": {
+    "express": "^4.21.2",
     "formulajs": "^1.0.8",
+    "multer": "^1.4.5-lts.1",
     "xlsx": "^0.18.5"
   }
 }

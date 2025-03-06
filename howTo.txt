@@ -1,0 +1,157 @@
+configurazione di multer per la gestione del caricamento del file
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // File caricati vengono salvati nella cartella 'uploads'
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Nome unico per ogni file
+  },
+});
+
+const upload = multer({ storage: storage });
+
+
+
+1. diskStorage definisce come i ile devono essere gestiti e salvati sul disco del server
+il suo parametro è un oggetto con 2 chiavi principali:
+
+- destination: dove i file devono essere salvati
+- filename: come devono essere nominati
+
+quindi multer.diskStorage è usato per definire il comportamento di salvataggio del file
+
+2. destination: function(req, file, cb) {...}
+
+questa funzione indica dove devono essere memorizzati i file sul server
+
+- req: è l'oggetto della richiesta, che contiene info sul client che invia il file.
+        non lo usiamo in questo caso ma potrebbe essere utile se volessimo personalizzare 
+        la destinazione in base ad alcune info nella richiesta
+
+- file: Contiene informazioni sul file caricato come il nome originale, la mimetype, la dimens ecc
+
+- cb(callback): è una funzione che accetta 2 parametri:
+    
+    - il primo è un errore (se c'è un errore nel determinare la destinazione, questo caso non ci interessa
+    e lo mettiamo a null)
+
+    - il secondo parametro è la destinazione del file, cioe la cartella in cui salvare il file
+
+In questo caso, stiamo dicendo a Multer di salvare i file nella cartella "uploads/" (la quale deve esistere nel tuo progetto).
+
+cb(null, "uploads/");
+
+3. filename: function(req, file, cb) {...}
+
+questa invece definisce come il file verra nominato
+
+    - file: contiene info sul file caricato, possiamo usarle per ottenere il nome originale del file
+    - cb: la funzione viene chiamata per dire a multer come deve essere nominato il file salvato.
+
+
+Nella funzione filename stiamo usando due cose:
+    - Date.now(): questo restituisce il numero di millisecondi dal 1 gennaio 1970 (data UNIX).
+        è un modo per generare un nome unico basato sul tempo. Ad esempio se carichi piu file avremo
+        un nome basato su quando ogni file è stato caricato.
+
+    - path.extname(file.originalname): path.extname() è una funzione di node che restituisce
+                                        l estensione del file, basata sul suo nome originale.
+                                        se carichi doc.xlsx path.extname restituisce .xlsx
+
+
+
+
+const upload = multer({ storage: storage });
+
+serve per creare una funzione che ha accesso all oggetto request response e alla funzione next 
+
+1.  la func multer si occupa di gestire i file caricati. 
+    l'oggetto che passi dentro multer è la configurazione che definisce dove salvare i file,
+    come nominarli e altre opzioni avanzate
+2. storage è l oggetto di conf dove la chiave storage è impostata su una variabile storage che
+    definisce il comportamento di salvataggio dei file
+    il valore storage è stato definito tramite multer.diskStorage({...}) configurato per determinare
+    la destinazione e iul nome dei file caricati.
+
+
+
+
+const port = 3000; //impostiamo la porta 3000 per il server
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"))
+})
+
+1. app.get()
+
+    definisce la rotta per il server express che risponde a richiesta http get sulla root (/) del sito.
+    quando viene invocata invia un file html come risposta ossia index.html in /public
+
+2.  argomenti res e req:
+
+        1. req: è l oggetto request ossia la richiesta http che il client ha fatto al server
+        2. res: è l oggetto response ossia la risposta che il server ha dato al client
+
+3. res.sendFile():
+    
+    1. metodo di express che invia un file come risposta al client. quando il client accede alla rotta
+        ils server invia il contenuto del file come risposta http
+    2. in questo caso un file html
+
+4. path.join(__dirname, "public", "index.html"):
+
+    1. path è il modulo node che fornisce utilità per lavorare con i percorsi dei file
+    2. __dirname: variabile globale in node che contiene il percorso della cartella corrente
+        del file in esecuzione.
+        quindi se app.js nella cartella src, __dirname restituirà il percorso della cartella src.
+    3. path.join() è utilizzato per unire segmenti di percorso in modo sicuro, indipendente dall OS
+    
+    In questo caso, path.join(__dirname, "public", "index.html") 
+    crea un percorso completo per il file index.html che si trova nella cartella public
+
+    1. __dirname è il percorso della cartella src (dove si trova app.js).
+    2. "public" è la cartella in cui si trova il file index.html.
+    3. "index.html" è il file che si intende inviare come risposta.
+
+
+app.post("/uploads", upload.single("excelfile"), (req, res) => {
+    if(!req.file) {
+        return res.status(400).send("Nessun file caricato")
+    }
+})
+
+definisce un endpoint POST in un app express che gestisce il carimento di file excel tramite richeista http
+
+1. app.post("/uploads", upload.single("excelfile"))
+
+    1. app.post() metodo express che definisce uuna rotta per rispondere ad una richiesta http post
+    2. /uploads è il percorso dell endpoint a cui il client deve inviare il file excel
+    3. Post è la richiesta perche stai inviando file al server
+
+2. upload.single("excelfile")
+
+    1.upload.single("excelfile"): è una funzione express che gestisce il caricamento di un singolo file
+    2. single() metodo che prevede il caricamento di un SOLO file per richiesta
+    3. quindi il cliet deve inviare il file nel campo form denominato excelfile
+    4. multer prende in carico l upload lo salva e lo rende disponibile nell oggetto req.file
+
+3. Funzione di callback (req, res):
+
+    1. la funzione di callback viene eseguita quando multer ha finito di gestire il file
+    2. req è l'oggetto della richiesta, che contiene i dati inviati dal client, incluso il file caricato.
+    3. res è l'oggetto della risposta, che il server utilizza per inviare la risposta al client.
+
+
+
+4. if(!req.file) {
+    return res.status(400).send("Nessun file caricato")
+}
+
+controllo del file caricato: 
+    1. req.file contiene il file caricato se presente, se non c'è un file req.file sarà undefined
+    2. if(!req.file) è undefined il server invia una risposta copn lo status 400 che indica una
+        richiesta errata e un messaggio di errore
+
+
+
