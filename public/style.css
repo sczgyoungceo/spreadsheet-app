@@ -1,44 +1,143 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
+/* style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  .heading {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #222;
+  }
+  
+  .servizi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .servizi-list button {
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    padding: 10px;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .servizi-list button:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+  }
+  
+  .servizio-dettagli {
+    margin-top: 30px;
     padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    display: none;
+  }
+  
+  .servizio-dettagli h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .servizio-dettagli p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .servizio-dettagli strong {
+    font-size: 1.3rem;
+    color: #333;
+  }
+
+  /* FORM */
+  /* Stile generale del form */
+#servizio-selezionato {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-.container {
-    max-width: 400px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-label {
-    font-weight: bold;
-    margin-top: 10px;
+/* Etichette */
+form label {
+  font-size: 1.1rem;
+  color: #555;
 }
 
-input, select, button {
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+/* Input */
+form input[type="number"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
 }
 
-button {
-    background-color: #28a745;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+form input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
-button:hover {
-    background-color: #218838;
+/* Bottone */
+form button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+form button:focus {
+  outline: none;
+}
+
+/* Aggiungi un po' di spazio tra i campi */
+form input[type="number"]:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+  
