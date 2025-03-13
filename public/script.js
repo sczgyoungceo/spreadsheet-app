@@ -1,3 +1,4 @@
+
 // Variabile globale per memorizzare il servizio attualmente aperto
 let servizioCorrenteId = null;
 
@@ -99,10 +100,10 @@ function selezionaServizio(id) {
 function aggiornaServizio(event, id) {
   event.preventDefault();
 
-  const mezzi = document.getElementById("mezzi").value;
-  const ore = document.getElementById("ore").value;
-  const adulti = document.getElementById("adulti").value;
-  const minori = document.getElementById("minori").value;
+  const mezzi = Number(document.getElementById("mezzi").value);
+  const ore = Number(document.getElementById("ore").value);
+  const adulti = Number(document.getElementById("adulti").value);
+  const minori = Number(document.getElementById("minori").value);
 
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
@@ -135,6 +136,3 @@ function aggiornaServizio(event, id) {
     })
     .catch((error) => console.error("Error:", error));
 }
-
-
-//limitare adulti a 3 e fare controllo adulti minori poi in base a quanti pax aggiungere piu mezzi
