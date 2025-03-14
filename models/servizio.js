@@ -13,9 +13,9 @@ class Servizio {
 
 // Classe derivata ServizioTrasporto
 class ServizioTrasporto extends Servizio {
-  constructor(id, nome, tariffaBase) {
+  constructor(id, nome, tariffe) {
     super(id, nome); // Chiamata al costruttore della classe base
-    this.tariffaBase = tariffaBase;
+    this.tariffe = tariffe;
     this.mezzi = 0; // Numero di mezzi
     this.ore = 0; // Numero di ore
     this.adulti = 0;
@@ -27,58 +27,105 @@ class ServizioTrasporto extends Servizio {
     return this.adulti + this.minori;
   }
 
-  calcolaTotale() {
-    const tariffaMezzi = 1.6;
-    let mezzi = 0;
-    let tariffaBase = 0;
-
-    // Determiniamo il numero di mezzi e la tariffa base
-    if (this.persone >= 1 && this.persone <= 3) {
-      mezzi = 1;
-      tariffaBase = 48;
-    } else if (this.persone >= 4 && this.persone <= 6) {
-      mezzi = 1;
-      tariffaBase = 64;
-    } else if (this.persone >= 7 && this.persone <= 8) {
-      mezzi = 1;
-      tariffaBase = 69;
-    } else if (this.persone >= 10 && this.persone <= 11) {
-      mezzi = 2;
-      tariffaBase = 59;
-    } else if (this.persone >= 13 && this.persone <= 14) {
-      mezzi = 2;
-      tariffaBase = 69;
-    } else if (this.persone > 14) {
-      return `
-        <script>
-            alert("⚠️ Attenzione! Il numero massimo di persone gestibili direttamente è 14.");
-        </script>
-    `;
-    }
-
-    /* GESTIRE LA NOTIFICA DELL ALERT PERCHE IN NODE NON ESISTE ALERT() COME IN JS */
-
-    // Salviamo il numero di mezzi nel servizio
-    this.mezzi = mezzi;
-    this.tariffaBase = tariffaBase;
-
-    // Calcoliamo il totale
-    return this.mezzi * (this.tariffaBase * tariffaMezzi);
+  getTariffa() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
+    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
+    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
+    return 0; // Se le persone superano 14, può essere gestito diversamente
   }
 
-  // Metodo per aggiornare i dettagli del servizio
+  calcolaTotale() {
+    const tariffaMezzi = 1.6;
+    let mezzi = 1;
+    let tariffaBase = this.getTariffa(); // Ottieni la tariffa dinamica
+
+    if (this.persone >= 9) {
+      mezzi = 2;
+    }
+    
+    if(this.persone >= 15) {
+      console.log(`Numero persone superiore al limite: ${this.persone}`)
+    }
+
+    // Debugging
+    console.log(`📊 Servizio: ${this.nome}`);
+    console.log(`🔹 Tariffa Base: ${tariffaBase}`);
+    console.log(`🔹 Mezzi assegnati: ${mezzi}`);
+
+    // Calcoliamo il totale
+    const totale = mezzi * (tariffaBase * tariffaMezzi);
+    console.log(`💰 Totale calcolato: €${totale.toFixed(2)}`);
+
+    // Salviamo il numero di mezzi assegnati
+    this.mezzi = mezzi;
+    return totale;
+  }
+
   aggiornaDati(mezzi, ore, adulti, minori) {
-    this.mezzi = mezzi; // Aggiorna il numero di mezzi
-    this.ore = ore; // Aggiorna il numero di ore
+    this.mezzi = mezzi;
+    this.ore = ore;
     this.adulti = adulti;
     this.minori = minori;
   }
 
-  // Metodo per descrivere il servizio
   descrizione() {
     return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
   }
 }
+
+/* class ServizioAdOre extends Servizio {
+  constructor(id, nome, tariffaBaseOre) {
+    super(id, nome);
+    this.tariffaBaseOre = tariffaBaseOre;
+    this.mezzi = 0;
+    this.ore = 0;
+    this.adulti = 0;
+    this.minori = 0;
+  }
+
+  get persone() {
+    return this.adulti + this.minori;
+  }
+
+  calcolaTotale() {
+    const tariffaOre = 1.6;
+    let mezzi = 0;
+    let tariffaBase = 0;
+    let ore = 0;
+
+    if (this.persone >= 1 && this.persone <= 3) {
+      mezzi = 1;
+      tariffaBase = 40;
+    } else if (this.persone >= 4 && this.persone <= 6) {
+      mezzi = 1;
+      tariffaBase = 50;
+      console.log(`Utilizzo di van per: ${this.persone}`);
+    } else if (this.persone >= 7 && this.persone <= 8) {
+      mezzi = 1;
+      tariffaBase = 55;
+      console.log(`Utilizzo di van per: ${this.persone}`);
+    } else if (this.persone >= 9 && this.persone <= 11) {
+      mezzi = 2;
+      tariffaBase = 48;
+    } else if (this.persone >= 12 && this.persone <= 14) {
+      mezzi = 2;
+      tariffaBase = 55;
+    } else if (this.persone > 14) {
+      console.log(`Le persone superano il limite ${this.persone}`);
+    }
+
+    const totale = this.ore * (tariffaBase * tariffaOre) * mezzi
+    
+    this.mezzi = mezzi;
+    this.tariffaBase = tariffaBase;
+
+    return totale;
+  }
+
+
+} */
 
 // Esporta le classi come default
 export default { Servizio, ServizioTrasporto };

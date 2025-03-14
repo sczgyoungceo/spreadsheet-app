@@ -6,12 +6,48 @@ const { Servizio, ServizioTrasporto } = Servizi;
 
 // Lista di servizi predefiniti (solo il nome iniziale)
 let servizi = [
-  new ServizioTrasporto(1, "Transfer Su Roma Andata(mezzi)", 48),
-  new ServizioTrasporto(2, "Transfer Su Roma Ritorno(mezzi)", 48),
-  new ServizioTrasporto(3, "Da Porto a Roma(mezzi)", 157),
-  new ServizioTrasporto(4, "Da Roma a Porto(mezzi)", 157),
-  new ServizioTrasporto(5, "Da FCO Airport a Roma (mezzi)", 68),
-  new ServizioTrasporto(5, "Da Roma a FCO Airport (mezzi)", 68),
+  new ServizioTrasporto(1, "Transfer Su Roma Andata(mezzi)", {
+    "1-3": 48,
+    "4-6": 64,
+    "7-8": 69,
+    "9-11": 59,
+    "12-14": 69,
+  }),
+  new ServizioTrasporto(2, "Transfer Su Roma Ritorno(mezzi)", {
+    "1-3": 48,
+    "4-6": 64,
+    "7-8": 69,
+    "9-11": 59,
+    "12-14": 69
+  }),
+  new ServizioTrasporto(3, "Da Porto a Roma(mezzi)", {
+    "1-3": 157,
+    "4-6": 185,
+    "7-8": 200,
+    "9-11": 180,
+    "12-14": 200
+  }),
+  new ServizioTrasporto(4, "Da Roma a Porto(mezzi)", {
+    "1-3": 157,
+    "4-6": 185,
+    "7-8": 200,
+    "9-11": 180,
+    "12-14": 200
+  }),
+  new ServizioTrasporto(5, "Da FCO Airport a Roma (mezzi)", {
+    "1-3": 68,
+    "4-6": 88,
+    "7-8": 94,
+    "9-11": 82,
+    "12-14": 94
+  }),
+  new ServizioTrasporto(6, "Da Roma a FCO Airport (mezzi)", {
+    "1-3": 68,
+    "4-6": 88,
+    "7-8": 94,
+    "9-11": 82,
+    "12-14": 94
+  }),
 ];
 
 // Funzione per ottenere la lista di tutti i servizi
@@ -55,9 +91,8 @@ export const aggiornaServizio = (req, res) => {
     message: "Servizio aggiornato con successo!",
     servizio,
     descrizione: servizio.descrizione(),
-    totale: totaleArrotondato,  // Passa il totale arrotondato
+    totale: totaleArrotondato, // Passa il totale arrotondato
   });
-  console.log(servizio.descrizione()); 
-  console.log(`Totale: €${totaleArrotondato}`); 
+  console.log(servizio.descrizione());
+  console.log(`Totale: €${totaleArrotondato}`);
 };
-
