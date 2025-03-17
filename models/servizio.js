@@ -5,7 +5,6 @@ class Servizio {
     this.nome = nome;
   }
 
-  // Metodo da implementare nelle classi derivate
   calcolaTotale() {
     throw new Error("Metodo calcolaTotale non implementato");
   }
@@ -14,15 +13,15 @@ class Servizio {
 // Classe derivata ServizioTrasporto
 class ServizioTrasporto extends Servizio {
   constructor(id, nome, tariffe) {
-    super(id, nome); // Chiamata al costruttore della classe base
+    super(id, nome);
     this.tariffe = tariffe;
-    this.mezzi = 0; // Numero di mezzi
-    this.ore = 0; // Numero di ore
+    this.mezzi = 0; 
+    this.ore = 0;
     this.adulti = 0;
     this.minori = 0;
   }
 
-  // Getter per ottenere il numero di persone dinamicamente
+  
   get persone() {
     return this.adulti + this.minori;
   }

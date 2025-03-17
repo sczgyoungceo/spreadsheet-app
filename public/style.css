@@ -140,4 +140,14 @@ form input[type="number"]:not(:last-child) {
   margin-bottom: 10px;
 }
 
+#servizio-selezionato .copyToClipboard{
+  text-align: right;
+}
+
+#servizio-selezionato .copyToClipboard i{
+  cursor: pointer;
+}
+
+
+
   
