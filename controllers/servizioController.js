@@ -84,6 +84,10 @@ export const aggiornaServizio = (req, res) => {
   // Calcola il totale
   const totale = servizio.calcolaTotale();
 
+  if (isNaN(totale)) {
+    return res.status(400).json({ message: "Errore nel calcolo del totale", totale: 0 });
+  }
+
   // Arrotonda il totale a 2 decimali
   const totaleArrotondato = totale.toFixed(2);
 
@@ -93,6 +97,6 @@ export const aggiornaServizio = (req, res) => {
     descrizione: servizio.descrizione(),
     totale: totaleArrotondato, // Passa il totale arrotondato
   });
-  console.log(servizio.descrizione());
-  console.log(`Totale: €${totaleArrotondato}`);
+  /* console.log(servizio.descrizione());
+  console.log(`Totale: €${totaleArrotondato}`); */
 };

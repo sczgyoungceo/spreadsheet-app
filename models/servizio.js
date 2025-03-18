@@ -49,13 +49,13 @@ class ServizioTrasporto extends Servizio {
     }
 
     // Debugging
-    console.log(`📊 Servizio: ${this.nome}`);
+    /* console.log(`📊 Servizio: ${this.nome}`);
     console.log(`🔹 Tariffa Base: ${tariffaBase}`);
-    console.log(`🔹 Mezzi assegnati: ${mezzi}`);
+    console.log(`🔹 Mezzi assegnati: ${mezzi}`); */
 
     // Calcoliamo il totale
     const totale = mezzi * (tariffaBase * tariffaMezzi);
-    console.log(`💰 Totale calcolato: €${totale.toFixed(2)}`);
+    /* console.log(`💰 Totale calcolato: €${totale.toFixed(2)}`); */
 
     // Salviamo il numero di mezzi assegnati
     this.mezzi = mezzi;

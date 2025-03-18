@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="/style.css" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <div class="container">
-      <h1 class="heading">Seleziona un Servizio</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+    integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="/style.css" />
+  <title>Document</title>
+</head>
 
-      <div id="lista-servizi" class="servizi-list">
-        <!-- Lista dei servizi verrà caricata qui -->
-      </div>
+<body>
+  <button id="cancella-tutto" onclick="cancellaTutto()">Cancella tutto</button>
+  <div class="container">
+    <h1>Servizi Trasporto</h1>
 
-      <div id="servizio-selezionato" class="servizio-dettagli">
-        <!-- Dettagli del servizio selezionato verranno visualizzati qui -->
-      </div>
-    </div>
+    <table id="lista-servizi">
+      <!-- Tabella dei servizi, le celle saranno input dinamici -->
+      <tr>
+        <th>Nome Servizio</th>
+        <th>Mezzi</th>
+        <th>Ore</th>
+        <th>Adulti</th>
+        <th>Minori</th>
+        <th>Totale</th>
+      </tr>
+      <!-- Qui verranno inseriti dinamicamente i servizi -->
+    </table>
+    <table id="totale-finale">
+      <tr>
+        <th class="copy"><i class="fa-solid fa-copy"></i></th>
+        <th colspan="6" id="totale-generale" title="Copia">Totale Generale: €0.00</th>
+      </tr>
+    </table>
+  </div>
+  <!-- Bottone per cancellare tutte le celle -->
+  
 
-    <script type="module" src="/script.js"></script>
+
+
+  <script src="/script.js"></script>
+
 </html>

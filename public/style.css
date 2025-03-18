@@ -1,153 +1,154 @@
-/* style.css */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  .container {
-    width: 80%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
-  }
-  
-  .heading {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: #222;
-  }
-  
-  .servizi-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .servizi-list button {
-    background-color: #ffffff;
-    border: 2px solid #ccc;
-    padding: 10px;
-    font-size: 1rem;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s, border-color 0.3s;
-  }
-  
-  .servizi-list button:hover {
-    background-color: #f0f0f0;
-    border-color: #999;
-  }
-  
-  .servizio-dettagli {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    display: none;
-  }
-  
-  .servizio-dettagli h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-  }
-  
-  .servizio-dettagli p {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .servizio-dettagli strong {
-    font-size: 1.3rem;
-    color: #333;
-  }
-
-  /* FORM */
-  /* Stile generale del form */
-#servizio-selezionato {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h2 {
-  font-size: 1.8rem;
+html {
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f5f5;
   color: #333;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 32px;
   margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Etichette */
-form label {
-  font-size: 1.1rem;
-  color: #555;
+table th {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
 }
 
-/* Input */
-form input[type="number"] {
-  padding: 10px;
-  font-size: 1rem;
+table td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+input {
+  width: 80%;
+  padding: 6px;
+  font-size: 14px;
+  margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border-color 0.3s ease;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
-form input[type="number"]:focus {
+input:focus {
   border-color: #007bff;
   outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* Bottone */
-form button {
-  padding: 12px 20px;
+button {
+  padding: 8px 15px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-form button:hover {
+button:hover {
   background-color: #0056b3;
 }
 
-form button:focus {
-  outline: none;
+#totale {
+  font-size: 16px;
+  font-weight: bold;
+  color: #28a745;
+  margin-top: 20px;
+  text-align: center;
 }
 
-/* Aggiungi un po' di spazio tra i campi */
-form input[type="number"]:not(:last-child) {
-  margin-bottom: 10px;
+.wrapper-pdf {
+  margin-top: 20px;
+  text-align: center;
 }
 
-#servizio-selezionato .copyToClipboard{
-  text-align: right;
+.copyToClipboard {
+  font-size: 16px;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-#servizio-selezionato .copyToClipboard i{
+.copyToClipboard:hover {
+  color: #0056b3;
+}
+
+.export-pdf-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.export-pdf-btn:hover {
+  background-color: #218838;
+}
+
+#cancella-tutto {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#cancella-tutto:hover {
+  background-color: #d32f2f;
+}
+
+i {
   cursor: pointer;
 }
 
-
-
-  
+#totale-generale{
+  text-align: end;
+}

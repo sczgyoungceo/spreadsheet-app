@@ -1,117 +1,124 @@
-// Variabile globale per memorizzare il servizio attualmente aperto
-let servizioCorrenteId = null;
+let totaleClipboard = 0;
+let totaleGenerale = 0;
 
-// Funzione per mostrarare la lista dei servizi in modo sicuro
+// Funzione per mostrare la lista dei servizi
 function mostraServizi() {
   fetch("/servizi/lista")
     .then((res) => res.json())
     .then((data) => {
       const serviziList = data.servizi;
       const listContainer = document.getElementById("lista-servizi");
-      listContainer.innerHTML = ""; // Pulizia del container
+      listContainer.innerHTML = "";
 
-      // Per ogni servizio, creiamo un bottone e aggiungiamo un listener
+      listContainer.innerHTML = `
+        <tr>
+          <th>Nome Servizio</th>
+          <th>Mezzi</th>
+          <th>Ore</th>
+          <th>Adulti</th>
+          <th>Minori</th>
+          <th>Totale</th>
+          <th>Azioni</th>
+        </tr>
+      `;
+
+      totaleGenerale = 0;
+
       serviziList.forEach((servizio) => {
-        const btn = document.createElement("button");
-        btn.textContent = servizio.nome;
-        btn.addEventListener("click", () => selezionaServizio(servizio.id));
-        listContainer.appendChild(btn);
-      });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
+        const persone = servizio.adulti + servizio.minori;
+        let tariffa = 0;
 
-mostraServizi();
-
-function selezionaServizio(id) {
-  const servizioSelezionato = document.getElementById("servizio-selezionato");
-
-  if (
-    servizioCorrenteId === id &&
-    servizioSelezionato.style.display === "block"
-  ) {
-    servizioSelezionato.style.display = "none";
-    servizioCorrenteId = null;
-    return;
-  }
-
-  // Altrimenti, recuperiamo i dettagli del servizio dal server e lo apriamo
-  fetch(`/servizi/seleziona/${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const servizio = data.servizio;
-      servizioSelezionato.innerHTML = ""; // Puliamo il container
-
-      // Creiamo in modo sicuro gli elementi per mostrare il form
-      const h2 = document.createElement("h2");
-      h2.textContent = servizio.nome;
-
-      const p = document.createElement("p");
-      p.textContent = "Compila i dettagli del servizio:";
-
-      const form = document.createElement("form");
-      form.id = `form-${servizio.id}`;
-      form.addEventListener("submit", (event) =>
-        aggiornaServizio(event, servizio.id)
-      );
-
-      // Funzione per creare un campo input con etichetta
-      function creaCampo(labelText, fieldId, isRequired = false) {
-        const label = document.createElement("label");
-        label.htmlFor = fieldId;
-        label.textContent = labelText + ":";
-
-        const input = document.createElement("input");
-        input.type = "number";
-        input.id = fieldId;
-        input.name = fieldId;
-
-        if (isRequired) {
-          input.required = true;
-          input.placeholder = "0";
-        } else {
-          input.value = "0";
+        if (persone >= 1 && persone <= 3) {
+          tariffa = servizio.tariffe["1-3"];
+        } else if (persone >= 4 && persone <= 6) {
+          tariffa = servizio.tariffe["4-6"];
+        } else if (persone >= 7 && persone <= 8) {
+          tariffa = servizio.tariffe["7-8"];
+        } else if (persone >= 9 && persone <= 11) {
+          tariffa = servizio.tariffe["9-11"];
+        } else if (persone >= 12 && persone <= 14) {
+          tariffa = servizio.tariffe["12-14"];
         }
 
-        form.appendChild(label);
-        form.appendChild(input);
-        form.appendChild(document.createElement("br"));
-      }
+        const totale = 0;
+        totaleGenerale += totale;
 
-      // Creazione dei campi richiesti
-      creaCampo("Mezzi", "mezzi");
-      creaCampo("Ore", "ore");
-      creaCampo("Adulti", "adulti", true); // Qui lo rendiamo obbligatorio
-      creaCampo("Minori", "minori");
+        const row = document.createElement("tr");
 
-      const submitButton = document.createElement("button");
-      submitButton.type = "submit";
-      submitButton.textContent = "Aggiorna Servizio";
-      form.appendChild(submitButton);
+        const nomeServizioCell = document.createElement("td");
+        nomeServizioCell.textContent = servizio.nome;
 
-      // Aggiungiamo tutti gli elementi al container principale
-      servizioSelezionato.appendChild(h2);
-      servizioSelezionato.appendChild(p);
-      servizioSelezionato.appendChild(form);
+        const mezziInputCell = document.createElement("td");
+        const mezziInput = document.createElement("input");
+        mezziInput.type = "number";
+        mezziInput.id = `mezzi-${servizio.id}`;
+        mezziInput.value = 0;
+        mezziInput.addEventListener("change", () => calcolaTotale(servizio.id));
+        mezziInputCell.appendChild(mezziInput);
 
-      // Rendiamo visibile il div
-      servizioSelezionato.style.display = "block";
-      // Aggiorniamo la variabile globale con l'ID del servizio attualmente aperto
-      servizioCorrenteId = id;
+        const oreInputCell = document.createElement("td");
+        const oreInput = document.createElement("input");
+        oreInput.type = "number";
+        oreInput.id = `ore-${servizio.id}`;
+        oreInput.value = 0;
+        oreInput.addEventListener("change", () => calcolaTotale(servizio.id));
+        oreInputCell.appendChild(oreInput);
+
+        const adultiInputCell = document.createElement("td");
+        const adultiInput = document.createElement("input");
+        adultiInput.type = "number";
+        adultiInput.id = `adulti-${servizio.id}`;
+        adultiInput.value = 0;
+        adultiInput.addEventListener("change", () =>
+          calcolaTotale(servizio.id)
+        );
+        adultiInputCell.appendChild(adultiInput);
+
+        const minoriInputCell = document.createElement("td");
+        const minoriInput = document.createElement("input");
+        minoriInput.type = "number";
+        minoriInput.id = `minori-${servizio.id}`;
+        minoriInput.value = 0;
+        minoriInput.addEventListener("change", () =>
+          calcolaTotale(servizio.id)
+        );
+        minoriInputCell.appendChild(minoriInput);
+
+        const totaleCell = document.createElement("td");
+        const totaleSpan = document.createElement("span");
+        totaleSpan.id = `totale-${servizio.id}`;
+        totaleSpan.textContent = `€${totale.toFixed(2)}`;
+
+        totaleCell.appendChild(totaleSpan);
+
+        const copy = document.createElement("td");
+        copy.classList.add("clipboard");
+        const iconCopy = document.createElement("i");
+        iconCopy.classList.add("fa-solid", "fa-copy");
+        copy.appendChild(iconCopy);
+
+        copy.addEventListener("click", () => copyToClipboard(totale));
+
+        row.appendChild(nomeServizioCell);
+        row.appendChild(mezziInputCell);
+        row.appendChild(oreInputCell);
+        row.appendChild(adultiInputCell);
+        row.appendChild(minoriInputCell);
+        row.appendChild(totaleCell);
+        row.appendChild(copy);
+
+        listContainer.appendChild(row);
+      });
     })
     .catch((error) => console.error("Error:", error));
 }
 
-// Funzione per aggiornare i dettagli del servizio in maniera sicura
-function aggiornaServizio(event, id) {
-  event.preventDefault();
-
-  const mezzi = Number(document.getElementById("mezzi").value);
-  const ore = Number(document.getElementById("ore").value);
-  const adulti = Number(document.getElementById("adulti").value);
-  const minori = Number(document.getElementById("minori").value);
+// Funzione per calcolare il totale
+function calcolaTotale(id) {
+  const mezzi = Number(document.getElementById(`mezzi-${id}`).value);
+  const ore = Number(document.getElementById(`ore-${id}`).value);
+  const adulti = Number(document.getElementById(`adulti-${id}`).value);
+  const minori = Number(document.getElementById(`minori-${id}`).value);
 
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
@@ -122,72 +129,140 @@ function aggiornaServizio(event, id) {
   })
     .then((response) => response.json())
     .then((data) => {
+      let totale = parseFloat(data.totale);
+      totaleClipboard = totale;
+      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(2)}`;
+      aggiornaTotaleGenerale();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+/* Aggiungere la funzione all icona copia del totale delle somme */
+function copiaSommaTotale() {
+  const textToCopy = `€${totaleGenerale}`
+
+  navigator.clipboard
+    .writeText(textToCopy)
+    .then(() => {
+      alert(`📋 Copiato: ${textToCopy}`);
+    })
+    .catch((err) => console.error("Errore nella copia:", err))
+}
+
+function copyToClipboard() {
+  const textToCopy = `€${totaleClipboard}`;
+
+  navigator.clipboard
+    .writeText(textToCopy)
+    .then(() => {
+      alert(`📋 Copiato: ${textToCopy}`);
+    })
+    .catch((err) => console.error("Errore nella copia:", err));
+}
+
+function cancellaTutto() {
+  const inputs = document.querySelectorAll("input[type='number']");
+  inputs.forEach((input) => {
+    input.value = 0;
+  });
+
+  const totali = document.querySelectorAll("[id^='totale-']");
+  totali.forEach((totale) => {
+    totale.textContent = "€0.00";
+  });
+}
+
+function aggiornaTotaleGenerale() {
+  const totali = document.querySelectorAll("[id^='totale-']");
+  let totaleGenerale = 0;
+
+  totali.forEach((totale) => {
+    const totaleValue = parseFloat(totale.textContent.replace("€", ""));
+    if (!isNaN(totaleValue)) {
+      totaleGenerale += totaleValue;
+    }
+  });
+
+  const totaleGeneraleCell = document.querySelector("#totale-generale");
+  if (totaleGeneraleCell) {
+    totaleGeneraleCell.textContent = `Totale Generale: €${totaleGenerale.toFixed(2)}`;
+  }
+}
+
+window.onload = mostraServizi;
+
+/* function aggiornaServizio(event, id) {
+  event.preventDefault(); // Previeni il comportamento di invio del form
+
+  // Ottieni i valori dinamici dai campi input
+  const mezzi = Number(document.getElementById("mezzi").value); // Input per mezzi
+  const ore = Number(document.getElementById("ore").value); // Input per ore
+  const adulti = Number(document.getElementById("adulti").value); // Input per adulti
+  const minori = Number(document.getElementById("minori").value); // Input per minori
+
+  // Invia i dati aggiornati al server
+  fetch(`/servizi/aggiorna/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ mezzi, ore, adulti, minori }), // Passaggio dei dati dinamici
+  })
+    .then((response) => response.json())
+    .then((data) => {
       const servizio = data.servizio;
       const servizioSelezionato = document.getElementById(
         "servizio-selezionato"
       );
       servizioSelezionato.innerHTML = ""; // Pulizia del container
 
-      // Creazione del titolo
       const h2 = document.createElement("h2");
       h2.textContent = servizio.nome;
       servizioSelezionato.appendChild(h2);
 
-      // Lista di chiavi da escludere
-      const excludeKeys = ["id", "tariffaBase", "tariffe", "nome"];
-
-      // Creiamo i paragrafi dinamicamente per ogni proprietà che non è nell'elenco excludeKeys
-      Object.entries(servizio).forEach(([key, value]) => {
-        if (!excludeKeys.includes(key)) {
-          const p = document.createElement("p");
-          p.innerHTML = `<strong>${
-            key.charAt(0).toUpperCase() + key.slice(1)
-          }:</strong> ${value}`;
-          servizioSelezionato.appendChild(p);
-        }
-      });
-
+      // Mostra il totale
       const pTotale = document.createElement("p");
       pTotale.innerHTML = `<strong>Totale:</strong> €${data.totale}`;
       pTotale.style.fontSize = "18px";
       pTotale.style.fontWeight = "bold";
       pTotale.style.color = "green";
+      servizioSelezionato.appendChild(pTotale);
+
+      // Wrapper per il PDF e Copia
+      const wrapperPdf = document.createElement("div");
+      wrapperPdf.classList.add("wrapper-pdf");
 
       const copy = document.createElement("p");
+      copy.textContent = "Copia il totale";
       copy.classList.add("copyToClipboard");
-      copy.title = "Copia il totale";
-      const icon = document.createElement("i");
-      icon.classList.add("fa-solid", "fa-copy");
-      copy.appendChild(icon);
-      servizioSelezionato.appendChild(copy);
-
-      const targetElement = data.totale;
 
       copy.addEventListener("click", () => {
-        const textToCopy = String(targetElement);
+        const textToCopy = String(data.totale);
 
         navigator.clipboard
           .writeText(textToCopy)
           .then(() => {
-            alert(`📋 Copiato: ${textToCopy}`);
+            alert(`📋 Copiato: €${textToCopy}`);
           })
-          .catch((err) => {
-            console.error("Errore nella copia:", err);
-          });
+          .catch((err) => console.error("Errore nella copia:", err));
       });
 
+      // Bottone per esportare in PDF
       const exportButton = document.createElement("button");
       exportButton.textContent = "Esporta PDF";
-      exportButton.addEventListener("click", () => esportaPDF());
+      exportButton.classList.add("export-pdf-btn");
+      exportButton.addEventListener("click", exportPDF);
 
-      servizioSelezionato.appendChild(exportButton);
-      servizioSelezionato.appendChild(pTotale);
-      servizioSelezionato.appendChild(copy);
+      // Funzione per esportare il contenuto in PDF
+      function exportPDF() {
+        html2pdf(servizioSelezionato);
+      }
+
+      wrapperPdf.appendChild(copy);
+      wrapperPdf.appendChild(exportButton);
+      servizioSelezionato.appendChild(wrapperPdf);
     })
     .catch((error) => console.error("Error:", error));
-}
-
-
-
-
-
+} */
