@@ -40,7 +40,10 @@ function mostraServizi() {
           tariffa = servizio.tariffe["12-14"];
         }
 
+        // Calcola il totale del servizio
         const totale = 0;
+
+        // Aggiorna il totale generale
         totaleGenerale += totale;
 
         const row = document.createElement("tr");
@@ -93,11 +96,12 @@ function mostraServizi() {
 
         const copy = document.createElement("td");
         copy.classList.add("clipboard");
+        copy.id = `copy-${servizio.id}`;
         const iconCopy = document.createElement("i");
         iconCopy.classList.add("fa-solid", "fa-copy");
         copy.appendChild(iconCopy);
 
-        copy.addEventListener("click", () => copyToClipboard(totale));
+        copy.addEventListener("click", () => copyToClipboard(servizio.id));
 
         row.appendChild(nomeServizioCell);
         row.appendChild(mezziInputCell);
@@ -109,6 +113,8 @@ function mostraServizi() {
 
         listContainer.appendChild(row);
       });
+
+      aggiornaTotaleGenerale(); // Dopo aver mostrato tutti i servizi, aggiorna il totale generale
     })
     .catch((error) => console.error("Error:", error));
 }
@@ -130,48 +136,16 @@ function calcolaTotale(id) {
     .then((response) => response.json())
     .then((data) => {
       let totale = parseFloat(data.totale);
-      totaleClipboard = totale;
-      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(2)}`;
+      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(
+        2
+      )}`;
+
+      // Aggiorna il totale generale
       aggiornaTotaleGenerale();
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-}
-
-/* Aggiungere la funzione all icona copia del totale delle somme */
-function copiaSommaTotale() {
-  const textToCopy = `€${totaleGenerale}`
-
-  navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => {
-      alert(`📋 Copiato: ${textToCopy}`);
-    })
-    .catch((err) => console.error("Errore nella copia:", err))
-}
-
-function copyToClipboard() {
-  const textToCopy = `€${totaleClipboard}`;
-
-  navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => {
-      alert(`📋 Copiato: ${textToCopy}`);
-    })
-    .catch((err) => console.error("Errore nella copia:", err));
-}
-
-function cancellaTutto() {
-  const inputs = document.querySelectorAll("input[type='number']");
-  inputs.forEach((input) => {
-    input.value = 0;
-  });
-
-  const totali = document.querySelectorAll("[id^='totale-']");
-  totali.forEach((totale) => {
-    totale.textContent = "€0.00";
-  });
 }
 
 function aggiornaTotaleGenerale() {
@@ -187,8 +161,62 @@ function aggiornaTotaleGenerale() {
 
   const totaleGeneraleCell = document.querySelector("#totale-generale");
   if (totaleGeneraleCell) {
-    totaleGeneraleCell.textContent = `Totale Generale: €${totaleGenerale.toFixed(2)}`;
+    totaleGeneraleCell.textContent = `Totale: €${totaleGenerale.toFixed(2)}`;
   }
+
+  return totaleGenerale;
+}
+
+function copiaSommaTotale() {
+  // Chiamiamo la funzione aggiornaTotaleGenerale per ottenere il totale generale
+  const totaleDaCopiare = aggiornaTotaleGenerale();
+
+  // Copiamo il totale generale negli appunti
+  const textToCopy = `€${totaleDaCopiare.toFixed(2)}`;
+
+  navigator.clipboard
+    .writeText(textToCopy)
+    .then(() => {
+      mostraPopup(`📋Copiato`);
+    })
+    .catch((err) => console.error("Errore nella copia:", err));
+}
+
+function copyToClipboard(id) {
+  const totale = document.getElementById(`totale-${id}`).textContent;
+
+  navigator.clipboard
+    .writeText(totale)
+    .then(() => {
+      mostraPopup(`📋Copiato`);
+    })
+    .catch((err) => console.error("Errore nella copia:", err));
+}
+
+function mostraPopup(message) {
+  const popup = document.createElement("div");
+  popup.classList.add("popup");
+  popup.textContent = message;
+
+  document.body.appendChild(popup);
+
+  setTimeout(() => {
+    popup.remove();
+  }, 2000);
+}
+
+function cancellaTutto() {
+  const inputs = document.querySelectorAll("input[type='number']");
+  inputs.forEach((input) => {
+    input.value = 0;
+  });
+
+  const totali = document.querySelectorAll("[id^='totale-']");
+  totali.forEach((totale) => {
+    totale.textContent = "€0.00";
+  });
+
+  aggiornaTotaleGenerale(); // Reset del totale generale
 }
 
 window.onload = mostraServizi;
