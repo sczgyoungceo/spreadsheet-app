@@ -161,11 +161,6 @@ class ServizioGuidaOre extends Servizio {
     this.ore = ore;
     this.tariffaGuide = tariffaGuide;
 
-    console.log(`📊 Servizio: ${this.nome}`);
-    console.log(`🔹 Tariffa guide: ${tariffaGuide}`);
-    console.log(`🔹 Ore: ${ore}`);
-    console.log(`$ Totale: ${totale}`);
-
     return totale;
   }
 
@@ -177,5 +172,44 @@ class ServizioGuidaOre extends Servizio {
   }
 }
 
+class ServizioPax extends Servizio {
+  constructor(id, nome, tariffe) {
+    super(id, nome);
+    this.tariffe = tariffe;
+    this.mezzi = 0;
+    this.ore = 0;
+    this.adulti = 0;
+    this.minori = 0;
+  }
+
+  calcolaTotale() {
+    const totaleAdulti = this.adulti * this.tariffe.adulti;
+    const totaleMinori = this.minori * this.tariffe.minori;
+    const totale =  totaleAdulti + totaleMinori;
+    console.log(totale);
+    
+    return totale
+    
+  }
+
+  persone(adulti, minori) {
+    this.adulti = adulti;
+    this.minori = minori;
+  }
+
+  aggiornaDati(adulti, minori) {
+    this.adulti = adulti;
+    this.minori = minori;
+  }
+
+}
+
+//aggiungere variabile NOME CLIENTE
 // Esporta le classi come default
-export default { Servizio, ServizioTrasporto, ServizioAdOre, ServizioGuidaOre };
+export default {
+  Servizio,
+  ServizioTrasporto,
+  ServizioAdOre,
+  ServizioGuidaOre,
+  ServizioPax,
+};

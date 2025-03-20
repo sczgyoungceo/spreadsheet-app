@@ -2,7 +2,13 @@
 import Servizi from "../models/servizio.js";
 
 // Ora puoi accedere alle classi come proprietà dell'oggetto importato
-const { Servizio, ServizioTrasporto, ServizioAdOre, ServizioGuidaOre } = Servizi;
+const {
+  Servizio,
+  ServizioTrasporto,
+  ServizioAdOre,
+  ServizioGuidaOre,
+  ServizioPax,
+} = Servizi;
 
 // Lista di servizi predefiniti (solo il nome iniziale)
 let servizi = [
@@ -52,17 +58,26 @@ let servizi = [
     "1-3": 40,
     "4-6": 50,
     "7-8": 55,
-    "9-11": 48,/* anche mezzi */
-    "12-14": 55,/* anche mezzi */
+    "9-11": 48 /* anche mezzi */,
+    "12-14": 55 /* anche mezzi */,
   }),
-  new ServizioAdOre(8, "Disposizione su Tivoli (mezzi ore) (non si calcola il transfer, solo dispo)", {
-    "1-3": 48,
-    "4-6": 58,
-    "7-8": 63,
-    "9-11": 55,/* anche mezzi */
-    "12-14": 63,/* anche mezzi */
-  }),
+  new ServizioAdOre(
+    8,
+    "Disposizione su Tivoli (mezzi ore) (non si calcola il transfer, solo dispo)",
+    {
+      "1-3": 48,
+      "4-6": 58,
+      "7-8": 63,
+      "9-11": 55 /* anche mezzi */,
+      "12-14": 63 /* anche mezzi */,
+    }
+  ),
   new ServizioGuidaOre(9, "Servizio guida (ore)", 80),
+
+  new ServizioPax(10, "Vaticano(pax)", 10, {
+    adulti: 47,
+    minori: 40,
+  }),
 ];
 
 // Funzione per ottenere la lista di tutti i servizi
@@ -111,8 +126,8 @@ export const aggiornaServizio = (req, res) => {
   res.status(200).json({
     message: "Servizio aggiornato con successo!",
     servizio,
-/*     descrizione: servizio.descrizione(),
- */    totale: totaleArrotondato, // Passa il totale arrotondato
+    /*     descrizione: servizio.descrizione(),
+     */ totale: totaleArrotondato, // Passa il totale arrotondato
   });
   /* console.log(servizio.descrizione());
   console.log(`Totale: €${totaleArrotondato}`); */
