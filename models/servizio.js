@@ -15,13 +15,12 @@ class ServizioTrasporto extends Servizio {
   constructor(id, nome, tariffe) {
     super(id, nome);
     this.tariffe = tariffe;
-    this.mezzi = 0; 
+    this.mezzi = 0;
     this.ore = 0;
     this.adulti = 0;
     this.minori = 0;
   }
 
-  
   get persone() {
     return this.adulti + this.minori;
   }
@@ -43,9 +42,9 @@ class ServizioTrasporto extends Servizio {
     if (this.persone >= 9) {
       mezzi = 2;
     }
-    
-    if(this.persone >= 15) {
-      console.log(`Numero persone superiore al limite: ${this.persone}`)
+
+    if (this.persone >= 15) {
+      console.log(`Numero persone superiore al limite: ${this.persone}`);
     }
 
     // Debugging
@@ -74,10 +73,10 @@ class ServizioTrasporto extends Servizio {
   }
 }
 
-/* class ServizioAdOre extends Servizio {
-  constructor(id, nome, tariffaBaseOre) {
+class ServizioAdOre extends Servizio {
+  constructor(id, nome, tariffe) {
     super(id, nome);
-    this.tariffaBaseOre = tariffaBaseOre;
+    this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
     this.adulti = 0;
@@ -88,43 +87,95 @@ class ServizioTrasporto extends Servizio {
     return this.adulti + this.minori;
   }
 
+  getTariffa() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
+    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
+    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
+    return 0; // Se le persone superano 14, può essere gestito diversamente
+  }
+
   calcolaTotale() {
     const tariffaOre = 1.6;
-    let mezzi = 0;
-    let tariffaBase = 0;
-    let ore = 0;
+    let mezzi = 1;
+    let tariffaBase = this.getTariffa();
+    let ore = this.ore;
 
-    if (this.persone >= 1 && this.persone <= 3) {
-      mezzi = 1;
-      tariffaBase = 40;
-    } else if (this.persone >= 4 && this.persone <= 6) {
-      mezzi = 1;
-      tariffaBase = 50;
-      console.log(`Utilizzo di van per: ${this.persone}`);
-    } else if (this.persone >= 7 && this.persone <= 8) {
-      mezzi = 1;
-      tariffaBase = 55;
-      console.log(`Utilizzo di van per: ${this.persone}`);
-    } else if (this.persone >= 9 && this.persone <= 11) {
+    if (this.persone >= 9) {
       mezzi = 2;
-      tariffaBase = 48;
-    } else if (this.persone >= 12 && this.persone <= 14) {
-      mezzi = 2;
-      tariffaBase = 55;
-    } else if (this.persone > 14) {
-      console.log(`Le persone superano il limite ${this.persone}`);
     }
 
-    const totale = this.ore * (tariffaBase * tariffaOre) * mezzi
-    
+    if (this.persone >= 15) {
+      console.log(`Numero persone superiore al limite: ${this.persone}`);
+    }
+
+    const totale = ore * (tariffaBase * tariffaOre) * mezzi;
+
     this.mezzi = mezzi;
+    this.ore = ore;
     this.tariffaBase = tariffaBase;
 
     return totale;
   }
 
+  aggiornaDati(mezzi, ore, adulti, minori) {
+    this.mezzi = mezzi;
+    this.ore = ore;
+    this.adulti = adulti;
+    this.minori = minori;
+  }
 
-} */
+  descrizione() {
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
+  }
+}
+
+class ServizioGuidaOre extends Servizio {
+  constructor(id, nome, tariffe) {
+    super(id, nome);
+    this.tariffe = tariffe;
+    this.mezzi = 0;
+    this.ore = 0;
+    this.adulti = 0;
+    this.minori = 0;
+  }
+
+  getTariffa() {
+    if (this.persone >= 1 && this.persone <= 14) return (this.tariffe = 80);
+
+    return 0; // Se le persone superano 14, può essere gestito diversamente
+  }
+
+  get persone() {
+    return this.adulti + this.minori;
+  }
+
+  calcolaTotale() {
+    const tariffaGuide = 1.75;
+    const ore = this.ore;
+    let tariffaBase = this.getTariffa();
+
+    const totale = ore * (tariffaBase * tariffaGuide);
+
+    this.ore = ore;
+    this.tariffaGuide = tariffaGuide;
+
+    console.log(`📊 Servizio: ${this.nome}`);
+    console.log(`🔹 Tariffa guide: ${tariffaGuide}`);
+    console.log(`🔹 Ore: ${ore}`);
+    console.log(`$ Totale: ${totale}`);
+
+    return totale;
+  }
+
+  aggiornaDati(mezzi, ore, adulti, minori) {
+    this.mezzi = mezzi;
+    this.ore = ore;
+    this.adulti = adulti;
+    this.minori = minori;
+  }
+}
 
 // Esporta le classi come default
-export default { Servizio, ServizioTrasporto };
+export default { Servizio, ServizioTrasporto, ServizioAdOre, ServizioGuidaOre };
