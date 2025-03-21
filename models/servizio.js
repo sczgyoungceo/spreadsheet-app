@@ -182,26 +182,40 @@ class ServizioPax extends Servizio {
     this.minori = 0;
   }
 
+  getTariffa(tipo) {
+    if (tipo === "adulti") {
+      return this.tariffe.adulti;
+    } else if (tipo === "minori") {
+      return this.tariffe.minori;
+    }
+    return 0;
+  }
+
+  get persone() {
+    const totalePersone = this.adulti + this.minori;
+    return totalePersone;
+  }
+
   calcolaTotale() {
-    const totaleAdulti = this.adulti * this.tariffe.adulti;
-    const totaleMinori = this.minori * this.tariffe.minori;
-    const totale =  totaleAdulti + totaleMinori;
-    console.log(totale);
-    
-    return totale
-    
+    const tariffaPersone = 1.6;
+
+    const tariffaAdulti = this.getTariffa("adulti");
+    const tariffaMinori = this.getTariffa("minori");
+
+    const totaleAdulti = this.adulti * (tariffaAdulti * tariffaPersone);
+
+    const totaleMinori = this.minori * (tariffaMinori * tariffaPersone);
+    const totale = totaleAdulti + totaleMinori;
+
+    return totale;
   }
 
-  persone(adulti, minori) {
+  aggiornaDati(mezzi, ore, adulti, minori) {
+    this.mezzi = mezzi;
+    this.ore = ore;
     this.adulti = adulti;
     this.minori = minori;
   }
-
-  aggiornaDati(adulti, minori) {
-    this.adulti = adulti;
-    this.minori = minori;
-  }
-
 }
 
 //aggiungere variabile NOME CLIENTE

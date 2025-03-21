@@ -56,6 +56,8 @@ function mostraServizi() {
         mezziInput.type = "number";
         mezziInput.id = `mezzi-${servizio.id}`;
         mezziInput.value = 0;
+        mezziInput.min = 0;
+        mezziInput.max = 5;
         mezziInput.addEventListener("change", () => calcolaTotale(servizio.id));
         mezziInputCell.appendChild(mezziInput);
 
@@ -64,6 +66,8 @@ function mostraServizi() {
         oreInput.type = "number";
         oreInput.id = `ore-${servizio.id}`;
         oreInput.value = 0;
+        oreInput.min = 0;
+        oreInput.max = 24;
         oreInput.addEventListener("change", () => calcolaTotale(servizio.id));
         oreInputCell.appendChild(oreInput);
 
@@ -72,6 +76,8 @@ function mostraServizi() {
         adultiInput.type = "number";
         adultiInput.id = `adulti-${servizio.id}`;
         adultiInput.value = 0;
+        adultiInput.min = 0;
+        adultiInput.max = 14;
         adultiInput.addEventListener("change", () =>
           calcolaTotale(servizio.id)
         );
@@ -82,6 +88,8 @@ function mostraServizi() {
         minoriInput.type = "number";
         minoriInput.id = `minori-${servizio.id}`;
         minoriInput.value = 0;
+        minoriInput.min = 0;
+        minoriInput.max = 14;
         minoriInput.addEventListener("change", () =>
           calcolaTotale(servizio.id)
         );
@@ -202,7 +210,7 @@ function mostraPopup(message) {
 
   setTimeout(() => {
     popup.remove();
-  }, 2000);
+  }, 2500);
 }
 
 function cancellaTutto() {
@@ -215,11 +223,22 @@ function cancellaTutto() {
   totali.forEach((totale) => {
     totale.textContent = "€0.00";
   });
-
+  mostraPopup(`🗑️Celle Svuotate`);
   aggiornaTotaleGenerale(); // Reset del totale generale
 }
 
 window.onload = mostraServizi;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const footer = document.getElementById("footer-bar");
+    const container = document.querySelector(".container");
+
+    if (footer && container) {
+      const footerHeight = footer.offsetHeight;
+      container.style.paddingBottom = `${footerHeight + 40}px`;
+    }
+  });
+
 
 /* function aggiornaServizio(event, id) {
   event.preventDefault(); // Previeni il comportamento di invio del form

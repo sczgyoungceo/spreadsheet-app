@@ -72,11 +72,68 @@ let servizi = [
       "12-14": 63 /* anche mezzi */,
     }
   ),
+
   new ServizioGuidaOre(9, "Servizio guida (ore)", 80),
 
-  new ServizioPax(10, "Vaticano(pax)", 10, {
-    adulti: 47,
-    minori: 40,
+  new ServizioPax(10, "Vaticano(pax)", 
+  {
+    "adulti": 47,
+    "minori": 40,
+  }),
+  new ServizioPax(11, "Colosseo(pax)", 
+  {
+    "adulti": 30,
+    "minori": 15,
+  }),
+  new ServizioPax(12, "Pantheon(pax)", 
+  {
+    "adulti": 5,
+    "minori": 5,
+  }),
+  new ServizioPax(13, "Capitolini(pax)", 
+  {
+    "adulti": 14,
+    "minori": 11,
+  }),
+  new ServizioPax(14, "Borghese(pax)", 
+  {
+    "adulti": 28,
+    "minori": 4,
+  }),
+  new ServizioPax(15, "Ostia(pax)", 
+  {
+    "adulti": 18,
+    "minori": 5,
+  }),
+  new ServizioPax(16, "Castel Sant'Angelo(pax)", 
+  {
+    "adulti": 16,
+    "minori": 8,
+  }),
+  new ServizioPax(17, "Tivoli(pax)", 
+  {
+    "adulti": 25,
+    "minori": 10,
+  }),
+  new ServizioPax(18, "Catacombe(pax)", 
+  {
+    "adulti": 10,
+    "minori": 5,
+  }),
+  new ServizioPax(19, "San Clemente(pax)", 
+  {
+    "adulti": 10,
+    "minori": 5,
+  }),
+  new ServizioPax(20, "Food & Wine(pax)", 
+  {
+    "adulti": 30,
+    "minori": 25,
+  }),
+  new ServizioPax(21, "Headsets(pax)", 
+  {
+    "adulti": 2.5,
+    "minori": 2.5,
   }),
 ];
 

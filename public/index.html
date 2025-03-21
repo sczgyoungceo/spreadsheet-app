@@ -15,9 +15,8 @@
 </head>
 
 <body>
-  <button id="cancella-tutto" onclick="cancellaTutto()">Cancella tutto</button>
   <div class="container">
-    <h1>Servizi Trasporto</h1>
+    <h2>ROMA TOUR PERSONALIZZATI 2024 SENZA GOLF CART</h2>
 
     <table id="lista-servizi">
       <!-- Tabella dei servizi, le celle saranno input dinamici -->
@@ -31,12 +30,22 @@
       </tr>
       <!-- Qui verranno inseriti dinamicamente i servizi -->
     </table>
-    <table id="somma-finale">
-      <tr>
-        <th class="copy"><i class="fa-solid fa-copy" onclick="copiaSommaTotale()" title="Copia"></i></th>
-        <th colspan="6" id="totale-generale"></th>
-      </tr>
-    </table>
+    <section id="footer-bar">
+      <div class="footer-button">
+        <button id="cancella-tutto" onclick="cancellaTutto()" title="Svuota celle">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+      <div class="footer-totale">
+        <i class="fa-solid fa-copy" onclick="copiaSommaTotale()" title="Copia"></i>
+        <span id="totale-generale">€0.00</span>
+      </div>
+    </section>
+    
+    
+    
+    
+    
   </div>
   <!-- Bottone per cancellare tutte le celle -->
   
