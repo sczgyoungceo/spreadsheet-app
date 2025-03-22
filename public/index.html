@@ -1,57 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+      integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="/style.css" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
-    integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="/style.css" />
-  <title>Document</title>
-</head>
-
-<body>
-  <div class="container">
-    <h2>ROMA TOUR PERSONALIZZATI 2024 SENZA GOLF CART</h2>
-
-    <table id="lista-servizi">
-      <!-- Tabella dei servizi, le celle saranno input dinamici -->
-      <tr>
-        <th>Nome Servizio</th>
-        <th>Mezzi</th>
-        <th>Ore</th>
-        <th>Adulti</th>
-        <th>Minori</th>
-        <th>Totale</th>
-      </tr>
-      <!-- Qui verranno inseriti dinamicamente i servizi -->
-    </table>
-    <section id="footer-bar">
-      <div class="footer-button">
-        <button id="cancella-tutto" onclick="cancellaTutto()" title="Svuota celle">
-          <i class="fa-solid fa-trash"></i>
-        </button>
+  <body>
+    <div class="body-wrapper">
+      <div id="section-wrapper">
+        <section class="section" id="roma-no-golf-cart" onclick="mostraSezioni(this);">
+          <h2>Roma No Golf Cart</h2>
+          <div class="container none">
+            <h2>ROMA TOUR PERSONALIZZATI SENZA GOLF CART</h2>
+            <table id="lista-servizi">
+              <!-- Tabella dei servizi, le celle saranno input dinamici -->
+              <tr>
+                <th>Nome Servizio</th>
+                <th>Mezzi</th>
+                <th>Ore</th>
+                <th>Adulti</th>
+                <th>Minori</th>
+                <th>Totale</th>
+              </tr>
+              <!-- Qui verranno inseriti dinamicamente i servizi -->
+            </table>
+            <section id="footer-bar">
+              <div class="footer-button">
+                <button
+                  id="cancella-tutto"
+                  onclick="cancellaTutto()"
+                  title="Svuota celle"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+              <div id="footer-spacer"></div>
+              <div class="footer-totale">
+                <i
+                  class="fa-solid fa-copy"
+                  onclick="copiaSommaTotale()"
+                  title="Copia"
+                ></i>
+                <span id="totale-generale">€0.00</span>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="section" id="roma-con-golf-cart" onclick="mostraSezioni(this);">
+          <h2>Roma Con Golf Cart</h2>
+          <div class="container none">
+            <h2>ROMA TOUR PERSONALIZZATI CON GOLF CART</h2>
+            <table id="lista-servizi">
+              <!-- Tabella dei servizi, le celle saranno input dinamici -->
+              <tr>
+                <th>Nome Servizio</th>
+                <th>Mezzi</th>
+                <th>Ore</th>
+                <th>Adulti</th>
+                <th>Minori</th>
+                <th>Totale</th>
+              </tr>
+              <!-- Qui verranno inseriti dinamicamente i servizi -->
+            </table>
+            <section id="footer-bar">
+              <div class="footer-button">
+                <button
+                  id="cancella-tutto"
+                  onclick="cancellaTutto()"
+                  title="Svuota celle"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+              <div class="footer-totale">
+                <i
+                  class="fa-solid fa-copy"
+                  onclick="copiaSommaTotale()"
+                  title="Copia"
+                ></i>
+                <span id="totale-generale">€0.00</span>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="section" id="napoli" onclick="mostraSezioni(this);">
+          <h2>Napoli Tour Personalizzati</h2>
+        </section>
+        <section class="section" id="firenze" onclick="mostraSezioni(this);">
+          <h2>Firenze Tour Personalizzati</h2>
+        </section>
       </div>
-      <div class="footer-totale">
-        <i class="fa-solid fa-copy" onclick="copiaSommaTotale()" title="Copia"></i>
-        <span id="totale-generale">€0.00</span>
-      </div>
-    </section>
-    
-    
-    
-    
-    
-  </div>
-  <!-- Bottone per cancellare tutte le celle -->
-  
+      <div id="contenuto-attivo"></div>
+    </div>
 
-
-
-  <script src="/script.js"></script>
-
+    <script src="/script.js"></script>
+  </body>
 </html>

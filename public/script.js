@@ -229,16 +229,24 @@ function cancellaTutto() {
 
 window.onload = mostraServizi;
 
-  window.addEventListener("DOMContentLoaded", () => {
-    const footer = document.getElementById("footer-bar");
-    const container = document.querySelector(".container");
+function mostraSezioni(clickedSection) {
+  const sezioni = document.querySelectorAll("#section-wrapper > section");
+  const contenitore = document.getElementById("contenuto-attivo");
 
-    if (footer && container) {
-      const footerHeight = footer.offsetHeight;
-      container.style.paddingBottom = `${footerHeight + 40}px`;
+  contenitore.innerHTML = ""; // svuota prima
+  sezioni.forEach((section) => {
+    const container = section.querySelector(".container");
+    if (section === clickedSection && container) {
+      clickedSection.style.display = "none";
+      container.classList.remove("none");
+      container.classList.add("flex");
+      contenitore.style.zIndex = "10";
+      contenitore.appendChild(container);
+    } else if (container) {
+      container.classList.add("none");
     }
   });
-
+}
 
 /* function aggiornaServizio(event, id) {
   event.preventDefault(); // Previeni il comportamento di invio del form
