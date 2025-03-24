@@ -23,9 +23,11 @@
   <body>
     <div class="body-wrapper">
       <div id="section-wrapper">
+
         <section class="section" id="roma-no-golf-cart" onclick="mostraSezioni(this);">
           <h2>Roma No Golf Cart</h2>
           <div class="container none">
+            <i class="fa-solid fa-xmark"></i>
             <h2>ROMA TOUR PERSONALIZZATI SENZA GOLF CART</h2>
             <table id="lista-servizi">
               <!-- Tabella dei servizi, le celle saranno input dinamici -->
@@ -61,49 +63,19 @@
             </section>
           </div>
         </section>
+
         <section class="section" id="roma-con-golf-cart" onclick="mostraSezioni(this);">
           <h2>Roma Con Golf Cart</h2>
-          <div class="container none">
-            <h2>ROMA TOUR PERSONALIZZATI CON GOLF CART</h2>
-            <table id="lista-servizi">
-              <!-- Tabella dei servizi, le celle saranno input dinamici -->
-              <tr>
-                <th>Nome Servizio</th>
-                <th>Mezzi</th>
-                <th>Ore</th>
-                <th>Adulti</th>
-                <th>Minori</th>
-                <th>Totale</th>
-              </tr>
-              <!-- Qui verranno inseriti dinamicamente i servizi -->
-            </table>
-            <section id="footer-bar">
-              <div class="footer-button">
-                <button
-                  id="cancella-tutto"
-                  onclick="cancellaTutto()"
-                  title="Svuota celle"
-                >
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </div>
-              <div class="footer-totale">
-                <i
-                  class="fa-solid fa-copy"
-                  onclick="copiaSommaTotale()"
-                  title="Copia"
-                ></i>
-                <span id="totale-generale">€0.00</span>
-              </div>
-            </section>
-          </div>
         </section>
+        
         <section class="section" id="napoli" onclick="mostraSezioni(this);">
           <h2>Napoli Tour Personalizzati</h2>
         </section>
+
         <section class="section" id="firenze" onclick="mostraSezioni(this);">
           <h2>Firenze Tour Personalizzati</h2>
         </section>
+        
       </div>
       <div id="contenuto-attivo"></div>
     </div>

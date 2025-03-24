@@ -229,24 +229,58 @@ function cancellaTutto() {
 
 window.onload = mostraServizi;
 
-function mostraSezioni(clickedSection) {
-  const sezioni = document.querySelectorAll("#section-wrapper > section");
-  const contenitore = document.getElementById("contenuto-attivo");
+const contenitoreAttivo = document.getElementById("contenuto-attivo");
 
-  contenitore.innerHTML = ""; // svuota prima
-  sezioni.forEach((section) => {
-    const container = section.querySelector(".container");
-    if (section === clickedSection && container) {
-      clickedSection.style.display = "none";
-      container.classList.remove("none");
-      container.classList.add("flex");
-      contenitore.style.zIndex = "10";
-      contenitore.appendChild(container);
-    } else if (container) {
-      container.classList.add("none");
-    }
-  });
+// Funzione per mostrare la sezione cliccata
+function mostraSezioni(clickedSection) {
+  const container = clickedSection.querySelector(".container");
+
+  if (!contenitoreAttivo.contains(container)) {
+    contenitoreAttivo.innerHTML = '';
+    container.classList.remove("none");
+    container.classList.add("flex");
+
+    // salva l'id della sezione originale per poterla ripristinare
+    container.setAttribute('data-section', clickedSection.id);
+
+    contenitoreAttivo.appendChild(container);
+    contenitoreAttivo.classList.add("flex");
+    contenitoreAttivo.classList.remove("none");
+    contenitoreAttivo.style.zIndex = "10";
+  }
 }
+
+// Funzione per chiudere la sezione attualmente aperta
+function closeSezioni() {
+  const container = contenitoreAttivo.querySelector(".container");
+
+  if (container) {
+    container.classList.add("none");
+    container.classList.remove("flex");
+    
+    contenitoreAttivo.classList.remove("flex");
+    contenitoreAttivo.classList.add("none");
+
+    // recupera l'id salvato della sezione originale
+    const originalSectionId = container.getAttribute('data-section');
+    const originalSection = document.getElementById(originalSectionId);
+
+    if (originalSection) {
+      originalSection.appendChild(container);
+    }
+  }
+}
+
+// Gestione evento click su "X"
+document.addEventListener('click', (event) => {
+  if(event.target.classList.contains('fa-xmark')) {
+    event.stopPropagation(); // impedisce che si propaghi l'evento
+    closeSezioni();
+  }
+});
+
+
+
 
 /* function aggiornaServizio(event, id) {
   event.preventDefault(); // Previeni il comportamento di invio del form
