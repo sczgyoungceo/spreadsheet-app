@@ -1,15 +1,12 @@
-let totaleClipboard = 0;
-let totaleGenerale = 0;
+// script.js (modularizzato)
 
-function mostraServizi() {
+export function mostraServizi() {
   fetch("/servizi/lista")
     .then((res) => res.json())
     .then((data) => {
       const serviziList = data.servizi;
 
       document.querySelectorAll("table[data-tipo] tbody").forEach((tbody) => {
-        tbody.innerHTML = "";
-
         tbody.innerHTML = `
           <tr>
               <th>Nome Servizio</th>
@@ -23,19 +20,11 @@ function mostraServizi() {
         `;
       });
 
-      totaleGenerale = 0;
-
       serviziList.forEach((servizio) => {
-        const tabella = document.querySelector(
-          `table[data-tipo="${servizio.tipo}"]`
-        );
+        const tabella = document.querySelector(`table[data-tipo="${servizio.tipo}"]`);
         if (!tabella) return;
 
         const tbody = tabella.querySelector("tbody");
-
-        const totale = 0;
-
-        totaleGenerale += totale;
 
         const row = document.createElement("tr");
 
@@ -69,9 +58,7 @@ function mostraServizi() {
         adultiInput.value = 0;
         adultiInput.min = 0;
         adultiInput.max = 14;
-        adultiInput.addEventListener("change", () =>
-          calcolaTotale(servizio.id)
-        );
+        adultiInput.addEventListener("change", () => calcolaTotale(servizio.id));
         adultiInputCell.appendChild(adultiInput);
 
         const minoriInputCell = document.createElement("td");
@@ -81,15 +68,13 @@ function mostraServizi() {
         minoriInput.value = 0;
         minoriInput.min = 0;
         minoriInput.max = 14;
-        minoriInput.addEventListener("change", () =>
-          calcolaTotale(servizio.id)
-        );
+        minoriInput.addEventListener("change", () => calcolaTotale(servizio.id));
         minoriInputCell.appendChild(minoriInput);
 
         const totaleCell = document.createElement("td");
         const totaleSpan = document.createElement("span");
         totaleSpan.id = `totale-${servizio.id}`;
-        totaleSpan.textContent = `€${totale.toFixed(2)}`;
+        totaleSpan.textContent = `€0.00`;
         totaleCell.appendChild(totaleSpan);
 
         const copy = document.createElement("td");
@@ -116,8 +101,7 @@ function mostraServizi() {
     .catch((error) => console.error("Error:", error));
 }
 
-// Funzione per calcolare il totale
-function calcolaTotale(id) {
+export function calcolaTotale(id) {
   const mezzi = Number(document.getElementById(`mezzi-${id}`).value);
   const ore = Number(document.getElementById(`ore-${id}`).value);
   const adulti = Number(document.getElementById(`adulti-${id}`).value);
@@ -125,126 +109,82 @@ function calcolaTotale(id) {
 
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ mezzi, ore, adulti, minori }),
   })
-    .then((response) => response.json())
+    .then((res) => res.json())
     .then((data) => {
-      let totale = parseFloat(data.totale);
-      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(
-        2
-      )}`;
-
-      // Aggiorna il totale generale
+      const totale = parseFloat(data.totale);
+      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(2)}`;
       aggiornaTotaleGenerale();
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+    .catch((error) => console.error("Error:", error));
 }
 
-function aggiornaTotaleGenerale() {
+export function aggiornaTotaleGenerale() {
   const totaliPerSezione = {};
-
   document.querySelectorAll("[id^='totale-']").forEach((span) => {
     const id = span.id.replace("totale-", "");
     const input = document.getElementById(`adulti-${id}`);
     if (!input) return;
-
     const tabella = input.closest("table[data-tipo]");
     if (!tabella) return;
-
     const tipo = tabella.dataset.tipo;
     const valore = parseFloat(span.textContent.replace("€", "")) || 0;
-
     if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0;
     totaliPerSezione[tipo] += valore;
   });
-
   Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
-    document
-      .querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`)
-      .forEach((spanTotale) => {
-        spanTotale.textContent = `€${somma.toFixed(2)}`;
-      });
+    document.querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`).forEach((span) => {
+      span.textContent = `€${somma.toFixed(2)}`;
+    });
   });
-
   return totaliPerSezione;
 }
 
-function copiaSommaTotale(event) {
+export function cancellaTutto() {
+  const container = document.querySelector("#contenuto-attivo .container.flex");
+  if (!container) return;
+  container.querySelectorAll("input[type='number']").forEach((input) => input.value = 0);
+  container.querySelectorAll("[id^='totale-']").forEach((el) => el.textContent = "€0.00");
+  mostraPopup("🗑️Celle Svuotate");
+  aggiornaTotaleGenerale();
+}
+
+export function copiaSommaTotale(event) {
   const container = event.target.closest(".container");
-  const table = container.querySelector("table[data-tipo]");
-  const tipo = table.dataset.tipo;
-
-  const totaleSpan = container.querySelector(
-    `.totale-generale[data-tipo="${tipo}"]`
-  );
-  const textToCopy = totaleSpan.textContent;
-
-  navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => {
-      mostraPopup(`📋 Copiato ${textToCopy}`);
-    })
+  const tipo = container.querySelector("table[data-tipo]").dataset.tipo;
+  const textToCopy = container.querySelector(`.totale-generale[data-tipo="${tipo}"]`).textContent;
+  navigator.clipboard.writeText(textToCopy)
+    .then(() => mostraPopup(`📋 Copiato ${textToCopy}`))
     .catch((err) => console.error("Errore nella copia:", err));
 }
 
-function copyToClipboard(id) {
-  const totale = document.getElementById(`totale-${id}`).textContent;
-
-  navigator.clipboard
-    .writeText(totale)
-    .then(() => {
-      mostraPopup(`📋Copiato`);
-    })
+export function copyToClipboard(id) {
+  const text = document.getElementById(`totale-${id}`).textContent;
+  navigator.clipboard.writeText(text)
+    .then(() => mostraPopup("📋Copiato"))
     .catch((err) => console.error("Errore nella copia:", err));
 }
 
-function mostraPopup(message) {
+export function mostraPopup(message) {
+  const container = document.querySelector("#contenuto-attivo");
   const popup = document.createElement("div");
   popup.classList.add("popup");
   popup.textContent = message;
-
-  document.body.appendChild(popup);
-
-  setTimeout(() => {
-    popup.remove();
-  }, 2500);
+  popup.classList.add(message.includes("🗑️") ? "danger" : "success");
+  container.appendChild(popup);
+  setTimeout(() => popup.remove(), 2500);
 }
 
-function cancellaTutto() {
-  const inputs = document.querySelectorAll("input[type='number']");
-  inputs.forEach((input) => {
-    input.value = 0;
-  });
-
-  const totali = document.querySelectorAll("[id^='totale-']");
-  totali.forEach((totale) => {
-    totale.textContent = "€0.00";
-  });
-  mostraPopup(`🗑️Celle Svuotate`);
-  aggiornaTotaleGenerale(); // Reset del totale generale
-}
-
-window.onload = mostraServizi;
-
-const contenitoreAttivo = document.getElementById("contenuto-attivo");
-
-// Funzione per mostrare la sezione cliccata
-function mostraSezioni(clickedSection) {
+export function mostraSezioni(clickedSection) {
+  const contenitoreAttivo = document.getElementById("contenuto-attivo");
   const container = clickedSection.querySelector(".container");
-
   if (!contenitoreAttivo.contains(container)) {
     contenitoreAttivo.innerHTML = "";
     container.classList.remove("none");
     container.classList.add("flex");
-
-    // salva l'id della sezione originale per poterla ripristinare
     container.setAttribute("data-section", clickedSection.id);
-
     contenitoreAttivo.appendChild(container);
     contenitoreAttivo.classList.add("flex");
     contenitoreAttivo.classList.remove("none");
@@ -252,34 +192,21 @@ function mostraSezioni(clickedSection) {
   }
 }
 
-// Funzione per chiudere la sezione attualmente aperta
-function closeSezioni() {
+export function closeSezioni() {
+  const contenitoreAttivo = document.getElementById("contenuto-attivo");
   const container = contenitoreAttivo.querySelector(".container");
-
   if (container) {
     container.classList.add("none");
     container.classList.remove("flex");
-
     contenitoreAttivo.classList.remove("flex");
     contenitoreAttivo.classList.add("none");
-
-    // recupera l'id salvato della sezione originale
     const originalSectionId = container.getAttribute("data-section");
     const originalSection = document.getElementById(originalSectionId);
-
-    if (originalSection) {
-      originalSection.appendChild(container);
-    }
+    if (originalSection) originalSection.appendChild(container);
   }
 }
 
-// Gestione evento click su "X"
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("fa-xmark")) {
-    event.stopPropagation(); // impedisce che si propaghi l'evento
-    closeSezioni();
-  }
-});
+
 
 /* function aggiornaServizio(event, id) {
   event.preventDefault(); // Previeni il comportamento di invio del form

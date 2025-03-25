@@ -299,6 +299,15 @@ i {
   animation: fadeInOut 3s ease-in-out forwards;
 }
 
+.popup.success {
+  background-color: #4caf50; /* verde */
+}
+
+.popup.danger {
+  background-color: #f44336; /* rosso */
+}
+
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
