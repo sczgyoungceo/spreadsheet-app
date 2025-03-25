@@ -107,19 +107,32 @@ export function calcolaTotale(id) {
   const adulti = Number(document.getElementById(`adulti-${id}`).value);
   const minori = Number(document.getElementById(`minori-${id}`).value);
 
+  const payload = { mezzi, ore, adulti, minori };
+
+  console.log(`📤 Invio dati per servizio ${id}:`, payload); // <-- Log utile
+
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mezzi, ore, adulti, minori }),
+    body: JSON.stringify(payload),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        return res.json().then((err) => {
+          console.error("❌ Errore risposta server:", err);
+          throw new Error(err.message || "Errore generico");
+        });
+      }
+      return res.json();
+    })
     .then((data) => {
       const totale = parseFloat(data.totale);
       document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(2)}`;
       aggiornaTotaleGenerale();
     })
-    .catch((error) => console.error("Error:", error));
+    .catch((error) => console.error("❗Errore:", error.message));
 }
+
 
 export function aggiornaTotaleGenerale() {
   const totaliPerSezione = {};

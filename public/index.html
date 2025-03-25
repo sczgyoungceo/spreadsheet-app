@@ -11,6 +11,7 @@
     integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="/style.css" />
+  <script type="module" src="./main.js"></script>
   <title>Document</title>
 </head>
 
@@ -18,11 +19,13 @@
   <div class="body-wrapper">
     <div id="section-wrapper">
 
-      <section class="section" id="roma-no-golf-cart" onclick="mostraSezioni(this);">
+      <section class="section" id="roma-no-golf-cart" >
         <h2>Roma No Golf Cart</h2>
         <div class="container none">
-          <i class="fa-solid fa-xmark"></i>
-          <h2>ROMA TOUR PERSONALIZZATI SENZA GOLF CART</h2>
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Chiudi"></i>
+            <h2>ROMA TOUR PERSONALIZZATI SENZA GOLF CART</h2>
+          </div>
           <table class="lista-servizi" data-tipo="roma-no-golf-cart">
             <!-- Tabella dei servizi, le celle saranno input dinamici -->
             <tr>
@@ -37,24 +40,26 @@
           </table>
           <section class="footer-bar">
             <div class="footer-button">
-              <button id="cancella-tutto" onclick="cancellaTutto()" title="Svuota celle" data-color="red">
+              <button id="cancella-tutto" title="Svuota celle" data-color="red">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
             <div class="footer-spacer"></div>
             <div class="footer-totale">
-              <i class="fa-solid fa-copy" onclick="copiaSommaTotale(event)" title="Copia"></i>
+              <i class="fa-solid fa-copy" title="Copia"></i>
               <span class="totale-generale" data-tipo="roma-no-golf-cart">€0.00</span>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="section" id="roma-con-golf-cart" onclick="mostraSezioni(this);">
+      <section class="section" id="roma-con-golf-cart" >
         <h2>Roma Con Golf Cart</h2>
         <div class="container none">
-          <i class="fa-solid fa-xmark"></i>
-          <h2>ROMA TOUR PERSONALIZZATI CON GOLF CART</h2>
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Chiudi"></i>
+            <h2>ROMA TOUR PERSONALIZZATI CON GOLF CART</h2>
+          </div>
           <table class="lista-servizi" data-tipo="roma-con-golf-cart">
             <!-- Tabella dei servizi, le celle saranno input dinamici -->
             <tr>
@@ -69,24 +74,26 @@
           </table>
           <section class="footer-bar">
             <div class="footer-button">
-              <button id="cancella-tutto" onclick="cancellaTutto()" title="Svuota celle">
+              <button id="cancella-tutto" title="Svuota celle">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
             <div class="footer-spacer"></div>
             <div class="footer-totale">
-              <i class="fa-solid fa-copy" onclick="copiaSommaTotale(event)" title="Copia"></i>
+              <i class="fa-solid fa-copy" title="Copia"></i>
               <span class="totale-generale" data-tipo="roma-con-golf-cart">€0.00</span>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="section" id="napoli" onclick="mostraSezioni(this);">
+      <section class="section" id="napoli" >
         <h2>Napoli</h2>
         <div class="container none">
-          <i class="fa-solid fa-xmark"></i>
-          <h2>NAPOLI TOUR PERSONALIZZATI</h2>
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Chiudi"></i>
+            <h2>NAPOLI TOUR PERSONALIZZATI</h2>
+          </div>
           <table class="lista-servizi" data-tipo="roma-con-golf-cart">
             <!-- Tabella dei servizi, le celle saranno input dinamici -->
             <tr>
@@ -101,24 +108,26 @@
           </table>
           <section class="footer-bar">
             <div class="footer-button">
-              <button id="cancella-tutto" onclick="cancellaTutto()" title="Svuota celle">
+              <button id="cancella-tutto" title="Svuota celle">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
             <div class="footer-spacer"></div>
             <div class="footer-totale">
-              <i class="fa-solid fa-copy" onclick="copiaSommaTotale(event)" title="Copia"></i>
+              <i class="fa-solid fa-copy" title="Copia"></i>
               <span class="totale-generale" data-tipo="roma-con-golf-cart">€0.00</span>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="section" id="firenze" onclick="mostraSezioni(this);">
+      <section class="section" id="firenze" >
         <h2>Firenze</h2>
         <div class="container none">
-          <i class="fa-solid fa-xmark"></i>
-          <h2>FIRENZE TOUR PERSONALIZZATI</h2>
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Chiudi"></i>
+            <h2>FIRENZE TOUR PERSONALIZZATI</h2>
+          </div>
           <table class="lista-servizi" data-tipo="roma-con-golf-cart">
             <!-- Tabella dei servizi, le celle saranno input dinamici -->
             <tr>
@@ -133,13 +142,13 @@
           </table>
           <section class="footer-bar">
             <div class="footer-button">
-              <button id="cancella-tutto" onclick="cancellaTutto()" title="Svuota celle">
+              <button id="cancella-tutto" title="Svuota celle">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
             <div class="footer-spacer"></div>
             <div class="footer-totale">
-              <i class="fa-solid fa-copy" onclick="copiaSommaTotale(event)" title="Copia"></i>
+              <i class="fa-solid fa-copy" title="Copia"></i>
               <span class="totale-generale" data-tipo="roma-con-golf-cart">€0.00</span>
             </div>
           </section>
@@ -149,9 +158,6 @@
     </div>
     <div id="contenuto-attivo"></div>
   </div>
-
-  <script type="module" src="./main.js"></script>
-  <script src="/script.js"></script>
 </body>
 
 </html>

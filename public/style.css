@@ -94,9 +94,36 @@ section:hover {
   align-items: center;
 }
 
-h2 {
-  text-align: center;
-  color: #ffffff;
+.titolo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1f1f1f; /* dark mode compatibile */
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.titolo-wrapper .close-icon {
+  font-size: 1.2rem;
+  color: #ff5f5f;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.titolo-wrapper .close-icon:hover {
+  transform: scale(1.1);
+  color: #ff3333;
+}
+
+.titolo-wrapper h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 1rem;
+  flex-grow: 1;
 }
 
 table {
@@ -306,7 +333,6 @@ i {
 .popup.danger {
   background-color: #f44336; /* rosso */
 }
-
 
 @keyframes fadeInOut {
   0% {
