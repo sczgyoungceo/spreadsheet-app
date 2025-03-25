@@ -20,7 +20,7 @@ function mostraServizi() {
               <th>Totale</th>
               <th>Azioni</th>
             </tr>
-        `
+        `;
       });
 
       totaleGenerale = 0;
@@ -146,13 +146,11 @@ function calcolaTotale(id) {
 }
 
 function aggiornaTotaleGenerale() {
-  // Pulisce tutti i totali per sezione
   const totaliPerSezione = {};
 
-  // Per ogni span totale-XX
   document.querySelectorAll("[id^='totale-']").forEach((span) => {
     const id = span.id.replace("totale-", "");
-    const input = document.getElementById(`mezzi-${id}`);
+    const input = document.getElementById(`adulti-${id}`);
     if (!input) return;
 
     const tabella = input.closest("table[data-tipo]");
@@ -165,14 +163,12 @@ function aggiornaTotaleGenerale() {
     totaliPerSezione[tipo] += valore;
   });
 
-  // Aggiorna tutti i <span class="totale-generale" data-tipo="...">
   Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
-    const spanTotale = document.querySelector(
-      `.totale-generale[data-tipo="${tipo}"]`
-    );
-    if (spanTotale) {
-      spanTotale.textContent = `€${somma.toFixed(2)}`;
-    }
+    document
+      .querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`)
+      .forEach((spanTotale) => {
+        spanTotale.textContent = `€${somma.toFixed(2)}`;
+      });
   });
 
   return totaliPerSezione;
