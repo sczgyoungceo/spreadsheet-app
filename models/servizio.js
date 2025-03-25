@@ -75,8 +75,8 @@ class ServizioTrasporto extends Servizio {
 }
 
 class ServizioAdOre extends Servizio {
-  constructor(id, nome, tariffe) {
-    super(id, nome);
+  constructor(id, nome,tipo, tariffe) {
+    super(id, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -133,8 +133,8 @@ class ServizioAdOre extends Servizio {
 }
 
 class ServizioGuidaOre extends Servizio {
-  constructor(id, nome, tariffe) {
-    super(id, nome);
+  constructor(id, nome,tipo, tariffe) {
+    super(id, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -174,8 +174,8 @@ class ServizioGuidaOre extends Servizio {
 }
 
 class ServizioPax extends Servizio {
-  constructor(id, nome, tariffe) {
-    super(id, nome);
+  constructor(id, nome,tipo, tariffe) {
+    super(id, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;

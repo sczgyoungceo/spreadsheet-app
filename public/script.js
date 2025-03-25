@@ -7,15 +7,25 @@ function mostraServizi() {
     .then((data) => {
       const serviziList = data.servizi;
 
-      // Pulisci tutte le tabelle
-      document.querySelectorAll('table[data-tipo] tbody').forEach((tbody) => {
+      document.querySelectorAll("table[data-tipo] tbody").forEach((tbody) => {
         tbody.innerHTML = "";
+
+        tbody.innerHTML = `
+          <tr>
+              <th>Nome Servizio</th>
+              <th>Mezzi</th>
+              <th>Ore</th>
+              <th>Adulti</th>
+              <th>Minori</th>
+              <th>Totale</th>
+              <th>Azioni</th>
+            </tr>
+        `
       });
 
       totaleGenerale = 0;
 
       serviziList.forEach((servizio) => {
-        // Trova la tabella giusta in base al tipo
         const tabella = document.querySelector(
           `table[data-tipo="${servizio.tipo}"]`
         );
@@ -23,29 +33,10 @@ function mostraServizi() {
 
         const tbody = tabella.querySelector("tbody");
 
-        // Calcolo del numero di persone e tariffa
-        const persone = servizio.adulti + servizio.minori;
-        let tariffa = 0;
-
-        if (persone >= 1 && persone <= 3) {
-          tariffa = servizio.tariffe["1-3"];
-        } else if (persone >= 4 && persone <= 6) {
-          tariffa = servizio.tariffe["4-6"];
-        } else if (persone >= 7 && persone <= 8) {
-          tariffa = servizio.tariffe["7-8"];
-        } else if (persone >= 9 && persone <= 11) {
-          tariffa = servizio.tariffe["9-11"];
-        } else if (persone >= 12 && persone <= 14) {
-          tariffa = servizio.tariffe["12-14"];
-        }
-
-        // Calcola il totale del servizio (inizialmente 0)
         const totale = 0;
 
-        // Aggiorna il totale generale
         totaleGenerale += totale;
 
-        // Crea la riga e le celle dinamiche
         const row = document.createElement("tr");
 
         const nomeServizioCell = document.createElement("td");
@@ -78,7 +69,9 @@ function mostraServizi() {
         adultiInput.value = 0;
         adultiInput.min = 0;
         adultiInput.max = 14;
-        adultiInput.addEventListener("change", () => calcolaTotale(servizio.id));
+        adultiInput.addEventListener("change", () =>
+          calcolaTotale(servizio.id)
+        );
         adultiInputCell.appendChild(adultiInput);
 
         const minoriInputCell = document.createElement("td");
@@ -88,7 +81,9 @@ function mostraServizi() {
         minoriInput.value = 0;
         minoriInput.min = 0;
         minoriInput.max = 14;
-        minoriInput.addEventListener("change", () => calcolaTotale(servizio.id));
+        minoriInput.addEventListener("change", () =>
+          calcolaTotale(servizio.id)
+        );
         minoriInputCell.appendChild(minoriInput);
 
         const totaleCell = document.createElement("td");
@@ -105,7 +100,6 @@ function mostraServizi() {
         copy.appendChild(iconCopy);
         copy.addEventListener("click", () => copyToClipboard(servizio.id));
 
-        // Costruzione riga completa
         row.appendChild(nomeServizioCell);
         row.appendChild(mezziInputCell);
         row.appendChild(oreInputCell);
@@ -114,7 +108,6 @@ function mostraServizi() {
         row.appendChild(totaleCell);
         row.appendChild(copy);
 
-        // Inserisci la riga nel tbody corretto
         tbody.appendChild(row);
       });
 
@@ -122,7 +115,6 @@ function mostraServizi() {
     })
     .catch((error) => console.error("Error:", error));
 }
-
 
 // Funzione per calcolare il totale
 function calcolaTotale(id) {
@@ -154,35 +146,52 @@ function calcolaTotale(id) {
 }
 
 function aggiornaTotaleGenerale() {
-  const totali = document.querySelectorAll("[id^='totale-']");
-  let totaleGenerale = 0;
+  // Pulisce tutti i totali per sezione
+  const totaliPerSezione = {};
 
-  totali.forEach((totale) => {
-    const totaleValue = parseFloat(totale.textContent.replace("€", ""));
-    if (!isNaN(totaleValue)) {
-      totaleGenerale += totaleValue;
+  // Per ogni span totale-XX
+  document.querySelectorAll("[id^='totale-']").forEach((span) => {
+    const id = span.id.replace("totale-", "");
+    const input = document.getElementById(`mezzi-${id}`);
+    if (!input) return;
+
+    const tabella = input.closest("table[data-tipo]");
+    if (!tabella) return;
+
+    const tipo = tabella.dataset.tipo;
+    const valore = parseFloat(span.textContent.replace("€", "")) || 0;
+
+    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0;
+    totaliPerSezione[tipo] += valore;
+  });
+
+  // Aggiorna tutti i <span class="totale-generale" data-tipo="...">
+  Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
+    const spanTotale = document.querySelector(
+      `.totale-generale[data-tipo="${tipo}"]`
+    );
+    if (spanTotale) {
+      spanTotale.textContent = `€${somma.toFixed(2)}`;
     }
   });
 
-  const totaleGeneraleCell = document.querySelector("#totale-generale");
-  if (totaleGeneraleCell) {
-    totaleGeneraleCell.textContent = `Totale: €${totaleGenerale.toFixed(2)}`;
-  }
-
-  return totaleGenerale;
+  return totaliPerSezione;
 }
 
-function copiaSommaTotale() {
-  // Chiamiamo la funzione aggiornaTotaleGenerale per ottenere il totale generale
-  const totaleDaCopiare = aggiornaTotaleGenerale();
+function copiaSommaTotale(event) {
+  const container = event.target.closest(".container");
+  const table = container.querySelector("table[data-tipo]");
+  const tipo = table.dataset.tipo;
 
-  // Copiamo il totale generale negli appunti
-  const textToCopy = `€${totaleDaCopiare.toFixed(2)}`;
+  const totaleSpan = container.querySelector(
+    `.totale-generale[data-tipo="${tipo}"]`
+  );
+  const textToCopy = totaleSpan.textContent;
 
   navigator.clipboard
     .writeText(textToCopy)
     .then(() => {
-      mostraPopup(`📋Copiato`);
+      mostraPopup(`📋 Copiato ${textToCopy}`);
     })
     .catch((err) => console.error("Errore nella copia:", err));
 }
