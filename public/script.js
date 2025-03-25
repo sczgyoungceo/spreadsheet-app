@@ -1,30 +1,29 @@
 let totaleClipboard = 0;
 let totaleGenerale = 0;
 
-// Funzione per mostrare la lista dei servizi
 function mostraServizi() {
   fetch("/servizi/lista")
     .then((res) => res.json())
     .then((data) => {
       const serviziList = data.servizi;
-      const listContainer = document.getElementById("lista-servizi");
-      listContainer.innerHTML = "";
 
-      listContainer.innerHTML = `
-        <tr>
-          <th>Nome Servizio</th>
-          <th>Mezzi</th>
-          <th>Ore</th>
-          <th>Adulti</th>
-          <th>Minori</th>
-          <th>Totale</th>
-          <th>Azioni</th>
-        </tr>
-      `;
+      // Pulisci tutte le tabelle
+      document.querySelectorAll('table[data-tipo] tbody').forEach((tbody) => {
+        tbody.innerHTML = "";
+      });
 
       totaleGenerale = 0;
 
       serviziList.forEach((servizio) => {
+        // Trova la tabella giusta in base al tipo
+        const tabella = document.querySelector(
+          `table[data-tipo="${servizio.tipo}"]`
+        );
+        if (!tabella) return;
+
+        const tbody = tabella.querySelector("tbody");
+
+        // Calcolo del numero di persone e tariffa
         const persone = servizio.adulti + servizio.minori;
         let tariffa = 0;
 
@@ -40,12 +39,13 @@ function mostraServizi() {
           tariffa = servizio.tariffe["12-14"];
         }
 
-        // Calcola il totale del servizio
+        // Calcola il totale del servizio (inizialmente 0)
         const totale = 0;
 
         // Aggiorna il totale generale
         totaleGenerale += totale;
 
+        // Crea la riga e le celle dinamiche
         const row = document.createElement("tr");
 
         const nomeServizioCell = document.createElement("td");
@@ -78,9 +78,7 @@ function mostraServizi() {
         adultiInput.value = 0;
         adultiInput.min = 0;
         adultiInput.max = 14;
-        adultiInput.addEventListener("change", () =>
-          calcolaTotale(servizio.id)
-        );
+        adultiInput.addEventListener("change", () => calcolaTotale(servizio.id));
         adultiInputCell.appendChild(adultiInput);
 
         const minoriInputCell = document.createElement("td");
@@ -90,16 +88,13 @@ function mostraServizi() {
         minoriInput.value = 0;
         minoriInput.min = 0;
         minoriInput.max = 14;
-        minoriInput.addEventListener("change", () =>
-          calcolaTotale(servizio.id)
-        );
+        minoriInput.addEventListener("change", () => calcolaTotale(servizio.id));
         minoriInputCell.appendChild(minoriInput);
 
         const totaleCell = document.createElement("td");
         const totaleSpan = document.createElement("span");
         totaleSpan.id = `totale-${servizio.id}`;
         totaleSpan.textContent = `€${totale.toFixed(2)}`;
-
         totaleCell.appendChild(totaleSpan);
 
         const copy = document.createElement("td");
@@ -108,9 +103,9 @@ function mostraServizi() {
         const iconCopy = document.createElement("i");
         iconCopy.classList.add("fa-solid", "fa-copy");
         copy.appendChild(iconCopy);
-
         copy.addEventListener("click", () => copyToClipboard(servizio.id));
 
+        // Costruzione riga completa
         row.appendChild(nomeServizioCell);
         row.appendChild(mezziInputCell);
         row.appendChild(oreInputCell);
@@ -119,13 +114,15 @@ function mostraServizi() {
         row.appendChild(totaleCell);
         row.appendChild(copy);
 
-        listContainer.appendChild(row);
+        // Inserisci la riga nel tbody corretto
+        tbody.appendChild(row);
       });
 
-      aggiornaTotaleGenerale(); // Dopo aver mostrato tutti i servizi, aggiorna il totale generale
+      aggiornaTotaleGenerale();
     })
     .catch((error) => console.error("Error:", error));
 }
+
 
 // Funzione per calcolare il totale
 function calcolaTotale(id) {
@@ -236,12 +233,12 @@ function mostraSezioni(clickedSection) {
   const container = clickedSection.querySelector(".container");
 
   if (!contenitoreAttivo.contains(container)) {
-    contenitoreAttivo.innerHTML = '';
+    contenitoreAttivo.innerHTML = "";
     container.classList.remove("none");
     container.classList.add("flex");
 
     // salva l'id della sezione originale per poterla ripristinare
-    container.setAttribute('data-section', clickedSection.id);
+    container.setAttribute("data-section", clickedSection.id);
 
     contenitoreAttivo.appendChild(container);
     contenitoreAttivo.classList.add("flex");
@@ -257,12 +254,12 @@ function closeSezioni() {
   if (container) {
     container.classList.add("none");
     container.classList.remove("flex");
-    
+
     contenitoreAttivo.classList.remove("flex");
     contenitoreAttivo.classList.add("none");
 
     // recupera l'id salvato della sezione originale
-    const originalSectionId = container.getAttribute('data-section');
+    const originalSectionId = container.getAttribute("data-section");
     const originalSection = document.getElementById(originalSectionId);
 
     if (originalSection) {
@@ -272,15 +269,12 @@ function closeSezioni() {
 }
 
 // Gestione evento click su "X"
-document.addEventListener('click', (event) => {
-  if(event.target.classList.contains('fa-xmark')) {
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("fa-xmark")) {
     event.stopPropagation(); // impedisce che si propaghi l'evento
     closeSezioni();
   }
 });
-
-
-
 
 /* function aggiornaServizio(event, id) {
   event.preventDefault(); // Previeni il comportamento di invio del form

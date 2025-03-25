@@ -1,8 +1,9 @@
 // Classe base Servizio
 class Servizio {
-  constructor(id, nome) {
+  constructor(id, nome, tipo) {
     this.id = id;
     this.nome = nome;
+    this.tipo = tipo;
   }
 
   calcolaTotale() {
@@ -12,8 +13,8 @@ class Servizio {
 
 // Classe derivata ServizioTrasporto
 class ServizioTrasporto extends Servizio {
-  constructor(id, nome, tariffe) {
-    super(id, nome);
+  constructor(id, nome, tipo, tariffe) {
+    super(id, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
