@@ -48,9 +48,9 @@ export const aggiornaServizio = (req, res) => {
   res.status(200).json({
     message: "Servizio aggiornato con successo!",
     servizio,
-    /*     descrizione: servizio.descrizione(),
-     */ totale: totaleArrotondato, // Passa il totale arrotondato
+    descrizione: servizio.descrizione(),
+    totale: totaleArrotondato,
   });
-  /* console.log(servizio.descrizione());
-  console.log(`Totale: €${totaleArrotondato}`); */
+  console.log(servizio.descrizione());
+  console.log(`Totale: €${totaleArrotondato}`);
 };

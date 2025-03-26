@@ -44,29 +44,52 @@ export class ServizioTrasporto extends Servizio {
     return 0;
   }
 
+  getTariffaNapoli() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
+    if (this.persone >= 9 && this.persone <= 14) return this.tariffe["9-14"];
+    return 0;
+  }
+
+  getTariffaFirenze() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
+    if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
+    if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
+    return 0;
+  }
+
   getTariffa() {
     if (this.tipo === "roma-no-golf-cart") return this.getTariffaNoGolf();
     if (this.tipo === "roma-con-golf-cart") return this.getTariffaConGolf();
+    if (this.tipo === "napoli") return this.getTariffaNapoli();
+    if (this.tipo === "firenze") return this.getTariffaFirenze();
     return 0;
   }
 
   calcolaTotale() {
     const tariffaMezzi = 1.6;
     let mezzi = 1;
-    let tariffaBase = this.getTariffa();
+    const tariffaBase = this.getTariffa();
 
-    const dueMezzi = this.tipo === "roma-con-golf-cart" ? 8 : 9;
+    let sogliaDueMezzi = 9;
+    if (this.tipo === "roma-con-golf-cart") sogliaDueMezzi = 8;
+    if (this.tipo === "napoli") sogliaDueMezzi = 9;
+    if (this.tipo === "firenze") sogliaDueMezzi = 8;
 
-    if (this.persone >= dueMezzi) mezzi = 2;
+    if (this.persone >= sogliaDueMezzi) mezzi = 2;
 
-    if (this.persone >= 15)
-      console.log(`Numero persone superiore al limite: ${this.persone}`);
+    if (this.persone >= 15) {
+      console.log(`⚠️ Numero persone superiore al limite: ${this.persone}`);
+    }
 
     const totale = mezzi * (tariffaBase * tariffaMezzi);
     this.mezzi = mezzi;
     return totale;
   }
-/* Aggiornamento dei mezzi */
+
+  /* Aggiornamento dei mezzi */
   aggiornaDati(mezzi, ore, adulti, minori) {
     this.mezzi = mezzi;
     this.ore = ore;
@@ -166,6 +189,10 @@ export class ServizioGuidaOre extends Servizio {
     this.adulti = adulti;
     this.minori = minori;
   }
+
+  descrizione() {
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
+  }
 }
 
 export class ServizioPax extends Servizio {
@@ -200,6 +227,10 @@ export class ServizioPax extends Servizio {
     this.ore = ore;
     this.adulti = adulti;
     this.minori = minori;
+  }
+
+  descrizione() {
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
   }
 }
 
@@ -248,6 +279,10 @@ export class ServizioGolf extends Servizio {
     this.ore = ore;
     this.adulti = adulti;
     this.minori = minori;
+  }
+
+  descrizione() {
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
   }
 }
 
