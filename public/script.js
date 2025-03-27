@@ -1,5 +1,3 @@
-// script.js (modularizzato)
-
 export function mostraServizi() {
   fetch("/servizi/lista")
     .then((res) => res.json())
@@ -31,6 +29,7 @@ export function mostraServizi() {
         const row = document.createElement("tr");
         row.setAttribute("data-id", servizio.id);
         row.setAttribute("data-tipo", servizio.tipo);
+        row.setAttribute("data-nome", servizio.nome);
 
         const nomeServizioCell = document.createElement("td");
         nomeServizioCell.textContent = servizio.nome;
@@ -110,29 +109,38 @@ export function mostraServizi() {
 }
 
 export function calcolaTotale(id) {
-  /*   let mezzi = Number(document.getElementById(`mezzi-${id}`).value);
-   */ const ore = Number(document.getElementById(`ore-${id}`).value);
+  const ore = Number(document.getElementById(`ore-${id}`).value);
   const adulti = Number(document.getElementById(`adulti-${id}`).value);
   const minori = Number(document.getElementById(`minori-${id}`).value);
   let persone = adulti + minori;
 
   const row = document.querySelector(`tr[data-id="${id}"]`);
+  const nomeServizio = row?.dataset?.nome || "";
   const tipo = row?.dataset?.tipo || "";
 
-  let mezzi = 1;
-  if (
-    (tipo === "roma-con-golf-cart" && persone >= 8) ||
-    (tipo === "roma-no-golf-cart" && persone >= 9) ||
-    (tipo === "napoli" && persone >= 9) ||
-    (tipo === "firenze" && persone >= 8)
-  ) {
-    mezzi = 2;
+  let mezzi = 0;
+
+  if (nomeServizio.includes("(mezzi)")) {
+    if (
+      (tipo === "roma-con-golf-cart" && persone >= 1) ||
+      (tipo === "roma-no-golf-cart" && persone >= 1) ||
+      (tipo === "napoli" && persone >= 1) ||
+      (tipo === "firenze" && persone >= 1)
+    ) {
+      mezzi = 1;
+    }
+    if (
+      (tipo === "roma-con-golf-cart" && persone >= 8) ||
+      (tipo === "roma-no-golf-cart" && persone >= 9) ||
+      (tipo === "napoli" && persone >= 9) ||
+      (tipo === "firenze" && persone >= 8)
+    ) {
+      mezzi = 2;
+    }
   }
 
   const mezziInput = document.getElementById(`mezzi-${id}`);
   if (mezziInput) mezziInput.value = mezzi;
-
-  //BUG aumentano in mezzi anche se aumento le ore o i servizi senza mezzi!
 
   const payload = { mezzi, ore, adulti, minori };
 
@@ -254,6 +262,231 @@ export function closeSezioni() {
     if (originalSection) originalSection.appendChild(container);
   }
 }
+
+// exportPDF.js
+
+export function exportPDF() {
+  const container = document.querySelector("#contenuto-attivo .container.flex");
+  if (!container) return;
+
+  const nomeInput = container.querySelector('input[name="nome"]');
+  const nomeClienteRaw = nomeInput?.value || "Cliente";
+  const nomeCliente = nomeClienteRaw.replace(/[<>]/g, "").trim();
+  const tipo = nomeInput?.dataset.tipo || "N/A";
+
+  const pdfWrapper = document.createElement("div");
+  pdfWrapper.classList.add("pdf-container");
+
+  const style = document.createElement("style");
+  style.textContent = `
+
+    .pdf-container {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      color: #333;
+      background-color: #fff;
+      padding: 40px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .pdf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #961b2b;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+
+    .pdf-header h1 {
+      font-size: 22px;
+      color: #961b2b;
+      margin: 0;
+    }
+
+    .pdf-logo {
+      width: 200px;
+      height: auto;
+    }
+
+    .pdf-section {
+      margin-bottom: 20px;
+    }
+
+    .pdf-section-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      color: #777;
+    }
+
+    .pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      border-radius: 0;
+    }
+
+    .pdf-table th, .pdf-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      background-color: #f7f7f7;
+      color: #000;
+      border-radius: 0;
+    }
+
+    .pdf-table th {
+      background-color: #961b2b;
+      color: #fff;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .pdf-total {
+      font-size: 14px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .pdf-footer {
+      margin-top: 40px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      font-size: 10px;
+      color: #777;
+    }
+
+    .pdf-notes {
+      margin-top: 15px;
+      font-size: 10px;
+      color: green;
+    }
+  `;
+  pdfWrapper.appendChild(style);
+
+  const header = document.createElement("div");
+  header.className = "pdf-header";
+
+  const headerWrapper = document.createElement("div");
+  headerWrapper.classList.add("header-info");
+  
+  const societa = document.createElement("h2");
+  societa.textContent = "Crazy4Rome";
+  headerWrapper.appendChild(societa);
+  
+  const telefono = document.createElement("p");
+  telefono.textContent = "+39 389 211 1013";
+  headerWrapper.appendChild(telefono);
+  
+  const indirizzo1 = document.createElement("p");
+  indirizzo1.textContent = "Via Camilla, 27 – 00181 Rome, Italy";
+  headerWrapper.appendChild(indirizzo1);
+  
+  const indirizzo2 = document.createElement("p");
+  indirizzo2.textContent = "Via Giuseppe Libetta, 15/C – 00154 Rome, Italy";
+  headerWrapper.appendChild(indirizzo2);
+  
+  // Aggiungi l'intestazione in cima al contenuto PDF
+  pdfWrapper.appendChild(headerWrapper);
+  
+
+  const title = document.createElement("h1");
+  title.textContent = `Preventivo: ${nomeCliente} (${tipo})`;
+  header.appendChild(title);
+
+  const logo = document.createElement("img");
+  logo.src = "/assets/img/logoC4R.png";
+  logo.alt = "Logo";
+  logo.className = "pdf-logo";
+  header.appendChild(logo);
+
+  pdfWrapper.appendChild(header);
+
+  const table = document.createElement("table");
+  table.className = "pdf-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Descrizione</th>
+        <th>Mezzi</th>
+        <th>Ore</th>
+        <th>Adulti</th>
+        <th>Minori</th>
+        <th>Totale</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
+
+  const righeServizi = container.querySelectorAll("tr[data-id]");
+  righeServizi.forEach((row) => {
+    const nome = row.dataset.nome;
+    const mezzi = row.querySelector(`#mezzi-${row.dataset.id}`)?.value || 0;
+    const ore = row.querySelector(`#ore-${row.dataset.id}`)?.value || 0;
+    const adulti = row.querySelector(`#adulti-${row.dataset.id}`)?.value || 0;
+    const minori = row.querySelector(`#minori-${row.dataset.id}`)?.value || 0;
+    const totale = row.querySelector(`#totale-${row.dataset.id}`)?.textContent || "€0.00";
+
+    const personeTot = Number(adulti) + Number(minori);
+    if (personeTot === 0 && Number(totale.replace(/[^\d.-]/g, "")) === 0) return;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${nome}</td>
+      <td>${mezzi}</td>
+      <td>${ore}</td>
+      <td>${adulti}</td>
+      <td>${minori}</td>
+      <td>${totale}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  pdfWrapper.appendChild(table);
+
+  const totaleFinaleSpan = container.querySelector(`.totale-generale[data-tipo="${tipo}"]`);
+  const totaleFinale = totaleFinaleSpan?.textContent || "€0.00";
+
+  const totaleEl = document.createElement("div");
+  totaleEl.className = "pdf-total";
+  totaleEl.textContent = `Totale preventivo: ${totaleFinale}`;
+  pdfWrapper.appendChild(totaleEl);
+
+  const footer = document.createElement("div");
+  footer.className = "pdf-footer";
+  footer.innerHTML = `
+    <p>Il pagamento è dovuto entro 15 giorni.</p>
+    <div class="pdf-notes">
+      IBAN: IT12 1234 5678 9012 34<br />
+      SWIFT/BIC: ABCDITRXXXX
+    </div>
+  `;
+  pdfWrapper.appendChild(footer);
+
+  const opzioni = {
+    margin: 0.4,
+    filename: `Preventivo_${nomeCliente}.pdf`,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+  };
+
+  html2pdf()
+    .set(opzioni)
+    .from(pdfWrapper)
+    .outputPdf("blob")
+    .then((blob) => {
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    });
+}
+
+
 
 /* function aggiornaServizio(event, id) {
   event.preventDefault(); // Previeni il comportamento di invio del form

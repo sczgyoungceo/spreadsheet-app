@@ -38,18 +38,30 @@
             </tr>
             <!-- Qui verranno inseriti dinamicamente i servizi -->
           </table>
+          <!-- Footer Bar -->
           <section class="footer-bar">
             <div class="footer-button">
               <button id="cancella-tutto" title="Svuota celle" data-color="red">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
+          
+            <div class="nome-cliente">
+              <label for="nome">Nome Cliente</label>
+              <input type="text" name="nome"  data-tipo="roma-no-golf-cart"/>
+            </div>
+          
             <div class="footer-spacer"></div>
+          
             <div class="footer-totale">
               <i class="fa-solid fa-copy" title="Copia"></i>
               <span class="totale-generale" data-tipo="roma-no-golf-cart">€0.00</span>
+              <button id="esporta-pdf" title="Esporta PDF" >
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
             </div>
           </section>
+          
         </div>
       </section>
 
@@ -74,14 +86,24 @@
           </table>
           <section class="footer-bar">
             <div class="footer-button">
-              <button id="cancella-tutto" title="Svuota celle">
+              <button id="cancella-tutto" title="Svuota celle" data-color="red">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
+          
+            <div class="nome-cliente">
+              <label for="nome">Nome Cliente</label>
+              <input type="text" name="nome"  data-tipo="roma-con-golf-cart"/>
+            </div>
+          
             <div class="footer-spacer"></div>
+          
             <div class="footer-totale">
               <i class="fa-solid fa-copy" title="Copia"></i>
               <span class="totale-generale" data-tipo="roma-con-golf-cart">€0.00</span>
+              <button id="esporta-pdf" title="Esporta PDF" >
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
             </div>
           </section>
         </div>

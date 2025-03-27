@@ -310,6 +310,36 @@ i {
   text-align: right;
 }
 
+.nome-cliente {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-right: auto;
+  font-size: 14px;
+}
+
+.nome-cliente input {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.footer-totale button#esporta-pdf {
+  margin-left: 1rem;
+  padding: 6px 10px;
+  background-color: #d62828;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.footer-totale button#esporta-pdf:hover {
+  background-color: #c21f1f;
+}
+
+
+
 /* POPUP */
 .popup {
   position: fixed;
