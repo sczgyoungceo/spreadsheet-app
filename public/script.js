@@ -1,3 +1,5 @@
+
+
 export function mostraServizi() {
   fetch("/servizi/lista")
     .then((res) => res.json())
@@ -31,8 +33,9 @@ export function mostraServizi() {
         row.setAttribute("data-tipo", servizio.tipo);
         row.setAttribute("data-nome", servizio.nome);
 
+        // Sanitizzare il nome del servizio per prevenire XSS
         const nomeServizioCell = document.createElement("td");
-        nomeServizioCell.textContent = servizio.nome;
+        nomeServizioCell.textContent = DOMPurify.sanitize(servizio.nome);
 
         const mezziInputCell = document.createElement("td");
         const mezziInput = document.createElement("input");
@@ -263,8 +266,6 @@ export function closeSezioni() {
   }
 }
 
-// exportPDF.js
-
 export function exportPDF() {
   const container = document.querySelector("#contenuto-attivo .container.flex");
   if (!container) return;
@@ -372,26 +373,24 @@ export function exportPDF() {
 
   const headerWrapper = document.createElement("div");
   headerWrapper.classList.add("header-info");
-  
+
   const societa = document.createElement("h2");
   societa.textContent = "Crazy4Rome";
   headerWrapper.appendChild(societa);
-  
+
   const telefono = document.createElement("p");
   telefono.textContent = "+39 389 211 1013";
   headerWrapper.appendChild(telefono);
-  
+
   const indirizzo1 = document.createElement("p");
   indirizzo1.textContent = "Via Camilla, 27 – 00181 Rome, Italy";
   headerWrapper.appendChild(indirizzo1);
-  
+
   const indirizzo2 = document.createElement("p");
   indirizzo2.textContent = "Via Giuseppe Libetta, 15/C – 00154 Rome, Italy";
   headerWrapper.appendChild(indirizzo2);
-  
-  // Aggiungi l'intestazione in cima al contenuto PDF
+
   pdfWrapper.appendChild(headerWrapper);
-  
 
   const title = document.createElement("h1");
   title.textContent = `Preventivo: ${nomeCliente} (${tipo})`;
@@ -430,10 +429,12 @@ export function exportPDF() {
     const ore = row.querySelector(`#ore-${row.dataset.id}`)?.value || 0;
     const adulti = row.querySelector(`#adulti-${row.dataset.id}`)?.value || 0;
     const minori = row.querySelector(`#minori-${row.dataset.id}`)?.value || 0;
-    const totale = row.querySelector(`#totale-${row.dataset.id}`)?.textContent || "€0.00";
+    const totale =
+      row.querySelector(`#totale-${row.dataset.id}`)?.textContent || "€0.00";
 
     const personeTot = Number(adulti) + Number(minori);
-    if (personeTot === 0 && Number(totale.replace(/[^\d.-]/g, "")) === 0) return;
+    if (personeTot === 0 && Number(totale.replace(/[^\d.-]/g, "")) === 0)
+      return;
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -449,24 +450,15 @@ export function exportPDF() {
 
   pdfWrapper.appendChild(table);
 
-  const totaleFinaleSpan = container.querySelector(`.totale-generale[data-tipo="${tipo}"]`);
+  const totaleFinaleSpan = container.querySelector(
+    `.totale-generale[data-tipo="${tipo}"]`
+  );
   const totaleFinale = totaleFinaleSpan?.textContent || "€0.00";
 
   const totaleEl = document.createElement("div");
   totaleEl.className = "pdf-total";
   totaleEl.textContent = `Totale preventivo: ${totaleFinale}`;
   pdfWrapper.appendChild(totaleEl);
-
-/*   const footer = document.createElement("div");
-  footer.className = "pdf-footer";
-  footer.innerHTML = `
-    <p>Il pagamento è dovuto entro 15 giorni.</p>
-    <div class="pdf-notes">
-      IBAN: IT12 1234 5678 9012 34<br />
-      SWIFT/BIC: ABCDITRXXXX
-    </div>
-  `;
-  pdfWrapper.appendChild(footer); */
 
   const opzioni = {
     margin: 0.4,
