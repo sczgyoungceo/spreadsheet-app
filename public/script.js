@@ -457,7 +457,7 @@ export function exportPDF() {
   totaleEl.textContent = `Totale preventivo: ${totaleFinale}`;
   pdfWrapper.appendChild(totaleEl);
 
-  const footer = document.createElement("div");
+/*   const footer = document.createElement("div");
   footer.className = "pdf-footer";
   footer.innerHTML = `
     <p>Il pagamento è dovuto entro 15 giorni.</p>
@@ -466,7 +466,7 @@ export function exportPDF() {
       SWIFT/BIC: ABCDITRXXXX
     </div>
   `;
-  pdfWrapper.appendChild(footer);
+  pdfWrapper.appendChild(footer); */
 
   const opzioni = {
     margin: 0.4,
@@ -485,79 +485,3 @@ export function exportPDF() {
       window.open(url, "_blank");
     });
 }
-
-
-
-/* function aggiornaServizio(event, id) {
-  event.preventDefault(); // Previeni il comportamento di invio del form
-
-  // Ottieni i valori dinamici dai campi input
-  const mezzi = Number(document.getElementById("mezzi").value); // Input per mezzi
-  const ore = Number(document.getElementById("ore").value); // Input per ore
-  const adulti = Number(document.getElementById("adulti").value); // Input per adulti
-  const minori = Number(document.getElementById("minori").value); // Input per minori
-
-  // Invia i dati aggiornati al server
-  fetch(`/servizi/aggiorna/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ mezzi, ore, adulti, minori }), // Passaggio dei dati dinamici
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const servizio = data.servizio;
-      const servizioSelezionato = document.getElementById(
-        "servizio-selezionato"
-      );
-      servizioSelezionato.innerHTML = ""; // Pulizia del container
-
-      const h2 = document.createElement("h2");
-      h2.textContent = servizio.nome;
-      servizioSelezionato.appendChild(h2);
-
-      // Mostra il totale
-      const pTotale = document.createElement("p");
-      pTotale.innerHTML = `<strong>Totale:</strong> €${data.totale}`;
-      pTotale.style.fontSize = "18px";
-      pTotale.style.fontWeight = "bold";
-      pTotale.style.color = "green";
-      servizioSelezionato.appendChild(pTotale);
-
-      // Wrapper per il PDF e Copia
-      const wrapperPdf = document.createElement("div");
-      wrapperPdf.classList.add("wrapper-pdf");
-
-      const copy = document.createElement("p");
-      copy.textContent = "Copia il totale";
-      copy.classList.add("copyToClipboard");
-
-      copy.addEventListener("click", () => {
-        const textToCopy = String(data.totale);
-
-        navigator.clipboard
-          .writeText(textToCopy)
-          .then(() => {
-            alert(`📋 Copiato: €${textToCopy}`);
-          })
-          .catch((err) => console.error("Errore nella copia:", err));
-      });
-
-      // Bottone per esportare in PDF
-      const exportButton = document.createElement("button");
-      exportButton.textContent = "Esporta PDF";
-      exportButton.classList.add("export-pdf-btn");
-      exportButton.addEventListener("click", exportPDF);
-
-      // Funzione per esportare il contenuto in PDF
-      function exportPDF() {
-        html2pdf(servizioSelezionato);
-      }
-
-      wrapperPdf.appendChild(copy);
-      wrapperPdf.appendChild(exportButton);
-      servizioSelezionato.appendChild(wrapperPdf);
-    })
-    .catch((error) => console.error("Error:", error));
-} */

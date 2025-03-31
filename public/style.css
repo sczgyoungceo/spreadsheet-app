@@ -177,8 +177,6 @@ input:focus {
 }
 
 button {
-  padding: 8px 15px;
-  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -224,7 +222,6 @@ button:hover {
 .export-pdf-btn {
   background-color: #28a745;
   color: white;
-  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -314,7 +311,6 @@ i {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-right: auto;
   font-size: 14px;
 }
 
@@ -326,16 +322,18 @@ i {
 
 .footer-totale button#esporta-pdf {
   margin-left: 1rem;
-  padding: 6px 10px;
-  background-color: #d62828;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.footer-totale button#esporta-pdf:hover {
-  background-color: #c21f1f;
+.footer-totale button#esporta-pdf i{
+  background-color: #007bff;
+}
+
+.footer-totale button#esporta-pdf i:hover{
+  background-color: #006ee4;
 }
 
 
