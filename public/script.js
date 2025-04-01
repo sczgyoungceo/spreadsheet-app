@@ -1,5 +1,3 @@
-
-
 export function mostraServizi() {
   fetch("/servizi/lista")
     .then((res) => res.json())
@@ -7,17 +5,26 @@ export function mostraServizi() {
       const serviziList = data.servizi;
 
       document.querySelectorAll("table[data-tipo] tbody").forEach((tbody) => {
-        tbody.innerHTML = `
-          <tr>
-              <th>Nome Servizio</th>
-              <th>Mezzi</th>
-              <th>Ore</th>
-              <th>Adulti</th>
-              <th>Minori</th>
-              <th>Totale</th>
-              <th>Azioni</th>
-            </tr>
-        `;
+        tbody.innerHTML = "";
+
+        const headerRow = document.createElement("tr");
+
+        const headers = [
+          "Service Name",
+          "Vehicles",
+          "Hours",
+          "Adults",
+          "Minors",
+          "Total",
+          "Actions",
+        ];
+        headers.forEach((headerText) => {
+          const th = document.createElement("th");
+          th.textContent = headerText;
+          headerRow.appendChild(th);
+        });
+
+        tbody.appendChild(headerRow);
       });
 
       serviziList.forEach((servizio) => {
@@ -33,9 +40,9 @@ export function mostraServizi() {
         row.setAttribute("data-tipo", servizio.tipo);
         row.setAttribute("data-nome", servizio.nome);
 
-        // Sanitizzare il nome del servizio per prevenire XSS
         const nomeServizioCell = document.createElement("td");
         nomeServizioCell.textContent = DOMPurify.sanitize(servizio.nome);
+        row.appendChild(nomeServizioCell);
 
         const mezziInputCell = document.createElement("td");
         const mezziInput = document.createElement("input");
@@ -46,6 +53,7 @@ export function mostraServizi() {
         mezziInput.max = 5;
         mezziInput.addEventListener("change", () => calcolaTotale(servizio.id));
         mezziInputCell.appendChild(mezziInput);
+        row.appendChild(mezziInputCell);
 
         const oreInputCell = document.createElement("td");
         const oreInput = document.createElement("input");
@@ -56,6 +64,7 @@ export function mostraServizi() {
         oreInput.max = 24;
         oreInput.addEventListener("change", () => calcolaTotale(servizio.id));
         oreInputCell.appendChild(oreInput);
+        row.appendChild(oreInputCell);
 
         const adultiInputCell = document.createElement("td");
         const adultiInput = document.createElement("input");
@@ -68,6 +77,7 @@ export function mostraServizi() {
           calcolaTotale(servizio.id)
         );
         adultiInputCell.appendChild(adultiInput);
+        row.appendChild(adultiInputCell);
 
         const minoriInputCell = document.createElement("td");
         const minoriInput = document.createElement("input");
@@ -80,28 +90,24 @@ export function mostraServizi() {
           calcolaTotale(servizio.id)
         );
         minoriInputCell.appendChild(minoriInput);
+        row.appendChild(minoriInputCell);
 
+        // Totale (span)
         const totaleCell = document.createElement("td");
         const totaleSpan = document.createElement("span");
         totaleSpan.id = `totale-${servizio.id}`;
         totaleSpan.textContent = `€0.00`;
         totaleCell.appendChild(totaleSpan);
+        row.appendChild(totaleCell);
 
-        const copy = document.createElement("td");
-        copy.classList.add("clipboard");
-        copy.id = `copy-${servizio.id}`;
+        const copyCell = document.createElement("td");
+        copyCell.classList.add("clipboard");
+        copyCell.id = `copy-${servizio.id}`;
         const iconCopy = document.createElement("i");
         iconCopy.classList.add("fa-solid", "fa-copy");
-        copy.appendChild(iconCopy);
-        copy.addEventListener("click", () => copyToClipboard(servizio.id));
-
-        row.appendChild(nomeServizioCell);
-        row.appendChild(mezziInputCell);
-        row.appendChild(oreInputCell);
-        row.appendChild(adultiInputCell);
-        row.appendChild(minoriInputCell);
-        row.appendChild(totaleCell);
-        row.appendChild(copy);
+        copyCell.appendChild(iconCopy);
+        copyCell.addEventListener("click", () => copyToClipboard(servizio.id));
+        row.appendChild(copyCell);
 
         tbody.appendChild(row);
       });
@@ -131,7 +137,7 @@ export function calcolaTotale(id) {
 
   let mezzi = 0;
 
-  if (["(mezzi)", "(mezzi e ore)"].some(str => nomeServizio.includes(str))){
+  if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
     if (
       (tipo === "roma-con-golf-cart" && persone >= 1) ||
       (tipo === "roma-no-golf-cart" && persone >= 1) ||
@@ -176,12 +182,13 @@ export function calcolaTotale(id) {
       if (isNaN(totale)) {
         throw new Error("Errore nel calcolo del totale.");
       }
-      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(2)}`;
+      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(
+        2
+      )}`;
       aggiornaTotaleGenerale();
     })
     .catch((error) => console.error("❗Errore:", error.message));
 }
-
 
 export function aggiornaTotaleGenerale() {
   const totaliPerSezione = {};
@@ -311,12 +318,12 @@ export function exportPDF() {
   const indirizzo2 = document.createElement("p");
   indirizzo2.textContent = "Via Giuseppe Libetta, 15/C – 00154 Rome, Italy";
   headerWrapper.appendChild(indirizzo2);
-  
+
   // Aggiungi l'intestazione in cima al contenuto PDF
   pdfWrapper.appendChild(headerWrapper);
 
   const title = document.createElement("h1");
-  title.textContent = `Preventivo: ${nomeCliente} (${tipo})`;
+  title.textContent = `${nomeCliente} (${tipo})`;
   header.appendChild(title);
 
   const logo = document.createElement("img");
@@ -329,21 +336,30 @@ export function exportPDF() {
 
   const table = document.createElement("table");
   table.className = "pdf-table";
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Descrizione</th>
-        <th>Mezzi</th>
-        <th>Ore</th>
-        <th>Adulti</th>
-        <th>Minori</th>
-        <th>Totale</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
 
-  const tbody = table.querySelector("tbody");
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+
+  const headers = [
+    "Description",
+    "Vehicles",
+    "Hours",
+    "Adults",
+    "Minors",
+    "Total",
+  ];
+
+  headers.forEach((headerText) => {
+    const th = document.createElement("th");
+    th.textContent = headerText;
+    headerRow.appendChild(th);
+  });
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  table.appendChild(tbody);
 
   const righeServizi = container.querySelectorAll("tr[data-id]");
   righeServizi.forEach((row) => {
@@ -360,14 +376,31 @@ export function exportPDF() {
       return;
 
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${nome}</td>
-      <td>${mezzi}</td>
-      <td>${ore}</td>
-      <td>${adulti}</td>
-      <td>${minori}</td>
-      <td>${totale}</td>
-    `;
+
+    const tdNome = document.createElement("td");
+    tdNome.textContent = nome;
+    tr.appendChild(tdNome);
+
+    const tdMezzi = document.createElement("td");
+    tdMezzi.textContent = mezzi;
+    tr.appendChild(tdMezzi);
+
+    const tdOre = document.createElement("td");
+    tdOre.textContent = ore;
+    tr.appendChild(tdOre);
+
+    const tdAdulti = document.createElement("td");
+    tdAdulti.textContent = adulti;
+    tr.appendChild(tdAdulti);
+
+    const tdMinori = document.createElement("td");
+    tdMinori.textContent = minori;
+    tr.appendChild(tdMinori);
+
+    const tdTotale = document.createElement("td");
+    tdTotale.textContent = totale;
+    tr.appendChild(tdTotale);
+
     tbody.appendChild(tr);
   });
 
@@ -380,10 +413,10 @@ export function exportPDF() {
 
   const totaleEl = document.createElement("div");
   totaleEl.className = "pdf-total";
-  totaleEl.textContent = `Totale preventivo: ${totaleFinale}`;
+  totaleEl.textContent = `Estimate Total: ${totaleFinale}`;
   pdfWrapper.appendChild(totaleEl);
 
-/*   const footer = document.createElement("div");
+  /*   const footer = document.createElement("div");
   footer.className = "pdf-footer";
   footer.innerHTML = `
     <p>Il pagamento è dovuto entro 15 giorni.</p>
