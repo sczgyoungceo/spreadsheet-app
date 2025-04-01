@@ -159,6 +159,11 @@ table td {
   color: #e0e0e0;
 }
 
+table td:hover {
+  background-color: #5e5c5c;
+}
+
+
 input {
   padding: 6px;
   font-size: 14px;
