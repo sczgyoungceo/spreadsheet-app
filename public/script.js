@@ -277,121 +277,30 @@ export function exportPDF() {
   const pdfWrapper = document.createElement("div");
   pdfWrapper.classList.add("pdf-container");
 
-  const style = document.createElement("style");
-  style.textContent = `
-
-    .pdf-container {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      color: #333;
-      background-color: #fff;
-      padding: 40px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .pdf-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #961b2b;
-      padding-bottom: 10px;
-      margin-bottom: 30px;
-    }
-
-    .pdf-header h1 {
-      font-size: 22px;
-      color: #961b2b;
-      margin: 0;
-    }
-
-    .pdf-logo {
-      width: 200px;
-      height: auto;
-    }
-
-    .pdf-section {
-      margin-bottom: 20px;
-    }
-
-    .pdf-section-title {
-      font-weight: bold;
-      margin-bottom: 5px;
-      text-transform: uppercase;
-      color: #777;
-    }
-
-    .pdf-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      border-radius: 0;
-    }
-
-    .pdf-table th, .pdf-table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-      background-color: #f7f7f7;
-      color: #000;
-      border-radius: 0;
-    }
-
-    .pdf-table th {
-      background-color: #961b2b;
-      color: #fff;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .pdf-total {
-      font-size: 14px;
-      font-weight: bold;
-      text-align: right;
-      margin-top: 10px;
-    }
-
-    .pdf-footer {
-      margin-top: 40px;
-      border-top: 1px solid #ccc;
-      padding-top: 10px;
-      font-size: 10px;
-      color: #777;
-    }
-
-    .pdf-notes {
-      margin-top: 15px;
-      font-size: 10px;
-      color: green;
-    }
-  `;
-  pdfWrapper.appendChild(style);
-
   const header = document.createElement("div");
   header.className = "pdf-header";
 
   const headerWrapper = document.createElement("div");
   headerWrapper.classList.add("header-info");
-  
+
   const societa = document.createElement("h2");
   societa.textContent = "Crazy4Rome";
   headerWrapper.appendChild(societa);
-  
+
   const telefono = document.createElement("p");
   telefono.textContent = "+39 389 211 1013";
   headerWrapper.appendChild(telefono);
-  
+
   const indirizzo1 = document.createElement("p");
   indirizzo1.textContent = "Via Camilla, 27 – 00181 Rome, Italy";
   headerWrapper.appendChild(indirizzo1);
-  
+
   const indirizzo2 = document.createElement("p");
   indirizzo2.textContent = "Via Giuseppe Libetta, 15/C – 00154 Rome, Italy";
   headerWrapper.appendChild(indirizzo2);
-  
+
   // Aggiungi l'intestazione in cima al contenuto PDF
   pdfWrapper.appendChild(headerWrapper);
-  
 
   const title = document.createElement("h1");
   title.textContent = `Preventivo: ${nomeCliente} (${tipo})`;
@@ -430,10 +339,12 @@ export function exportPDF() {
     const ore = row.querySelector(`#ore-${row.dataset.id}`)?.value || 0;
     const adulti = row.querySelector(`#adulti-${row.dataset.id}`)?.value || 0;
     const minori = row.querySelector(`#minori-${row.dataset.id}`)?.value || 0;
-    const totale = row.querySelector(`#totale-${row.dataset.id}`)?.textContent || "€0.00";
+    const totale =
+      row.querySelector(`#totale-${row.dataset.id}`)?.textContent || "€0.00";
 
     const personeTot = Number(adulti) + Number(minori);
-    if (personeTot === 0 && Number(totale.replace(/[^\d.-]/g, "")) === 0) return;
+    if (personeTot === 0 && Number(totale.replace(/[^\d.-]/g, "")) === 0)
+      return;
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -449,7 +360,9 @@ export function exportPDF() {
 
   pdfWrapper.appendChild(table);
 
-  const totaleFinaleSpan = container.querySelector(`.totale-generale[data-tipo="${tipo}"]`);
+  const totaleFinaleSpan = container.querySelector(
+    `.totale-generale[data-tipo="${tipo}"]`
+  );
   const totaleFinale = totaleFinaleSpan?.textContent || "€0.00";
 
   const totaleEl = document.createElement("div");
@@ -457,7 +370,7 @@ export function exportPDF() {
   totaleEl.textContent = `Totale preventivo: ${totaleFinale}`;
   pdfWrapper.appendChild(totaleEl);
 
-/*   const footer = document.createElement("div");
+  /*   const footer = document.createElement("div");
   footer.className = "pdf-footer";
   footer.innerHTML = `
     <p>Il pagamento è dovuto entro 15 giorni.</p>
