@@ -115,6 +115,14 @@ export function calcolaTotale(id) {
   const ore = Number(document.getElementById(`ore-${id}`).value);
   const adulti = Number(document.getElementById(`adulti-${id}`).value);
   const minori = Number(document.getElementById(`minori-${id}`).value);
+
+  // Verifica se i dati sono numerici validi
+  if (isNaN(ore) || isNaN(adulti) || isNaN(minori)) {
+    console.error("❌ Dati non validi:", { ore, adulti, minori });
+    alert("Errore: Assicurati che tutti i valori siano numerici.");
+    return; // Evita di inviare la richiesta se i dati non sono validi
+  }
+
   let persone = adulti + minori;
 
   const row = document.querySelector(`tr[data-id="${id}"]`);
@@ -123,7 +131,7 @@ export function calcolaTotale(id) {
 
   let mezzi = 0;
 
-  if (nomeServizio.includes("(mezzi)")) {
+  if (["(mezzi)", "(mezzi e ore)"].some(str => nomeServizio.includes(str))){
     if (
       (tipo === "roma-con-golf-cart" && persone >= 1) ||
       (tipo === "roma-no-golf-cart" && persone >= 1) ||
@@ -147,6 +155,9 @@ export function calcolaTotale(id) {
 
   const payload = { mezzi, ore, adulti, minori };
 
+  // Log dei dati inviati
+  console.log("Dati inviati al server:", payload);
+
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -162,14 +173,15 @@ export function calcolaTotale(id) {
     })
     .then((data) => {
       const totale = parseFloat(data.totale);
-
-      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(
-        2
-      )}`;
+      if (isNaN(totale)) {
+        throw new Error("Errore nel calcolo del totale.");
+      }
+      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(2)}`;
       aggiornaTotaleGenerale();
     })
     .catch((error) => console.error("❗Errore:", error.message));
 }
+
 
 export function aggiornaTotaleGenerale() {
   const totaliPerSezione = {};
