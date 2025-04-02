@@ -444,3 +444,6 @@ export function exportPDF() {
       window.open(url, "_blank");
     });
 }
+
+
+//aggiungere 2 input adulti minori e checkbox per ogni servizio, se inserisco adulti e minori nella toolbar verranno inseriti a tutti i servizi checkati in precedenza altrimenti utilizzo standard 
