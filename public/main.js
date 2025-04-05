@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   document.addEventListener("click", (e) => {
-    if (e.target.closest("#apply-to-all")) {
+    if (e.target.closest("#apply-to-selected")) {
       aggiornaTuttiServizi();
     }
   });

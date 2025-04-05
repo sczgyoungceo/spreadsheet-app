@@ -129,7 +129,7 @@ export function mostraServizi() {
 export function aggiornaTuttiServizi() {
   const adulti = document.getElementById("adulti-input").value;
   const minori = document.getElementById("minori-input").value;
-  const applyToAll = document.getElementById("apply-to-all").checked;
+  let persone = adulti + minori;
 
   // Verifica che gli input siano numerici
   if (isNaN(adulti) || isNaN(minori)) {
@@ -137,16 +137,7 @@ export function aggiornaTuttiServizi() {
     return;
   }
 
-  // Se "Apply to All" è selezionato, applica a tutti i servizi
-  if (applyToAll) {
-    document.querySelectorAll("tr[data-id]").forEach((row) => {
-      const id = row.dataset.id;
-      document.getElementById(`adulti-${id}`).value = adulti;
-      document.getElementById(`minori-${id}`).value = minori;
-      calcolaTotale(id);
-    });
-  } else {
-    // Altrimenti applica solo ai servizi selezionati
+  if (persone > 1) {
     document
       .querySelectorAll("input[type='checkbox']:checked")
       .forEach((checkbox) => {
@@ -155,6 +146,8 @@ export function aggiornaTuttiServizi() {
         document.getElementById(`minori-${id}`).value = minori;
         calcolaTotale(id);
       });
+  } else {
+    console.log("no");
   }
 }
 

@@ -1,221 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/img/favicon.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+      integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+    <title>TourCostify</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="./assets/img/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
-    integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="/style.css" />
-  <script type="module" src="./main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
-  <title>TourCostify</title>
-</head>
-
-<body>
-  <div class="body-wrapper">
-    <div id="section-wrapper">
-
-      <section class="section" id="roma-no-golf-cart">
-        <h2>Rome No Golf Cart</h2>
-        <div class="container none">
-          <div class="titolo-wrapper">
-            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-            <h2>CUSTOM ROME TOUR WITHOUT GOLF CART</h2>
-          </div>
-          <table class="lista-servizi" data-tipo="roma-no-golf-cart">
-            <!-- Tabella dei servizi, le celle saranno input dinamici -->
-            <tr>
-              <th>Service Name</th>
-              <th>Vehicles</th>
-              <th>Hours</th>
-              <th>Adults</th>
-              <th>Minors</th>
-              <th>Total</th>
-
-            </tr>
-            <!-- Qui verranno inseriti dinamicamente i servizi -->
-          </table>
-          <!-- Footer Bar -->
-          <section class="footer-bar">
-            <div class="footer-button">
-              <button id="cancella-tutto" title="Clear" data-color="red">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+  <body>
+    <div class="body-wrapper">
+      <div id="section-wrapper">
+        <section class="section" id="roma-no-golf-cart">
+          <h2>Rome No Golf Cart</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM ROME TOUR WITHOUT GOLF CART</h2>
             </div>
+            <table class="lista-servizi" data-tipo="roma-no-golf-cart">
+              <!-- Tabella dei servizi, le celle saranno input dinamici -->
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+              <!-- Qui verranno inseriti dinamicamente i servizi -->
+            </table>
+            <!-- Footer Bar -->
+            <section class="footer-bar">
+              <div class="footer-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
 
-            <div class="nome-cliente">
-              <label for="nome">Nome Cliente</label>
-              <input type="text" name="nome" data-tipo="roma-no-golf-cart" />
-            </div>
+              <div class="nome-cliente">
+                <label for="nome">Nome Cliente</label>
+                <input type="text" name="nome" data-tipo="roma-no-golf-cart" />
+              </div>
 
-            <section class="toolbar">
-              <label for="adulti">Adulti:</label>
-              <input type="number" id="adulti-input" min="0" max="14" placeholder="Adulti" />
+              <section class="toolbar">
+                <label for="adulti">Adulti:</label>
+                <input
+                  type="number"
+                  id="adulti-input"
+                  min="0"
+                  max="14"
+                  placeholder="Adulti"
+                />
 
-              <label for="minori">Minori:</label>
-              <input type="number" id="minori-input" min="0" max="14" placeholder="Minori" />
+                <label for="minori">Minori:</label>
+                <input
+                  type="number"
+                  id="minori-input"
+                  min="0"
+                  max="14"
+                  placeholder="Minori"
+                />
 
-              <!-- <label for="apply-to-all">
-                <input type="checkbox" id="apply-to-all" /> Apply to selected services
-              </label> -->
+                <button id="apply-to-selected">
+                  Apply to selected services
+                </button>
+              </section>
 
-              <button id="apply-to-selected" onclick="aggiornaTuttiServizi()">Apply to selected services</button>
+              <div class="footer-totale">
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <span class="totale-generale" data-tipo="roma-no-golf-cart"
+                  >€0.00</span
+                >
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+              </div>
             </section>
-
-
-            <div class="footer-totale">
-              <i class="fa-solid fa-copy" title="Copy"></i>
-              <span class="totale-generale" data-tipo="roma-no-golf-cart">€0.00</span>
-              <button id="esporta-pdf" title="Export PDF">
-                <i class="fa-solid fa-file-pdf"></i>
-              </button>
-            </div>
-          </section>
-
-        </div>
-      </section>
-
-      <section class="section" id="roma-con-golf-cart">
-        <h2>Roma With Golf Cart</h2>
-        <div class="container none">
-          <div class="titolo-wrapper">
-            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-            <h2>CUSTOM ROME TOUR WITH GOLF CART</h2>
           </div>
-          <table class="lista-servizi" data-tipo="roma-con-golf-cart">
-            <!-- Tabella dei servizi, le celle saranno input dinamici -->
-            <tr>
-              <th>Service Name</th>
-              <th>Vehicles</th>
-              <th>Hours</th>
-              <th>Adults</th>
-              <th>Minors</th>
-              <th>Total</th>
-            </tr>
-            <!-- Qui verranno inseriti dinamicamente i servizi -->
-          </table>
-          <section class="footer-bar">
-            <div class="footer-button">
-              <button id="cancella-tutto" title="Clear" data-color="red">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+        </section>
+
+        <section class="section" id="roma-con-golf-cart">
+          <h2>Roma With Golf Cart</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM ROME TOUR WITH GOLF CART</h2>
             </div>
+            <table class="lista-servizi" data-tipo="roma-con-golf-cart">
+              <!-- Tabella dei servizi, le celle saranno input dinamici -->
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+              <!-- Qui verranno inseriti dinamicamente i servizi -->
+            </table>
+            <section class="footer-bar">
+              <div class="footer-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
 
-            <div class="nome-cliente">
-              <label for="nome">Nome Cliente</label>
-              <input type="text" name="nome" data-tipo="roma-con-golf-cart" />
-            </div>
+              <div class="nome-cliente">
+                <label for="nome">Nome Cliente</label>
+                <input type="text" name="nome" data-tipo="roma-con-golf-cart" />
+              </div>
 
-
-
-            <div class="footer-totale">
-              <i class="fa-solid fa-copy" title="Copy"></i>
-              <span class="totale-generale" data-tipo="roma-con-golf-cart">€0.00</span>
-              <button id="esporta-pdf" title="Export PDF">
-                <i class="fa-solid fa-file-pdf"></i>
-              </button>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <section class="section" id="napoli">
-        <h2>Naples</h2>
-        <div class="container none">
-          <div class="titolo-wrapper">
-            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-            <h2>CUSTOM NAPLES TOUR</h2>
+              <div class="footer-totale">
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <span class="totale-generale" data-tipo="roma-con-golf-cart"
+                  >€0.00</span
+                >
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+              </div>
+            </section>
           </div>
-          <table class="lista-servizi" data-tipo="napoli">
-            <!-- Tabella dei servizi, le celle saranno input dinamici -->
-            <tr>
-              <th>Service Name</th>
-              <th>Vehicles</th>
-              <th>Hours</th>
-              <th>Adults</th>
-              <th>Minors</th>
-              <th>Total</th>
-            </tr>
-            <!-- Qui verranno inseriti dinamicamente i servizi -->
-          </table>
-          <section class="footer-bar">
-            <div class="footer-button">
-              <button id="cancella-tutto" title="Clear" data-color="red">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+        </section>
+
+        <section class="section" id="napoli">
+          <h2>Naples</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM NAPLES TOUR</h2>
             </div>
+            <table class="lista-servizi" data-tipo="napoli">
+              <!-- Tabella dei servizi, le celle saranno input dinamici -->
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+              <!-- Qui verranno inseriti dinamicamente i servizi -->
+            </table>
+            <section class="footer-bar">
+              <div class="footer-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
 
-            <div class="nome-cliente">
-              <label for="nome">Nome Cliente</label>
-              <input type="text" name="nome" data-tipo="napoli" />
-            </div>
+              <div class="nome-cliente">
+                <label for="nome">Nome Cliente</label>
+                <input type="text" name="nome" data-tipo="napoli" />
+              </div>
 
-
-
-            <div class="footer-totale">
-              <i class="fa-solid fa-copy" title="Copy"></i>
-              <span class="totale-generale" data-tipo="napoli">€0.00</span>
-              <button id="esporta-pdf" title="Export PDF">
-                <i class="fa-solid fa-file-pdf"></i>
-              </button>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <section class="section" id="firenze">
-        <h2>Florence</h2>
-        <div class="container none">
-          <div class="titolo-wrapper">
-            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-            <h2>CUSTOM FLORENCE TOUR</h2>
+              <div class="footer-totale">
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <span class="totale-generale" data-tipo="napoli">€0.00</span>
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+              </div>
+            </section>
           </div>
-          <table class="lista-servizi" data-tipo="firenze">
-            <!-- Tabella dei servizi, le celle saranno input dinamici -->
-            <tr>
-              <th>Service Name</th>
-              <th>Vehicles</th>
-              <th>Hours</th>
-              <th>Adults</th>
-              <th>Minors</th>
-              <th>Total</th>
-            </tr>
-            <!-- Qui verranno inseriti dinamicamente i servizi -->
-          </table>
-          <section class="footer-bar">
-            <div class="footer-button">
-              <button id="cancella-tutto" title="Clear" data-color="red">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+        </section>
+
+        <section class="section" id="firenze">
+          <h2>Florence</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM FLORENCE TOUR</h2>
             </div>
+            <table class="lista-servizi" data-tipo="firenze">
+              <!-- Tabella dei servizi, le celle saranno input dinamici -->
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+              <!-- Qui verranno inseriti dinamicamente i servizi -->
+            </table>
+            <section class="footer-bar">
+              <div class="footer-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
 
-            <div class="nome-cliente">
-              <label for="nome">Nome Cliente</label>
-              <input type="text" name="nome" data-tipo="firenze" />
-            </div>
+              <div class="nome-cliente">
+                <label for="nome">Nome Cliente</label>
+                <input type="text" name="nome" data-tipo="firenze" />
+              </div>
 
-
-
-            <div class="footer-totale">
-              <i class="fa-solid fa-copy" title="Copy"></i>
-              <span class="totale-generale" data-tipo="firenze">€0.00</span>
-              <button id="esporta-pdf" title="Export PDF">
-                <i class="fa-solid fa-file-pdf"></i>
-              </button>
-            </div>
-          </section>
-        </div>
-      </section>
-
+              <div class="footer-totale">
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <span class="totale-generale" data-tipo="firenze">€0.00</span>
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+      <div id="contenuto-attivo"></div>
     </div>
-    <div id="contenuto-attivo"></div>
-  </div>
-</body>
-
+  </body>
 </html>
