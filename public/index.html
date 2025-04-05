@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./assets/img/favicon.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -53,7 +54,20 @@
               <input type="text" name="nome" data-tipo="roma-no-golf-cart" />
             </div>
 
-            <div class="footer-spacer"></div>
+            <section class="toolbar">
+              <label for="adulti">Adulti:</label>
+              <input type="number" id="adulti-input" min="0" max="14" placeholder="Adulti" />
+
+              <label for="minori">Minori:</label>
+              <input type="number" id="minori-input" min="0" max="14" placeholder="Minori" />
+
+              <!-- <label for="apply-to-all">
+                <input type="checkbox" id="apply-to-all" /> Apply to selected services
+              </label> -->
+
+              <button id="apply-to-selected" onclick="aggiornaTuttiServizi()">Apply to selected services</button>
+            </section>
+
 
             <div class="footer-totale">
               <i class="fa-solid fa-copy" title="Copy"></i>
@@ -98,7 +112,7 @@
               <input type="text" name="nome" data-tipo="roma-con-golf-cart" />
             </div>
 
-            <div class="footer-spacer"></div>
+
 
             <div class="footer-totale">
               <i class="fa-solid fa-copy" title="Copy"></i>
@@ -142,7 +156,7 @@
               <input type="text" name="nome" data-tipo="napoli" />
             </div>
 
-            <div class="footer-spacer"></div>
+
 
             <div class="footer-totale">
               <i class="fa-solid fa-copy" title="Copy"></i>
@@ -186,7 +200,7 @@
               <input type="text" name="nome" data-tipo="firenze" />
             </div>
 
-            <div class="footer-spacer"></div>
+
 
             <div class="footer-totale">
               <i class="fa-solid fa-copy" title="Copy"></i>

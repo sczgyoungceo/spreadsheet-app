@@ -17,6 +17,7 @@ export function mostraServizi() {
           "Minors",
           "Total",
           "Actions",
+          "Select",
         ];
         headers.forEach((headerText) => {
           const th = document.createElement("th");
@@ -100,6 +101,14 @@ export function mostraServizi() {
         totaleCell.appendChild(totaleSpan);
         row.appendChild(totaleCell);
 
+        // Checkbox per la selezione
+        const selectCell = document.createElement("td");
+        const selectCheckbox = document.createElement("input");
+        selectCheckbox.type = "checkbox";
+        selectCheckbox.id = `select-${servizio.id}`;
+        selectCell.appendChild(selectCheckbox);
+        row.appendChild(selectCell);
+
         const copyCell = document.createElement("td");
         copyCell.classList.add("clipboard");
         copyCell.id = `copy-${servizio.id}`;
@@ -115,6 +124,38 @@ export function mostraServizi() {
       aggiornaTotaleGenerale();
     })
     .catch((error) => console.error("Error:", error));
+}
+
+export function aggiornaTuttiServizi() {
+  const adulti = document.getElementById("adulti-input").value;
+  const minori = document.getElementById("minori-input").value;
+  const applyToAll = document.getElementById("apply-to-all").checked;
+
+  // Verifica che gli input siano numerici
+  if (isNaN(adulti) || isNaN(minori)) {
+    alert("Inserisci valori numerici validi per Adulti e Minori.");
+    return;
+  }
+
+  // Se "Apply to All" è selezionato, applica a tutti i servizi
+  if (applyToAll) {
+    document.querySelectorAll("tr[data-id]").forEach((row) => {
+      const id = row.dataset.id;
+      document.getElementById(`adulti-${id}`).value = adulti;
+      document.getElementById(`minori-${id}`).value = minori;
+      calcolaTotale(id);
+    });
+  } else {
+    // Altrimenti applica solo ai servizi selezionati
+    document
+      .querySelectorAll("input[type='checkbox']:checked")
+      .forEach((checkbox) => {
+        const id = checkbox.id.replace("select-", "");
+        document.getElementById(`adulti-${id}`).value = adulti;
+        document.getElementById(`minori-${id}`).value = minori;
+        calcolaTotale(id);
+      });
+  }
 }
 
 export function calcolaTotale(id) {
@@ -445,5 +486,4 @@ export function exportPDF() {
     });
 }
 
-
-//aggiungere 2 input adulti minori e checkbox per ogni servizio, se inserisco adulti e minori nella toolbar verranno inseriti a tutti i servizi checkati in precedenza altrimenti utilizzo standard 
+//aggiungere 2 input adulti minori e checkbox per ogni servizio, se inserisco adulti e minori nella toolbar verranno inseriti a tutti i servizi checkati in precedenza altrimenti utilizzo standard

@@ -9,6 +9,7 @@ import {
   mostraSezioni,
   closeSezioni,
   exportPDF,
+  aggiornaTuttiServizi,
 } from "./script.js";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -49,6 +50,12 @@ window.addEventListener("DOMContentLoaded", () => {
     // Bottone esporta PDF
     if (e.target.closest("#esporta-pdf")) {
       exportPDF();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#apply-to-all")) {
+      aggiornaTuttiServizi();
     }
   });
 });
