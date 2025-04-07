@@ -16,8 +16,8 @@ export function mostraServizi() {
           "Adults",
           "Minors",
           "Total",
-          "Actions",
           "Select",
+          "Actions",
         ];
         headers.forEach((headerText) => {
           const th = document.createElement("th");
@@ -93,7 +93,6 @@ export function mostraServizi() {
         minoriInputCell.appendChild(minoriInput);
         row.appendChild(minoriInputCell);
 
-        // Totale (span)
         const totaleCell = document.createElement("td");
         const totaleSpan = document.createElement("span");
         totaleSpan.id = `totale-${servizio.id}`;
@@ -101,10 +100,11 @@ export function mostraServizi() {
         totaleCell.appendChild(totaleSpan);
         row.appendChild(totaleCell);
 
-        // Checkbox per la selezione
         const selectCell = document.createElement("td");
+        selectCell.classList.add("select-cell");
         const selectCheckbox = document.createElement("input");
         selectCheckbox.type = "checkbox";
+        selectCheckbox.classList.add("checkbox");
         selectCheckbox.id = `select-${servizio.id}`;
         selectCell.appendChild(selectCheckbox);
         row.appendChild(selectCell);
@@ -126,29 +126,29 @@ export function mostraServizi() {
     .catch((error) => console.error("Error:", error));
 }
 
-export function aggiornaTuttiServizi() {
-  const adulti = document.getElementById("adulti-input").value;
-  const minori = document.getElementById("minori-input").value;
-  let persone = adulti + minori;
+export function aggiornaTuttiServizi(tipo) {
+  const adulti = document.querySelector(
+    `.adulti-input[data-tipo="${tipo}"]`
+  ).value;
+  const minori = document.querySelector(
+    `.minori-input[data-tipo="${tipo}"]`
+  ).value;
 
-  // Verifica che gli input siano numerici
   if (isNaN(adulti) || isNaN(minori)) {
     alert("Inserisci valori numerici validi per Adulti e Minori.");
     return;
   }
 
-  if (persone > 1) {
-    document
-      .querySelectorAll("input[type='checkbox']:checked")
-      .forEach((checkbox) => {
-        const id = checkbox.id.replace("select-", "");
-        document.getElementById(`adulti-${id}`).value = adulti;
-        document.getElementById(`minori-${id}`).value = minori;
-        calcolaTotale(id);
-      });
-  } else {
-    console.log("no");
-  }
+  document
+    .querySelectorAll(
+      `table[data-tipo="${tipo}"] input[type="checkbox"]:checked`
+    )
+    .forEach((checkbox) => {
+      const id = checkbox.id.replace("select-", "");
+      document.getElementById(`adulti-${id}`).value = adulti;
+      document.getElementById(`minori-${id}`).value = minori;
+      calcolaTotale(id);
+    });
 }
 
 export function calcolaTotale(id) {
@@ -156,11 +156,9 @@ export function calcolaTotale(id) {
   const adulti = Number(document.getElementById(`adulti-${id}`).value);
   const minori = Number(document.getElementById(`minori-${id}`).value);
 
-  // Verifica se i dati sono numerici validi
   if (isNaN(ore) || isNaN(adulti) || isNaN(minori)) {
-    console.error("❌ Dati non validi:", { ore, adulti, minori });
     alert("Errore: Assicurati che tutti i valori siano numerici.");
-    return; // Evita di inviare la richiesta se i dati non sono validi
+    return;
   }
 
   let persone = adulti + minori;
@@ -170,6 +168,16 @@ export function calcolaTotale(id) {
   const tipo = row?.dataset?.tipo || "";
 
   let mezzi = 0;
+
+  if (["(ore)"].some((str) => nomeServizio.includes(str))) {
+    const ore = document.getElementById(`ore-${id}`);
+    if (persone >= 1) {
+      ore.classList.add("vibrato-border");
+    }
+    if (ore.value >= 1) {
+      ore.classList.remove("vibrato-border");
+    }
+  }
 
   if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
     if (
@@ -195,7 +203,6 @@ export function calcolaTotale(id) {
 
   const payload = { mezzi, ore, adulti, minori };
 
-  // Log dei dati inviati
   console.log("Dati inviati al server:", payload);
 
   fetch(`/servizi/aggiorna/${id}`, {
@@ -250,13 +257,26 @@ export function aggiornaTotaleGenerale() {
 export function cancellaTutto() {
   const container = document.querySelector("#contenuto-attivo .container.flex");
   if (!container) return;
+
+  // Impostare tutti i valori degli input di tipo 'number' a 0
   container
     .querySelectorAll("input[type='number']")
     .forEach((input) => (input.value = 0));
+
+  // Impostare tutti i valori di "totale" a €0.00
   container
     .querySelectorAll("[id^='totale-']")
     .forEach((el) => (el.textContent = "€0.00"));
+
+  // Deselezionare tutte le checkbox
+  container
+    .querySelectorAll("input[type='checkbox']")
+    .forEach((checkbox) => (checkbox.checked = false));
+
+  // Mostra il messaggio di popup
   mostraPopup("🗑️Celle Svuotate");
+
+  // Aggiornare il totale generale
   aggiornaTotaleGenerale();
 }
 

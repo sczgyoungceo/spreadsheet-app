@@ -34,7 +34,6 @@
               <h2>CUSTOM ROME TOUR WITHOUT GOLF CART</h2>
             </div>
             <table class="lista-servizi" data-tipo="roma-no-golf-cart">
-              <!-- Tabella dei servizi, le celle saranno input dinamici -->
               <tr>
                 <th>Service Name</th>
                 <th>Vehicles</th>
@@ -43,67 +42,65 @@
                 <th>Minors</th>
                 <th>Total</th>
               </tr>
-              <!-- Qui verranno inseriti dinamicamente i servizi -->
             </table>
-            <!-- Footer Bar -->
-            <section class="footer-bar">
-              <div class="footer-button">
-                <button id="cancella-tutto" title="Clear" data-color="red">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </div>
-
+            <div class="footer-bar">
               <div class="nome-cliente">
-                <label for="nome">Nome Cliente</label>
-                <input type="text" name="nome" data-tipo="roma-no-golf-cart" />
+                <label for="nome-roma-no-golf-cart">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-roma-no-golf-cart" data-tipo="roma-no-golf-cart" />
               </div>
 
-              <section class="toolbar">
-                <label for="adulti">Adulti:</label>
+              <div class="toolbar">
+                <label for="adulti-roma-no-golf-cart">Adulti:</label>
                 <input
+                  id="adulti-roma-no-golf-cart"
                   type="number"
-                  id="adulti-input"
+                  class="adulti-input"
                   min="0"
                   max="14"
-                  placeholder="Adulti"
+                  data-tipo="roma-no-golf-cart"
                 />
 
-                <label for="minori">Minori:</label>
+                <label for="minori-roma-no-golf-cart">Minori:</label>
                 <input
+                  id="minori-roma-no-golf-cart"
                   type="number"
-                  id="minori-input"
+                  class="minori-input"
                   min="0"
                   max="14"
-                  placeholder="Minori"
+                  data-tipo="roma-no-golf-cart"
                 />
 
-                <button id="apply-to-selected">
+                <button class="apply-to-selected" data-tipo="roma-no-golf-cart">
                   Apply to selected services
                 </button>
-              </section>
+              </div>
 
               <div class="footer-totale">
-                <i class="fa-solid fa-copy" title="Copy"></i>
                 <span class="totale-generale" data-tipo="roma-no-golf-cart"
                   >€0.00</span
                 >
+                <i class="fa-solid fa-copy" title="Copy"></i>
                 <button id="esporta-pdf" title="Export PDF">
                   <i class="fa-solid fa-file-pdf"></i>
                 </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
-            </section>
+            </div>
           </div>
         </section>
 
         <section class="section" id="roma-con-golf-cart">
-          <h2>Roma With Golf Cart</h2>
+          <h2>Rome With Golf Cart</h2>
           <div class="container none">
             <div class="titolo-wrapper">
               <i class="fa-solid fa-xmark close-icon" title="Close"></i>
               <h2>CUSTOM ROME TOUR WITH GOLF CART</h2>
             </div>
             <table class="lista-servizi" data-tipo="roma-con-golf-cart">
-              <!-- Tabella dei servizi, le celle saranno input dinamici -->
               <tr>
                 <th>Service Name</th>
                 <th>Vehicles</th>
@@ -112,30 +109,57 @@
                 <th>Minors</th>
                 <th>Total</th>
               </tr>
-              <!-- Qui verranno inseriti dinamicamente i servizi -->
             </table>
-            <section class="footer-bar">
-              <div class="footer-button">
-                <button id="cancella-tutto" title="Clear" data-color="red">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-roma-con-golf-cart">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-roma-con-golf-cart" data-tipo="roma-con-golf-cart" />
               </div>
 
-              <div class="nome-cliente">
-                <label for="nome">Nome Cliente</label>
-                <input type="text" name="nome" data-tipo="roma-con-golf-cart" />
+              <div class="toolbar">
+                <label for="adulti-roma-con-golf-cart">Adulti:</label>
+                <input
+                  id="adulti-roma-con-golf-cart"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="roma-con-golf-cart"
+                />
+
+                <label for="minori-roma-con-golf-cart">Minori:</label>
+                <input
+                  id="minori-roma-con-golf-cart"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="roma-con-golf-cart"
+                />
+
+                <button
+                  class="apply-to-selected"
+                  data-tipo="roma-con-golf-cart"
+                >
+                  Apply to selected services
+                </button>
               </div>
 
               <div class="footer-totale">
-                <i class="fa-solid fa-copy" title="Copy"></i>
                 <span class="totale-generale" data-tipo="roma-con-golf-cart"
                   >€0.00</span
                 >
+                <i class="fa-solid fa-copy" title="Copy"></i>
                 <button id="esporta-pdf" title="Export PDF">
                   <i class="fa-solid fa-file-pdf"></i>
                 </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
-            </section>
+            </div>
           </div>
         </section>
 
@@ -147,7 +171,6 @@
               <h2>CUSTOM NAPLES TOUR</h2>
             </div>
             <table class="lista-servizi" data-tipo="napoli">
-              <!-- Tabella dei servizi, le celle saranno input dinamici -->
               <tr>
                 <th>Service Name</th>
                 <th>Vehicles</th>
@@ -156,28 +179,52 @@
                 <th>Minors</th>
                 <th>Total</th>
               </tr>
-              <!-- Qui verranno inseriti dinamicamente i servizi -->
             </table>
-            <section class="footer-bar">
-              <div class="footer-button">
-                <button id="cancella-tutto" title="Clear" data-color="red">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-napoli">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-napoli" data-tipo="napoli" />
               </div>
 
-              <div class="nome-cliente">
-                <label for="nome">Nome Cliente</label>
-                <input type="text" name="nome" data-tipo="napoli" />
+              <div class="toolbar">
+                <label for="adulti-napoli">Adulti:</label>
+                <input
+                  id="adulti-napoli"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="napoli"
+                />
+
+                <label for="minori-napoli">Minori:</label>
+                <input
+                  id="minori-napoli"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="napoli"
+                />
+
+                <button class="apply-to-selected" data-tipo="napoli">
+                  Apply to selected services
+                </button>
               </div>
 
               <div class="footer-totale">
-                <i class="fa-solid fa-copy" title="Copy"></i>
                 <span class="totale-generale" data-tipo="napoli">€0.00</span>
+                <i class="fa-solid fa-copy" title="Copy"></i>
                 <button id="esporta-pdf" title="Export PDF">
                   <i class="fa-solid fa-file-pdf"></i>
                 </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
-            </section>
+            </div>
           </div>
         </section>
 
@@ -189,7 +236,6 @@
               <h2>CUSTOM FLORENCE TOUR</h2>
             </div>
             <table class="lista-servizi" data-tipo="firenze">
-              <!-- Tabella dei servizi, le celle saranno input dinamici -->
               <tr>
                 <th>Service Name</th>
                 <th>Vehicles</th>
@@ -198,28 +244,52 @@
                 <th>Minors</th>
                 <th>Total</th>
               </tr>
-              <!-- Qui verranno inseriti dinamicamente i servizi -->
             </table>
-            <section class="footer-bar">
-              <div class="footer-button">
-                <button id="cancella-tutto" title="Clear" data-color="red">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-firenze">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-firenze" data-tipo="firenze" />
               </div>
 
-              <div class="nome-cliente">
-                <label for="nome">Nome Cliente</label>
-                <input type="text" name="nome" data-tipo="firenze" />
+              <div class="toolbar">
+                <label for="adulti-firenze">Adulti:</label>
+                <input
+                  id="adulti-firenze"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="firenze"
+                />
+
+                <label for="minori-firenze">Minori:</label>
+                <input
+                  id="minori-firenze"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="firenze"
+                />
+
+                <button class="apply-to-selected" data-tipo="firenze">
+                  Apply to selected services
+                </button>
               </div>
 
               <div class="footer-totale">
-                <i class="fa-solid fa-copy" title="Copy"></i>
                 <span class="totale-generale" data-tipo="firenze">€0.00</span>
+                <i class="fa-solid fa-copy" title="Copy"></i>
                 <button id="esporta-pdf" title="Export PDF">
                   <i class="fa-solid fa-file-pdf"></i>
                 </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
-            </section>
+            </div>
           </div>
         </section>
       </div>
