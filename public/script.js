@@ -173,6 +173,7 @@ export function calcolaTotale(id) {
     const ore = document.getElementById(`ore-${id}`);
     if (persone >= 1) {
       ore.classList.add("vibrato-border");
+      setTimeout(() => ore.classList.remove("vibrato-border"), 1500);
     }
     if (ore.value >= 1) {
       ore.classList.remove("vibrato-border");
@@ -200,10 +201,6 @@ export function calcolaTotale(id) {
 
   const mezziInput = document.getElementById(`mezzi-${id}`);
   if (mezziInput) mezziInput.value = mezzi;
-
-  const payload = { mezzi, ore, adulti, minori };
-
-  console.log("Dati inviati al server:", payload);
 
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
