@@ -126,6 +126,11 @@ section:hover {
   flex-grow: 1;
 }
 
+.lista-servizi{
+  border-spacing: 0 10px;
+  
+}
+
 .lista-servizi th {
   width: 100%;
   border-collapse: collapse;
@@ -138,21 +143,18 @@ section:hover {
   position: sticky;
   top: 0;
   z-index: 10;
-  border-radius: 2px;
 }
 
-.lista-servizi th,
 .lista-servizi td {
-  padding: 8px 10px;
+  padding: 8px 10px; 
 }
 
-table td {
-  padding: 8px 10px;
-  color: #e0e0e0;
+.odd {
+  background-color: #2b2a30;  
 }
 
-table td:hover {
-  background-color: #5e5c5c;
+.even {
+  background-color: #1f1e24;
 }
 
 input {
@@ -185,7 +187,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-.select-cell{
+.select-cell {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,6 +208,10 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background-color: #2ecc71;
   border-color: #2ecc71;
+}
+
+.selected{
+  background-color: #0056b3;
 }
 
 input[type="checkbox"]:checked::after {
@@ -229,7 +235,7 @@ input[type="checkbox"]:hover {
 
 .clipboard {
   font-size: 16px;
-/*   display: flex;
+  /*   display: flex;
   align-items: center;
   justify-content: center; */
 }
@@ -472,7 +478,7 @@ i {
 }
 
 .popup.success {
-  background-color: #4caf50; 
+  background-color: #4caf50;
 }
 
 .popup.danger {
@@ -519,7 +525,6 @@ i {
   border: 2px solid #e74c3c; /* Colore e spessore del bordo */
   animation: vibrato 0.3s linear; /* Esegui l'animazione una sola volta */
 }
-
 
 /* MEDIA QUERY */
 
