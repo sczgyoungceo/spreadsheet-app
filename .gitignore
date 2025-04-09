@@ -1,0 +1,19 @@
+# Ignora il file .env che contiene dati sensibili
+.env
+
+# Ignora i log
+*.log
+
+# Ignora i moduli di node.js
+node_modules/
+
+# Ignora il file di configurazione di VSCode
+.vscode/
+
+# Ignora i file temporanei e di sistema
+.DS_Store
+Thumbs.db
+
+# Ignora il build e le cartelle di distribuzione
+dist/
+build/
