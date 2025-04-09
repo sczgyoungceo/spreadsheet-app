@@ -298,29 +298,24 @@ export function cancellaTutto() {
   const container = document.querySelector("#contenuto-attivo .container.flex");
   if (!container) return;
 
-  // Impostare tutti i valori degli input di tipo 'number' a 0
   container
     .querySelectorAll("input[type='number']")
     .forEach((input) => (input.value = 0));
 
-  // Impostare tutti i valori di "totale" a €0.00
   container
     .querySelectorAll("[id^='totale-']")
     .forEach((el) => (el.textContent = "€0.00"));
 
-  // Deselezionare tutte le checkbox
   container
     .querySelectorAll("input[type='checkbox']")
     .forEach((checkbox) => (checkbox.checked = false));
-  // Rimuovi la classe "selected" da tutti gli elementi della pagina
+
   document.querySelectorAll(".selected").forEach((element) => {
     element.classList.remove("selected");
   });
 
-  // Mostra il messaggio di popup
   mostraPopup("🗑️Celle Svuotate");
 
-  // Aggiornare il totale generale
   aggiornaTotaleGenerale();
 }
 
@@ -389,7 +384,7 @@ export function exportPDF() {
 
   const nomeInput = container.querySelector('input[name="nome"]');
   const nomeClienteRaw = nomeInput?.value || "Cliente";
-  const nomeCliente = nomeClienteRaw.replace(/[<>]/g, "").trim();
+  const nomeCliente = DOMPurify.sanitize(nomeClienteRaw).trim();
   const tipo = nomeInput?.dataset.tipo || "N/A";
 
   const pdfWrapper = document.createElement("div");
