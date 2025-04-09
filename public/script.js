@@ -40,9 +40,25 @@ export function mostraServizi() {
         row.setAttribute("data-id", servizio.id);
         row.setAttribute("data-tipo", servizio.tipo);
         row.setAttribute("data-nome", servizio.nome);
+        row.id = servizio.id;
+        if (row.id % 2 === 0) {
+          row.classList.add("even");
+        } else {
+          row.classList.add("odd");
+        }
+
+        row.classList.add("row");
 
         const nomeServizioCell = document.createElement("td");
         nomeServizioCell.textContent = DOMPurify.sanitize(servizio.nome);
+        nomeServizioCell.id = servizio.id;
+
+        if (nomeServizioCell.id % 2 === 0) {
+          nomeServizioCell.classList.add("even");
+        } else {
+          nomeServizioCell.classList.add("odd");
+        }
+
         row.appendChild(nomeServizioCell);
 
         const mezziInputCell = document.createElement("td");
@@ -74,9 +90,16 @@ export function mostraServizi() {
         adultiInput.value = 0;
         adultiInput.min = 0;
         adultiInput.max = 14;
-        adultiInput.addEventListener("change", () =>
-          calcolaTotale(servizio.id)
-        );
+        adultiInput.addEventListener("change", () => {
+          const adulti = parseInt(adultiInput.value);
+          const minori = parseInt(minoriInput.value);
+
+          if (adulti + minori > 14) {
+            alert("La somma tra Adulti e Minori non può superare 14.");
+            adultiInput.value = 14 - minori;
+          }
+          calcolaTotale(servizio.id);
+        });
         adultiInputCell.appendChild(adultiInput);
         row.appendChild(adultiInputCell);
 
@@ -87,9 +110,16 @@ export function mostraServizi() {
         minoriInput.value = 0;
         minoriInput.min = 0;
         minoriInput.max = 14;
-        minoriInput.addEventListener("change", () =>
-          calcolaTotale(servizio.id)
-        );
+        minoriInput.addEventListener("change", () => {
+          const adulti = parseInt(adultiInput.value);
+          const minori = parseInt(minoriInput.value);
+
+          if (adulti + minori > 14) {
+            alert("La somma tra Adulti e Minori non può superare 14.");
+            minoriInput.value = 14 - adulti;
+          }
+          calcolaTotale(servizio.id);
+        });
         minoriInputCell.appendChild(minoriInput);
         row.appendChild(minoriInputCell);
 
@@ -107,6 +137,16 @@ export function mostraServizi() {
         selectCheckbox.classList.add("checkbox");
         selectCheckbox.id = `select-${servizio.id}`;
         selectCell.appendChild(selectCheckbox);
+        selectCheckbox.addEventListener("change", (event) => {
+          if (!event.target.checked) {
+            nomeServizioCell.classList.remove("selected");
+            row.classList.remove("selected");
+          } else {
+            nomeServizioCell.classList.add("selected");
+            row.classList.add("selected");
+          }
+        });
+
         row.appendChild(selectCell);
 
         const copyCell = document.createElement("td");
@@ -147,6 +187,7 @@ export function aggiornaTuttiServizi(tipo) {
       const id = checkbox.id.replace("select-", "");
       document.getElementById(`adulti-${id}`).value = adulti;
       document.getElementById(`minori-${id}`).value = minori;
+
       calcolaTotale(id);
     });
 }
@@ -169,7 +210,7 @@ export function calcolaTotale(id) {
 
   let mezzi = 0;
 
-  if (["(ore)"].some((str) => nomeServizio.includes(str))) {
+  if (["(ore)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
     const ore = document.getElementById(`ore-${id}`);
     if (persone >= 1) {
       ore.classList.add("vibrato-border");
@@ -201,6 +242,8 @@ export function calcolaTotale(id) {
 
   const mezziInput = document.getElementById(`mezzi-${id}`);
   if (mezziInput) mezziInput.value = mezzi;
+
+  const payload = { mezzi, ore, adulti, minori };
 
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
@@ -269,6 +312,10 @@ export function cancellaTutto() {
   container
     .querySelectorAll("input[type='checkbox']")
     .forEach((checkbox) => (checkbox.checked = false));
+  // Rimuovi la classe "selected" da tutti gli elementi della pagina
+  document.querySelectorAll(".selected").forEach((element) => {
+    element.classList.remove("selected");
+  });
 
   // Mostra il messaggio di popup
   mostraPopup("🗑️Celle Svuotate");
@@ -495,5 +542,3 @@ export function exportPDF() {
       window.open(url, "_blank");
     });
 }
-
-//aggiungere 2 input adulti minori e checkbox per ogni servizio, se inserisco adulti e minori nella toolbar verranno inseriti a tutti i servizi checkati in precedenza altrimenti utilizzo standard

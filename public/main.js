@@ -55,9 +55,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", (e) => {
     if (e.target.closest(".apply-to-selected")) {
-      // Ottieni il tipo dalla sezione
-      const tipo = e.target.closest(".apply-to-selected").getAttribute("data-tipo");
-      aggiornaTuttiServizi(tipo);  // Passa il tipo per applicare i valori ai servizi corretti
+      const tipo = e.target
+        .closest(".apply-to-selected")
+        .getAttribute("data-tipo");
+
+      aggiornaTuttiServizi(tipo);
     }
   });
 });
