@@ -412,7 +412,7 @@ export function exportPDF() {
   indirizzo2.textContent = "Via Giuseppe Libetta, 15/C – 00154 Rome, Italy";
   headerWrapper.appendChild(indirizzo2);
 
-  // Aggiungi l'intestazione in cima al contenuto PDF
+  //intestazione in cima al contenuto PDF
   pdfWrapper.appendChild(headerWrapper);
 
   const title = document.createElement("h1");
@@ -508,17 +508,6 @@ export function exportPDF() {
   totaleEl.className = "pdf-total";
   totaleEl.textContent = `Estimate Total: ${totaleFinale}`;
   pdfWrapper.appendChild(totaleEl);
-
-  /*   const footer = document.createElement("div");
-  footer.className = "pdf-footer";
-  footer.innerHTML = `
-    <p>Il pagamento è dovuto entro 15 giorni.</p>
-    <div class="pdf-notes">
-      IBAN: IT12 1234 5678 9012 34<br />
-      SWIFT/BIC: ABCDITRXXXX
-    </div>
-  `;
-  pdfWrapper.appendChild(footer); */
 
   const opzioni = {
     margin: 0.4,
