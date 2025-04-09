@@ -163,7 +163,7 @@ export function mostraServizi() {
 
       aggiornaTotaleGenerale();
     })
-    .catch((error) => console.error("Error:", error));
+    .catch((error) => console.error("Error"));
 }
 
 export function aggiornaTuttiServizi(tipo) {
@@ -253,8 +253,8 @@ export function calcolaTotale(id) {
     .then(async (res) => {
       if (!res.ok) {
         const err = await res.json();
-        console.error("❌ Errore risposta server:", err);
-        throw new Error(err.message || "Errore generico");
+        console.error("❌ Errore risposta server");
+        throw new Error("Errore generico");
       }
       return res.json();
     })
@@ -268,7 +268,7 @@ export function calcolaTotale(id) {
       )}`;
       aggiornaTotaleGenerale();
     })
-    .catch((error) => console.error("❗Errore:", error.message));
+    .catch((error) => console.error("❗Errore"));
 }
 
 export function aggiornaTotaleGenerale() {
@@ -328,7 +328,7 @@ export function copiaSommaTotale(event) {
   navigator.clipboard
     .writeText(textToCopy)
     .then(() => mostraPopup(`📋 Copiato ${textToCopy}`))
-    .catch((err) => console.error("Errore nella copia:", err));
+    .catch((err) => console.error("Errore nella copia"));
 }
 
 export function copyToClipboard(id) {
@@ -336,7 +336,7 @@ export function copyToClipboard(id) {
   navigator.clipboard
     .writeText(text)
     .then(() => mostraPopup("📋Copiato"))
-    .catch((err) => console.error("Errore nella copia:", err));
+    .catch((err) => console.error("Errore nella copia"));
 }
 
 export function mostraPopup(message) {
@@ -523,6 +523,11 @@ export function exportPDF() {
     .outputPdf("blob")
     .then((blob) => {
       const url = URL.createObjectURL(blob);
-      window.open(url, "_blank");
+
+      if (url.startsWith("blob:")) {
+        window.open(url, "_blank");
+      } else {
+        console.error("URL non valido o non sicuro");
+      }
     });
 }
