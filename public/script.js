@@ -14,7 +14,7 @@ export function mostraServizi() {
           "Vehicles",
           "Hours",
           "Adults",
-          "Minors",
+          "Minor",
           "Total",
           "Select",
           "Actions",
