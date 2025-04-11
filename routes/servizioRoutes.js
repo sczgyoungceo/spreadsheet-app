@@ -1,5 +1,5 @@
 import express from "express";
-import { listaServizi, selezionaServizio, aggiornaServizio } from "../controllers/servizioController.js";
+import { listaServizi, selezionaServizio, aggiornaServizio } from "../api/servizioController.js";
 
 const router = express.Router();
 
