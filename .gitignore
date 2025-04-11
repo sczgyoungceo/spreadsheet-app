@@ -2,7 +2,7 @@
 .env
 
 # Ignora i log
-*.log
+app.log
 
 # Ignora i moduli di node.js
 node_modules/
