@@ -17,3 +17,4 @@ Thumbs.db
 # Ignora il build e le cartelle di distribuzione
 dist/
 build/
+.vercel

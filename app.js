@@ -1,34 +1,10 @@
 // app.js
 import express from "express";
-import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import servizioRoutes from "./routes/servizioRoutes.js";
 
-function logToFile(message) {
-  const data = new Date();
-  const dataLog = `[${data.toISOString()}] - ${message}\n`;
-
-  fs.appendFile("app.log", dataLog, (err) => {
-    if (err) {
-      console.error("Errore nella scrittura del file di log:", err);
-    }
-  });
-}
-
-function printAsciiLogo() {
-  console.log(" __   __                                     ");
-  console.log(" \\ \\ / /__  _   _ _ __   __ _  ___ ___  ___  ");
-  console.log("  \\ V / _ \\| | | | '_ \\ / _` |/ __/ _ \\/ _ \\ ");
-  console.log("   | | (_) | |_| | | | | (_| | (_|  __/ (_) |");
-  console.log("   |_|\\___/ \\__,_|_| |_|\\__, |\\___\\___|\\___/ ");
-  console.log("                        |___/               ");
-}
-
-// Esempio di utilizzo:
-printAsciiLogo();
-logToFile("Applicazione avviata con successo!");
 
 // Creazione dell'app Express
 const app = express();
