@@ -1,6 +1,0 @@
-tmp
-test
-*.tgz
-node_modules
-.travis.yml
-.gitignore
