@@ -31,23 +31,43 @@ body {
   margin: 0;
 }
 
+header {
+  background-color: #121212;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  height: 100px;
+}
+
+header .img {
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.08));
+}
+
 #section-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  height: 100vh;
+  height: calc(100vh - 100px); /* togliamo l'altezza dell'header */
   width: 100vw;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 section {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: white;
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  padding: 20px;
+  border-radius: 16px;
   cursor: pointer;
 }
 
@@ -57,22 +77,28 @@ section {
 
 section:hover {
   filter: brightness(1.1);
+  background-size: 110%;
 }
 
 #roma-no-golf-cart {
-  background-color: #0d9488;
+  background-image: url("assets/img/map.png");
+  background-size: cover;
 }
 
 #roma-con-golf-cart {
-  background-color: #9333ea;
+  background-image: url("assets/img/map2.png");
+  background-size: cover;
+  transform: rotate();
 }
 
 #napoli {
-  background-color: #eab308;
+  background-image: url("assets/img/map3.png");
+  background-size: cover;
 }
 
 #firenze {
-  background-color: #ef4444;
+  background-image: url("assets/img/map4.png");
+  background-size: cover;
 }
 
 #contenuto-attivo {
@@ -126,9 +152,8 @@ section:hover {
   flex-grow: 1;
 }
 
-.lista-servizi{
+.lista-servizi {
   border-spacing: 0 10px;
-  
 }
 
 .lista-servizi th {
@@ -146,11 +171,11 @@ section:hover {
 }
 
 .lista-servizi td {
-  padding: 8px 10px; 
+  padding: 8px 10px;
 }
 
 .odd {
-  background-color: #2b2a30;  
+  background-color: #2b2a30;
 }
 
 .even {
@@ -210,7 +235,7 @@ input[type="checkbox"]:checked {
   border-color: #2ecc71;
 }
 
-.selected{
+.selected {
   background-color: #0056b3;
 }
 
