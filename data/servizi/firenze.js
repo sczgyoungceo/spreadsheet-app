@@ -6,77 +6,133 @@ import {
 } from "../../models/modelli.js"
 
 export const firenze = [
-    new ServizioTrasporto(59, "Da Porto Livorno a Firenze(mezzi)", "firenze", {
+    new ServizioTrasporto("Da Porto Livorno a Firenze (mezzi)", "firenze", {
         "1-3": 230,
         "4-7": 250,
         "8-10": 250,
         "11-14": 250,
     }),
-    new ServizioTrasporto(60, "Da Firenze a porto Livorno(mezzi)", "firenze", {
+    new ServizioTrasporto("Da Firenze a porto Livorno (mezzi)", "firenze", {
         "1-3": 230,
         "4-7": 250,
         "8-10": 250,
         "11-14": 250,
     }),
-    new ServizioTrasporto(61, "Da Aeroporto a Firenze(mezzi)", "firenze", {
+    new ServizioTrasporto("Da Aeroporto a Firenze (mezzi)", "firenze", {
         "1-3": 65,
         "4-7": 70,
         "8-10": 70,
         "11-14": 70,
     }),
-    new ServizioTrasporto(62, "Da Firenze ad Aeroporto(mezzi)", "firenze", {
+    new ServizioTrasporto("Da Firenze ad Aeroporto (mezzi)", "firenze", {
         "1-3": 65,
         "4-7": 70,
         "8-10": 70,
         "11-14": 70,
     }),
-    new ServizioTrasporto(63, "Shore Excursion Include Transfer e Dispo (Livorno>Firenze>Pisa>Livorno)(mezzi)", "firenze", {
+    new ServizioTrasporto("Shore Excursion Include Transfer e Dispo (Livorno>Firenze>Pisa>Livorno) (mezzi)", "firenze", {
         "1-3": 650,
         "4-7": 680,
         "8-10": 650,
         "11-14": 620,
     }),
-    new ServizioAdOre(64, "Disposizione su Firenze(mezzi e ore)", "firenze", {
+    new ServizioAdOre("Disposizione su Firenze (mezzi e ore)", "firenze", {
         "1-3": 50,
         "4-7": 55,
         "8-10": 55,
         "11-14": 55,
     }),
-    new ServizioAdOre(65, "Disposizione su Firenze e Pisa(mezzi e ore)", "firenze", {
+    new ServizioAdOre("Disposizione su Firenze e Pisa (mezzi e ore)", "firenze", {
         "1-3": 55,
         "4-7": 60,
         "8-10": 60,
         "11-14": 60,
     }),
-    new ServizioAdOre(66, "Disposizione su Altre Città in Toscana(mezzi e ore)", "firenze", {
+    new ServizioAdOre("Disposizione su Altre Città in Toscana (mezzi e ore)", "firenze", {
         "1-3": 55,
         "4-7": 60,
         "8-10": 60,
         "11-14": 60,
     }),
-    new ServizioGuidaOre(67, "Servizio Guida(ore)", "firenze", 70),
-    new ServizioPax(68, "Uffizi(pax)", "firenze", {
+    new ServizioGuidaOre("Servizio Guida (ore)", "firenze", 70),
+    new ServizioPax("Uffizi (pax)", "firenze", {
         "adulti": 34,
         "minori": 10,
       }),
-    new ServizioPax(69, "Accademia(pax)", "firenze", {
+    new ServizioPax("Accademia (pax)", "firenze", {
         "adulti": 25,
         "minori": 10,
       }),
-    new ServizioPax(70, "Duomo(pax)", "firenze", {
+    new ServizioPax("Duomo (pax)", "firenze", {
         "adulti": 15,
         "minori": 10,
       }),
-    new ServizioPax(71, "Santa Croce(pax)", "firenze", {
+    new ServizioPax("Duomo e Battistero (pax)", "firenze", {
+        "adulti": 15,
+        "minori": 5,
+      }),
+    new ServizioPax("Duomo, Campanile e Battistero (pax)", "firenze", {
+        "adulti": 20,
+        "minori": 7,
+      }),
+    new ServizioPax("Duomo, Cupola, Campanile e Battistero (x cupola prendere biglietto anche per guida) (pax)", "firenze", {
+        "adulti": 30,
+        "minori": 12,
+      }),
+    new ServizioPax("Santa Croce (pax)", "firenze", {
         "adulti": 10,
         "minori": 5,
       }),
-    new ServizioPax(72, "Torre di Pisa(pax)", "firenze", {
+    new ServizioPax("Torre di Pisa (pax)", "firenze", {
         "adulti": 20,
         "minori": 10,
       }),
-    new ServizioPax(73, "Headsets(pax)", "firenze", {
+    new ServizioPax("Vasari Corridor (pax)", "firenze", {
+        "adulti": 47,
+        "minori": 0,
+      }),
+    new ServizioPax("Firenze Card 72 ore (https://www.firenzecard.it/en) (pax)", "firenze", {
+        "adulti": 85,
+        "minori": 0,
+      }),
+    new ServizioPax("Bargello (pax)", "firenze", {
+        "adulti": 13,
+        "minori": 3,
+      }),
+    new ServizioPax("Santa Maria Novella (pax)", "firenze", {
+        "adulti": 8,
+        "minori": 0,
+      }),
+    new ServizioPax("Palazzo Vecchio (pax)", "firenze", {
+        "adulti": 14,
+        "minori": 0,
+      }),
+    new ServizioPax("Medici Chapels (pax)", "firenze", {
+        "adulti": 12,
+        "minori": 5,
+      }),
+    new ServizioPax("San Lorenzo (pax)", "firenze", {
+        "adulti": 7,
+        "minori": 4,
+      }),
+    new ServizioPax("Palazzo Medici Riccardi (pax)", "firenze", {
+        "adulti": 10,
+        "minori": 7,
+      }),
+    new ServizioPax("Palazzo Pitti (galleria palatina) (pax)", "firenze", {
+        "adulti": 19,
+        "minori": 5,
+      }),
+    new ServizioPax("Boboli gardens (pax)", "firenze", {
+        "adulti": 13,
+        "minori": 5,
+      }),
+    new ServizioPax("Headsets (pax)", "firenze", {
         "adulti": 2.5,
         "minori": 2.5,
+      }),
+    new ServizioPax("Food Tour (pax)", "firenze", {
+        "adulti": 31.25,
+        "minori": 31.25, //da chiarire
       }),
 ]

@@ -1,10 +1,17 @@
 //Definisce le classi
 
 export class Servizio {
-  constructor(id, nome, tipo) {
+  static currentId = 1;
+
+
+  constructor(id = Servizio.generateId(), nome, tipo) {
     this.id = id;
     this.nome = nome;
     this.tipo = tipo;
+  }
+
+  static generateId() {
+    return this.currentId++;
   }
 
   calcolaTotale() {
@@ -13,8 +20,8 @@ export class Servizio {
 }
 
 export class ServizioTrasporto extends Servizio {
-  constructor(id, nome, tipo, tariffe) {
-    super(id, nome, tipo);
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -114,8 +121,8 @@ export class ServizioTrasporto extends Servizio {
 }
 
 export class ServizioAdOre extends Servizio {
-  constructor(id, nome, tipo, tariffe) {
-    super(id, nome, tipo);
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -216,8 +223,8 @@ export class ServizioAdOre extends Servizio {
 }
 
 export class ServizioGuidaOre extends Servizio {
-  constructor(id, nome, tipo, tariffe) {
-    super(id, nome, tipo);
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -256,8 +263,8 @@ export class ServizioGuidaOre extends Servizio {
 }
 
 export class ServizioPax extends Servizio {
-  constructor(id, nome, tipo, tariffe) {
-    super(id, nome, tipo);
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -295,8 +302,8 @@ export class ServizioPax extends Servizio {
 }
 
 export class ServizioGolf extends Servizio {
-  constructor(id, nome, tipo, tariffe) {
-    super(id, nome, tipo);
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
     this.tariffe = tariffe;
     this.mezzi = 0;
     this.ore = 0;
@@ -342,8 +349,7 @@ export class ServizioGolf extends Servizio {
   }
 
   descrizione() {
-    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}, ID: ${this.id}`;
   }
 }
 
-/* export let nomeCliente = ""; */

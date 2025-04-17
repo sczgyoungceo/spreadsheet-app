@@ -15,7 +15,6 @@ export const selezionaServizio = (req, res) => {
   if (!servizio) {
     return res.status(404).json({ message: "Servizio non trovato" });
   }
-
   res.status(200).json({ servizio });
 };
 
