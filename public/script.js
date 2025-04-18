@@ -40,6 +40,7 @@ export function mostraServizi() {
         row.setAttribute("data-id", servizio.id);
         row.setAttribute("data-tipo", servizio.tipo);
         row.setAttribute("data-nome", servizio.nome);
+
         row.id = servizio.id;
         if (row.id % 2 === 0) {
           row.classList.add("even");
@@ -52,6 +53,19 @@ export function mostraServizi() {
         const nomeServizioCell = document.createElement("td");
         nomeServizioCell.textContent = DOMPurify.sanitize(servizio.nome);
         nomeServizioCell.id = servizio.id;
+
+        nomeServizioCell.addEventListener("mouseover", () => {
+          const tariffe = Object.entries(servizio.tariffe)
+            .sort(([rangeA], [rangeB]) => {
+              const numA = parseInt(rangeA.split("-")[0]) || parseInt(rangeA);
+              const numB = parseInt(rangeB.split("-")[0]) || parseInt(rangeB);
+              return numA - numB;
+            })
+            .map(([range, prezzo]) => `${range}: €${prezzo}`)
+            .join("\n");
+
+          nomeServizioCell.setAttribute("title", tariffe); // Imposta il valore ordinato come title
+        });
 
         if (nomeServizioCell.id % 2 === 0) {
           nomeServizioCell.classList.add("even");
