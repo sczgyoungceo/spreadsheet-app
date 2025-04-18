@@ -116,10 +116,6 @@ export const romaConGolfCart = [
         "adulti": 10,
         "minori": 5,
       }),
-      new ServizioPax("Food & Wine(pax)", "roma-con-golf-cart", {
-        "adulti": 30,
-        "minori": 25,
-      }),
       new ServizioPax("Headsets(pax)", "roma-con-golf-cart", {
         "adulti": 2.5,
         "minori": 2.5,
