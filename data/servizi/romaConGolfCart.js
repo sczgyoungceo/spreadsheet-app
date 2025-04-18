@@ -7,28 +7,28 @@ import {
 } from "../../models/modelli.js"
 
 export const romaConGolfCart = [
-    new ServizioTrasporto("Transfer Su Roma Andata(mezzi)", "roma-con-golf-cart", {
+    new ServizioTrasporto("Transfer Su Roma Andata (mezzi)", "roma-con-golf-cart", {
         "1-3": 48,
         "4-7": 64,
         "8": 69,
         "9-11": 59,
         "12-14": 69,
       }),
-      new ServizioTrasporto("Transfer Su Roma Ritorno(mezzi)", "roma-con-golf-cart", {
+      new ServizioTrasporto("Transfer Su Roma Ritorno (mezzi)", "roma-con-golf-cart", {
         "1-3": 48,
         "4-7": 64,
         "8": 69,
         "9-11": 59,
         "12-14": 69,
       }),
-      new ServizioTrasporto("Da Porto a Roma(mezzi)", "roma-con-golf-cart", {
+      new ServizioTrasporto("Da Porto a Roma (mezzi)", "roma-con-golf-cart", {
         "1-3": 157,
         "4-7": 185,
         "8": 200,
         "9-11": 180,
         "12-14": 200,
       }),
-      new ServizioTrasporto("Da Roma a Porto(mezzi)", "roma-con-golf-cart", {
+      new ServizioTrasporto("Da Roma a Porto (mezzi)", "roma-con-golf-cart", {
         "1-3": 157,
         "4-7": 185,
         "8": 200,
@@ -72,7 +72,7 @@ export const romaConGolfCart = [
       }),
       new ServizioGuidaOre("Servizio guida (ore)", "roma-con-golf-cart", 
         80),
-      new ServizioPax("Vaticano(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Vaticano (pax)", "roma-con-golf-cart", {
         "adulti": 47,
         "minori": 40,
       }),
@@ -80,39 +80,39 @@ export const romaConGolfCart = [
         "adulti": 44,
         "minori": 35,
       }),
-      new ServizioPax("Colosseo(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Colosseo (pax)", "roma-con-golf-cart", {
         "adulti": 30,
         "minori": 15,
       }),
-      new ServizioPax("Pantheon(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Pantheon (pax)", "roma-con-golf-cart", {
         "adulti": 5,
         "minori": 5,
       }),
-      new ServizioPax("Capitolini(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Capitolini (pax)", "roma-con-golf-cart", {
         "adulti": 14,
         "minori": 11,
       }),
-      new ServizioPax("Borghese(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Borghese (pax)", "roma-con-golf-cart", {
         "adulti": 28,
         "minori": 4,
       }),
-      new ServizioPax("Ostia(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Ostia (pax)", "roma-con-golf-cart", {
         "adulti": 19,
         "minori": 5,
       }),
-      new ServizioPax("Castel Sant'Angelo(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Castel Sant'Angelo (pax)", "roma-con-golf-cart", {
         "adulti": 16,
         "minori": 8,
       }),
-      new ServizioPax("Tivoli(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Tivoli (pax)", "roma-con-golf-cart", {
         "adulti": 25,
         "minori": 10,
       }),
-      new ServizioPax("Catacombe(pax)", "roma-con-golf-cart", {
+      new ServizioPax("Catacombe (pax)", "roma-con-golf-cart", {
         "adulti": 10,
         "minori": 5,
       }),
-      new ServizioPax("San Clemente(pax)", "roma-con-golf-cart", {
+      new ServizioPax("San Clemente( pax)", "roma-con-golf-cart", {
         "adulti": 10,
         "minori": 5,
       }),
