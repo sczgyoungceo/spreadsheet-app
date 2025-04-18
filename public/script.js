@@ -14,7 +14,7 @@ export function mostraServizi() {
           "Vehicles",
           "Hours",
           "Adults",
-          "Minor",
+          "Minors",
           "Total",
           "Select",
           "Actions",
@@ -40,6 +40,7 @@ export function mostraServizi() {
         row.setAttribute("data-id", servizio.id);
         row.setAttribute("data-tipo", servizio.tipo);
         row.setAttribute("data-nome", servizio.nome);
+
         row.id = servizio.id;
         if (row.id % 2 === 0) {
           row.classList.add("even");
@@ -52,6 +53,19 @@ export function mostraServizi() {
         const nomeServizioCell = document.createElement("td");
         nomeServizioCell.textContent = DOMPurify.sanitize(servizio.nome);
         nomeServizioCell.id = servizio.id;
+
+        nomeServizioCell.addEventListener("mouseover", () => {
+          const tariffe = Object.entries(servizio.tariffe)
+            .sort(([rangeA], [rangeB]) => {
+              const numA = parseInt(rangeA.split("-")[0]) || parseInt(rangeA);
+              const numB = parseInt(rangeB.split("-")[0]) || parseInt(rangeB);
+              return numA - numB;
+            })
+            .map(([range, prezzo]) => `${range}: €${prezzo}`)
+            .join("\n");
+
+          nomeServizioCell.setAttribute("title", tariffe); // Imposta il valore ordinato come title
+        });
 
         if (nomeServizioCell.id % 2 === 0) {
           nomeServizioCell.classList.add("even");
@@ -163,7 +177,7 @@ export function mostraServizi() {
 
       aggiornaTotaleGenerale();
     })
-    .catch((error) => console.error("Error"));
+    .catch((error) => console.error("Error:", error));
 }
 
 export function aggiornaTuttiServizi(tipo) {
@@ -253,8 +267,8 @@ export function calcolaTotale(id) {
     .then(async (res) => {
       if (!res.ok) {
         const err = await res.json();
-        console.error("❌ Errore risposta server");
-        throw new Error("Errore generico");
+        console.error("❌ Errore risposta server:", err);
+        throw new Error(err.message || "Errore generico");
       }
       return res.json();
     })
@@ -268,7 +282,7 @@ export function calcolaTotale(id) {
       )}`;
       aggiornaTotaleGenerale();
     })
-    .catch((error) => console.error("❗Errore"));
+    .catch((error) => console.error("❗Errore:", error.message));
 }
 
 export function aggiornaTotaleGenerale() {
@@ -298,24 +312,29 @@ export function cancellaTutto() {
   const container = document.querySelector("#contenuto-attivo .container.flex");
   if (!container) return;
 
+  // Impostare tutti i valori degli input di tipo 'number' a 0
   container
     .querySelectorAll("input[type='number']")
     .forEach((input) => (input.value = 0));
 
+  // Impostare tutti i valori di "totale" a €0.00
   container
     .querySelectorAll("[id^='totale-']")
     .forEach((el) => (el.textContent = "€0.00"));
 
+  // Deselezionare tutte le checkbox
   container
     .querySelectorAll("input[type='checkbox']")
     .forEach((checkbox) => (checkbox.checked = false));
-
+  // Rimuovi la classe "selected" da tutti gli elementi della pagina
   document.querySelectorAll(".selected").forEach((element) => {
     element.classList.remove("selected");
   });
 
+  // Mostra il messaggio di popup
   mostraPopup("🗑️Celle Svuotate");
 
+  // Aggiornare il totale generale
   aggiornaTotaleGenerale();
 }
 
@@ -328,7 +347,7 @@ export function copiaSommaTotale(event) {
   navigator.clipboard
     .writeText(textToCopy)
     .then(() => mostraPopup(`📋 Copiato ${textToCopy}`))
-    .catch((err) => console.error("Errore nella copia"));
+    .catch((err) => console.error("Errore nella copia:", err));
 }
 
 export function copyToClipboard(id) {
@@ -336,7 +355,7 @@ export function copyToClipboard(id) {
   navigator.clipboard
     .writeText(text)
     .then(() => mostraPopup("📋Copiato"))
-    .catch((err) => console.error("Errore nella copia"));
+    .catch((err) => console.error("Errore nella copia:", err));
 }
 
 export function mostraPopup(message) {
@@ -384,7 +403,7 @@ export function exportPDF() {
 
   const nomeInput = container.querySelector('input[name="nome"]');
   const nomeClienteRaw = nomeInput?.value || "Cliente";
-  const nomeCliente = DOMPurify.sanitize(nomeClienteRaw).trim();
+  const nomeCliente = nomeClienteRaw.replace(/[<>]/g, "").trim();
   const tipo = nomeInput?.dataset.tipo || "N/A";
 
   const pdfWrapper = document.createElement("div");
@@ -412,7 +431,7 @@ export function exportPDF() {
   indirizzo2.textContent = "Via Giuseppe Libetta, 15/C – 00154 Rome, Italy";
   headerWrapper.appendChild(indirizzo2);
 
-  //intestazione in cima al contenuto PDF
+  // Aggiungi l'intestazione in cima al contenuto PDF
   pdfWrapper.appendChild(headerWrapper);
 
   const title = document.createElement("h1");
@@ -509,6 +528,17 @@ export function exportPDF() {
   totaleEl.textContent = `Estimate Total: ${totaleFinale}`;
   pdfWrapper.appendChild(totaleEl);
 
+  /*   const footer = document.createElement("div");
+  footer.className = "pdf-footer";
+  footer.innerHTML = `
+    <p>Il pagamento è dovuto entro 15 giorni.</p>
+    <div class="pdf-notes">
+      IBAN: IT12 1234 5678 9012 34<br />
+      SWIFT/BIC: ABCDITRXXXX
+    </div>
+  `;
+  pdfWrapper.appendChild(footer); */
+
   const opzioni = {
     margin: 0.4,
     filename: `Preventivo_${nomeCliente}.pdf`,
@@ -523,11 +553,6 @@ export function exportPDF() {
     .outputPdf("blob")
     .then((blob) => {
       const url = URL.createObjectURL(blob);
-
-      if (url.startsWith("blob:")) {
-        window.open(url, "_blank");
-      } else {
-        console.error("URL non valido o non sicuro");
-      }
+      window.open(url, "_blank");
     });
 }
