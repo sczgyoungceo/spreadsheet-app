@@ -164,7 +164,11 @@ export const romaNoGolfCart = [
       "adulti": 29,
       "minori": 15,
     }),
-    new ServizioPax( "Degustazioni Food & Wine(pax)", "roma-no-golf-cart", {
+    new ServizioPax( "Degustazioni Food Tour (pax)", "roma-con-golf-cart", {
+      "adulti": 36.6,
+      "minori": 20,
+    }),
+    new ServizioPax( "Degustazioni Food & Wine Tour (pax)", "roma-no-golf-cart", {
       "adulti": 40,
       "minori": 20,
     }),
