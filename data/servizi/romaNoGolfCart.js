@@ -172,7 +172,7 @@ export const romaNoGolfCart = [
       "adulti": 40,
       "minori": 20,
     }),
-    new ServizioPax( "Headsets(pax)", "roma-no-golf-cart", {
+    new ServizioPax( "Headsets (pax)", "roma-no-golf-cart", {
       "adulti": 2.5,
       "minori": 2.5,
     }),
