@@ -116,10 +116,6 @@ export const romaConGolfCart = [
         "adulti": 10,
         "minori": 5,
       }),
-      new ServizioPax("Headsets(pax)", "roma-con-golf-cart", {
-        "adulti": 2.5,
-        "minori": 2.5,
-      }),
       new ServizioPax("Palazzo Doria Pamphili (pax)", "roma-con-golf-cart", {
         "adulti": 17,
         "minori": 0,
@@ -156,57 +152,17 @@ export const romaConGolfCart = [
         "adulti": 8,
         "minori": 2.5,
       }),
-      new ServizioPax("Villa Adriana e Villa D'Este (pax)", "roma-con-golf-cart", {
-        "adulti": 25,
-        "minori": 0,
-      }),
       new ServizioPax("Sinagoga (paga anche la guida e non spiega) (pax)", "roma-con-golf-cart", {
         "adulti": 11,
         "minori": 8,
-      }),
-      new ServizioPax("Walking Ghetto e Trastevere (pax)", "roma-con-golf-cart", {
-        "adulti": 0,
-        "minori": 0,
-      }),
-      new ServizioPax("Walking piazza e fontane (pax)", "roma-con-golf-cart", {
-        "adulti": 0,
-        "minori": 0,
-      }),
-      new ServizioPax("Caravaggio (pax)", "roma-con-golf-cart", {
-        "adulti": 0,
-        "minori": 0,
-      }),
-      new ServizioPax("Pantheon (pax)", "roma-con-golf-cart", {
-        "adulti": 5,
-        "minori": 0,
       }),
       new ServizioPax("Montemartini (pax)", "roma-con-golf-cart", {
         "adulti": 11,
         "minori": 10,
       }),
-      new ServizioPax("Catacombe Domitilla (pax)", "roma-con-golf-cart", {
-        "adulti": 10,
-        "minori": 5,
-      }),
-      new ServizioPax("Catacombe San Callisto dura 40' (pax)", "roma-con-golf-cart", {
-        "adulti": 10,
-        "minori": 5,
-      }),
       new ServizioPax("Cripta Capuccini (pax)", "roma-con-golf-cart", {
         "adulti": 10,
         "minori": 5,
-      }),
-      new ServizioPax("Palazzo Colonna + Appartamenti + Giardini (pax)", "roma-con-golf-cart", {
-        "adulti": 25,
-        "minori": 25,
-      }),
-      new ServizioPax("Palazzo Colonna + Giardini (pax)", "roma-con-golf-cart", {
-        "adulti": 15,
-        "minori": 15,
-      }),
-      new ServizioPax("DOMUS AUREA (pax)", "roma-con-golf-cart", {
-        "adulti": 16,
-        "minori": 0,
       }),
       new ServizioPax("Foro e Palatino SUPER (pax)", "roma-con-golf-cart", {
         "adulti": 23,
@@ -220,40 +176,12 @@ export const romaConGolfCart = [
         "adulti": 29,
         "minori": 15,
       }),
-      new ServizioPax("Colosseo Foro e Palatino (pax)", "roma-con-golf-cart", {
-        "adulti": 23,
-        "minori": 10,
+      new ServizioPax( "Degustazioni Food & Wine(pax)", "roma-con-golf-cart", {
+        "adulti": 40,
+        "minori": 20,
       }),
-      new ServizioPax("Cupola ascensore (pax)", "roma-con-golf-cart", {
-        "adulti": 10,
-        "minori": 5,
-      }),
-      new ServizioPax("Vaticano notturno (solo il venerdì e sabato) no basilica (pax)", "roma-con-golf-cart", {
-        "adulti": 25,
-        "minori": 15,
-      }),
-      new ServizioPax("Giardini (piccolo bus elettrico) solo in gruppo, dura 45min e sotto i 6 anni non possono fare il tour (pax)", "roma-con-golf-cart", {
-        "adulti": 50,
-        "minori": 40,
-      }),
-      new ServizioPax("Basilica San Pietro: Scavi, Necropoli e Tomba San Pietro (si deve compilare questo form http://www.scavi.va/content/scavi/it/form-prenotazioni-visite.html) (pax)", "roma-con-golf-cart", {
-        "adulti": 20,
-        "minori": 0,
-      }),
-      new ServizioPax("Colazione ai Musei (nel prezzo compreso già biglietto guida che paga) non lo facciamo tbl (pax)", "roma-con-golf-cart", {
-        "adulti": 58,
-        "minori": 38,
-      }),
-      new ServizioPax( "Food & Wine(pax)", "roma-con-golf-cart", {
-        "adulti": 30,
-        "minori": 25,
-      }),
-      new ServizioPax( "Trastevere Cooking Class (Pasta, Pizza and Tiramisu Making) (pax)", "roma-con-golf-cart", {
-        "adulti": 85,
-        "minori": 75,
-      }),
-      new ServizioPax( "Appia Cooking Class (Pasta&Pizza Making, Tiramisu, & Limoncello Tasting) (pax)", "roma-con-golf-cart", {
-        "adulti": 70,
-        "minori": 60,
+      new ServizioPax( "Headsets(pax)", "roma-con-golf-cart", {
+        "adulti": 2.5,
+        "minori": 2.5,
       }),
 ]
