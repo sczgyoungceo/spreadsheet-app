@@ -5,4 +5,8 @@ export const como = [
         "adulti": 15,
         "minori": 10,
       }),
+    new ServizioPax("Biglietto free navigation giornaliero (pax)", "como", {
+        "adulti": 33,
+        "minori": 25,
+      }),
 ]
