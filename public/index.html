@@ -29,6 +29,7 @@
         <img src="assets/img/logo_white.png" alt="logo TourCostify" class="img"/>
       </header>
       <div id="section-wrapper">
+
         <section class="section" id="roma-no-golf-cart">
           <h2>Rome No Golf Cart</h2>
           <div class="container none">
@@ -298,6 +299,202 @@
             </div>
           </div>
         </section>
+
+        <section class="section" id="milano">
+          <h2>Milan</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM MILAN TOUR</h2>
+            </div>
+            <table class="lista-servizi" data-tipo="milano">
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+            </table>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-milano">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-milano" data-tipo="milano" />
+              </div>
+
+              <div class="toolbar">
+                <label for="adulti-milano">Adulti:</label>
+                <input
+                  id="adulti-milano"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="milano"
+                />
+
+                <label for="minori-milano">Minori:</label>
+                <input
+                  id="minori-milano"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="milano"
+                />
+
+                <button class="apply-to-selected" data-tipo="milano">
+                  Apply to selected services
+                </button>
+              </div>
+
+              <div class="footer-totale">
+                <span class="totale-generale" data-tipo="milano">€0.00</span>
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="venezia">
+          <h2>Venice</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM VENICE TOUR</h2>
+            </div>
+            <table class="lista-servizi" data-tipo="venezia">
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+            </table>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-venezia">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-venezia" data-tipo="venezia" />
+              </div>
+
+              <div class="toolbar">
+                <label for="adulti-venezia">Adulti:</label>
+                <input
+                  id="adulti-venezia"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="venezia"
+                />
+
+                <label for="minori-venezia">Minori:</label>
+                <input
+                  id="minori-venezia"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="venezia"
+                />
+
+                <button class="apply-to-selected" data-tipo="venezia">
+                  Apply to selected services
+                </button>
+              </div>
+
+              <div class="footer-totale">
+                <span class="totale-generale" data-tipo="venezia">€0.00</span>
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="como">
+          <h2>Como</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CUSTOM COMO TOUR</h2>
+            </div>
+            <table class="lista-servizi" data-tipo="como">
+              <tr>
+                <th>Service Name</th>
+                <th>Vehicles</th>
+                <th>Hours</th>
+                <th>Adults</th>
+                <th>Minors</th>
+                <th>Total</th>
+              </tr>
+            </table>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-como">Nome Cliente</label>
+                <input type="text" name="nome" id="nome-como" data-tipo="como" />
+              </div>
+
+              <div class="toolbar">
+                <label for="adulti-como">Adulti:</label>
+                <input
+                  id="adulti-como"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="como"
+                />
+
+                <label for="minori-como">Minori:</label>
+                <input
+                  id="minori-como"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="como"
+                />
+
+                <button class="apply-to-selected" data-tipo="como">
+                  Apply to selected services
+                </button>
+              </div>
+
+              <div class="footer-totale">
+                <span class="totale-generale" data-tipo="como">€0.00</span>
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
       <div id="contenuto-attivo"></div>
     </div>
