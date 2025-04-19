@@ -133,6 +133,6 @@ export const firenze = [
       }),
     new ServizioPax("Food Tour (pax)", "firenze", {
         "adulti": 31.25,
-        "minori": 20, //da chiarire
+        "minori": 20, 
       }),
 ]
