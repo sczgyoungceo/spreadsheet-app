@@ -35,8 +35,8 @@ export class ServizioTrasporto extends Servizio {
 
   // Funzione per ottenere la tariffa per il tipo "roma-no-golf-cart"
   getTariffaRomaNoGolf() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
     if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
     if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
     if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
@@ -45,8 +45,8 @@ export class ServizioTrasporto extends Servizio {
 
   // Funzione per ottenere la tariffa per il tipo "roma-con-golf-cart"
   getTariffaRomaConGolf() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 7) return this.tariffe["3-7"];
     if (this.persone === 8) return this.tariffe["8"];
     if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
     if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
@@ -55,8 +55,8 @@ export class ServizioTrasporto extends Servizio {
 
   // Funzione per ottenere la tariffa per il tipo "napoli"
   getTariffaNapoli() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
     if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
     if (this.persone >= 9 && this.persone <= 14) return this.tariffe["9-14"];
     return 0;
@@ -64,8 +64,8 @@ export class ServizioTrasporto extends Servizio {
 
   // Funzione per ottenere la tariffa per il tipo "firenze"
   getTariffaFirenze() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 7) return this.tariffe["3-7"];
     if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
     if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
     return 0;
@@ -135,28 +135,26 @@ export class ServizioAdOre extends Servizio {
   }
 
   getTariffaRomaNoGolf() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
     if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
     if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
     if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
     return 0;
   }
 
-  // Funzione per ottenere la tariffa per il tipo "roma-con-golf-cart"
   getTariffaRomaConGolf() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 7) return this.tariffe["3-7"];
     if (this.persone === 8) return this.tariffe["8"];
     if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
     if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
     return 0;
   }
 
-  // Funzione per ottenere la tariffa per il tipo "napoli"
   getTariffaNapoli() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
     if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
     if (this.persone >= 9 && this.persone <= 14) return this.tariffe["9-14"];
     return 0;
@@ -164,8 +162,8 @@ export class ServizioAdOre extends Servizio {
 
   // Funzione per ottenere la tariffa per il tipo "firenze"
   getTariffaFirenze() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 7) return this.tariffe["3-7"];
     if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
     if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
     return 0;
