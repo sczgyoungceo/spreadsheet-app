@@ -36,40 +36,46 @@ export class ServizioTrasporto extends Servizio {
   // Funzione per ottenere la tariffa per il tipo "roma-no-golf-cart"
   getTariffaRomaNoGolf() {
     if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
-    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
-    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
-    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
-    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
+    if (this.persone >= 3 && this.persone <= 5) return this.tariffe["3-5"];
+    if (this.persone >= 6 && this.persone <= 7) return this.tariffe["6-7"];
+    if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
+    if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
     return 0;
   }
 
   // Funzione per ottenere la tariffa per il tipo "roma-con-golf-cart"
   getTariffaRomaConGolf() {
-    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
-    if (this.persone >= 3 && this.persone <= 7) return this.tariffe["3-7"];
-    if (this.persone === 8) return this.tariffe["8"];
-    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
-    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
+    if (this.persone >= 1 && this.persone <= 2)   return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 5)   return this.tariffe["3-5"];
+    if (this.persone >= 6 && this.persone <= 7)   return this.tariffe["6-7"];
+    if (this.persone >= 8 && this.persone <= 10)  return this.tariffe["8-10"];
+    if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
     return 0;
-  }
+  }  
 
   // Funzione per ottenere la tariffa per il tipo "napoli"
   getTariffaNapoli() {
-    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
-    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
-    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
-    if (this.persone >= 9 && this.persone <= 14) return this.tariffe["9-14"];
-    return 0;
-  }
-
-  // Funzione per ottenere la tariffa per il tipo "firenze"
-  getTariffaFirenze() {
-    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
-    if (this.persone >= 3 && this.persone <= 7) return this.tariffe["3-7"];
-    if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
+    if (this.persone >= 1 && this.persone <= 2)   return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 5)   return this.tariffe["3-5"];
+    if (this.persone >= 6 && this.persone <= 7)   return this.tariffe["6-7"];
+    if (this.persone >= 8 && this.persone <= 10)  return this.tariffe["8-10"];
     if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
     return 0;
   }
+  
+
+  // Funzione per ottenere la tariffa per il tipo "firenze"
+  getTariffaFirenze() {
+    if (this.persone >= 1 && this.persone <= 2)   return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 5)   return this.tariffe["3-5"];
+    if (this.persone >= 6 && this.persone <= 7)   return this.tariffe["6-7"];
+    if (this.persone >= 8 && this.persone <= 10)  return this.tariffe["8-10"];
+    if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
+    return 0;
+  }  
+
+  //getTariffaNoGuida
+  //Tariffe senza guida 1-3 4-67-8  9-11 12-16 2 van 17-24 3 van
 
   // Funzione per ottenere la tariffa in base al tipo di servizio
   getTariffa() {
@@ -92,10 +98,7 @@ export class ServizioTrasporto extends Servizio {
     let mezzi = 1;
     const tariffaBase = this.getTariffa();
 
-    let sogliaDueMezzi = 9;
-    if (this.tipo === "roma-con-golf-cart") sogliaDueMezzi = 8;
-    if (this.tipo === "napoli") sogliaDueMezzi = 9;
-    if (this.tipo === "firenze") sogliaDueMezzi = 8;
+    let sogliaDueMezzi = 8;
 
     if (this.persone >= sogliaDueMezzi) mezzi = 2;
 
@@ -322,12 +325,12 @@ export class ServizioGolf extends Servizio {
   }
 
   getTariffa() {
-    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
-    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
-    if (this.persone === 8) return this.tariffe["8"];
-    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
-    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
-    return 0;
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 6) return this.tariffe["3-6"];
+    if (this.persone === 7) return this.tariffe["7"];
+    if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
+    if (this.persone >= 11 && this.persone <= 13) return this.tariffe["11-13"];
+    /* return 0; */
   }
 
   calcolaTotale() {
@@ -335,10 +338,10 @@ export class ServizioGolf extends Servizio {
     let mezzi = 1;
     let tariffaBase = this.getTariffa();
 
-    if (this.persone >= 8) {
+    if (this.persone >= 7) {
       mezzi = 2;
     }
-    if (this.persone >= 15) {
+    if (this.persone >= 14) {
       console.log(`Numero persone superiore al limite: ${this.persone}`);
     }
 
@@ -358,4 +361,6 @@ export class ServizioGolf extends Servizio {
     return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}, ID: ${this.id}`;
   }
 }
+
+//altra classe SoloTransfer con le tariffe nuove: 
 

@@ -55,10 +55,14 @@ export function mostraServizi() {
         nomeServizioCell.id = servizio.id;
 
         nomeServizioCell.addEventListener("mouseover", () => {
-          const tariffe = Object.entries(servizio.tariffe || { "": servizio.prezzo })
+          const tariffe = Object.entries(
+            servizio.tariffe || { "": servizio.prezzo }
+          )
             .sort(([rangeA], [rangeB]) => {
-              const numA = parseInt(rangeA.split("-")[0]) || parseInt(rangeA) || 0;
-              const numB = parseInt(rangeB.split("-")[0]) || parseInt(rangeB) || 0;
+              const numA =
+                parseInt(rangeA.split("-")[0]) || parseInt(rangeA) || 0;
+              const numB =
+                parseInt(rangeB.split("-")[0]) || parseInt(rangeB) || 0;
               return numA - numB;
             })
             .map(([range, prezzo]) => {
@@ -68,7 +72,7 @@ export function mostraServizi() {
               return `${range}: €${prezzo}`;
             })
             .join("\n");
-        
+
           nomeServizioCell.setAttribute("title", tariffe); // Imposta il valore ordinato come title
         });
 
@@ -117,6 +121,7 @@ export function mostraServizi() {
             alert("La somma tra Adulti e Minori non può superare 14.");
             adultiInput.value = 14 - minori;
           }
+
           calcolaTotale(servizio.id);
         });
         adultiInputCell.appendChild(adultiInput);
@@ -213,8 +218,11 @@ export function aggiornaTuttiServizi(tipo) {
 
 export function calcolaTotale(id) {
   const ore = Number(document.getElementById(`ore-${id}`).value);
-  const adulti = Number(document.getElementById(`adulti-${id}`).value);
-  const minori = Number(document.getElementById(`minori-${id}`).value);
+  const adultiInput = document.getElementById(`adulti-${id}`);
+  const minoriInput = document.getElementById(`minori-${id}`);
+  const adulti = Number(adultiInput.value);
+  const minori = Number(minoriInput.value);
+
 
   if (isNaN(ore) || isNaN(adulti) || isNaN(minori)) {
     alert("Errore: Assicurati che tutti i valori siano numerici.");
@@ -225,37 +233,40 @@ export function calcolaTotale(id) {
 
   const row = document.querySelector(`tr[data-id="${id}"]`);
   const nomeServizio = row?.dataset?.nome || "";
-  const tipo = row?.dataset?.tipo || "";
 
   let mezzi = 0;
 
-  if (["(ore)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
-    const ore = document.getElementById(`ore-${id}`);
-    if (persone >= 1) {
-      ore.classList.add("vibrato-border");
-      setTimeout(() => ore.classList.remove("vibrato-border"), 1500);
+  // Controllo per il servizio "Golf"
+  if (nomeServizio.includes("Golf")) {
+    if (adulti + minori > 13) {
+      alert("La somma tra Adulti e Minori non può superare 13 per il servizio Golf.");
     }
-    if (ore.value >= 1) {
-      ore.classList.remove("vibrato-border");
+  }
+
+  if (["(ore)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
+    const oreInput = document.getElementById(`ore-${id}`);
+    if (persone >= 1) {
+      oreInput.classList.add("vibrato-border");
+      setTimeout(() => oreInput.classList.remove("vibrato-border"), 1500);
+    }
+    if (oreInput.value >= 1) {
+      oreInput.classList.remove("vibrato-border");
     }
   }
 
   if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
-    if (
-      (tipo === "roma-con-golf-cart" && persone >= 1) ||
-      (tipo === "roma-no-golf-cart" && persone >= 1) ||
-      (tipo === "napoli" && persone >= 1) ||
-      (tipo === "firenze" && persone >= 1)
-    ) {
+    if (persone >= 8) {
+      mezzi = 2;
+    } else {
       mezzi = 1;
     }
-    if (
-      (tipo === "roma-con-golf-cart" && persone >= 8) ||
-      (tipo === "roma-no-golf-cart" && persone >= 9) ||
-      (tipo === "napoli" && persone >= 9) ||
-      (tipo === "firenze" && persone >= 8)
-    ) {
-      mezzi = 2;
+
+    if (nomeServizio.includes("Golf")) {
+      if (persone >= 7) {
+        mezzi = 2;
+      } else {
+        mezzi = 1;
+      }
     }
   }
 
