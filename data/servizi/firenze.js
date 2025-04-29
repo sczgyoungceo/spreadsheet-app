@@ -54,7 +54,9 @@ export const firenze = [
         "8-10": 60,
         "11-14": 60,
     }),
-    new ServizioGuidaOre("Servizio Guida (ore)", "firenze", 70),
+    new ServizioGuidaOre("Servizio Guida (ore)", "firenze", {
+      "prezzo": 70, 
+     }),
     new ServizioPax("Uffizi (pax)", "firenze", {
         "adulti": 34,
         "minori": 10,

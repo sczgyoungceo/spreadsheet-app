@@ -55,15 +55,20 @@ export function mostraServizi() {
         nomeServizioCell.id = servizio.id;
 
         nomeServizioCell.addEventListener("mouseover", () => {
-          const tariffe = Object.entries(servizio.tariffe)
+          const tariffe = Object.entries(servizio.tariffe || { "": servizio.prezzo })
             .sort(([rangeA], [rangeB]) => {
-              const numA = parseInt(rangeA.split("-")[0]) || parseInt(rangeA);
-              const numB = parseInt(rangeB.split("-")[0]) || parseInt(rangeB);
+              const numA = parseInt(rangeA.split("-")[0]) || parseInt(rangeA) || 0;
+              const numB = parseInt(rangeB.split("-")[0]) || parseInt(rangeB) || 0;
               return numA - numB;
             })
-            .map(([range, prezzo]) => `${range}: €${prezzo}`)
+            .map(([range, prezzo]) => {
+              if (range === "prezzo") {
+                return `Prezzo fisso: €${prezzo}`;
+              }
+              return `${range}: €${prezzo}`;
+            })
             .join("\n");
-
+        
           nomeServizioCell.setAttribute("title", tariffe); // Imposta il valore ordinato come title
         });
 
