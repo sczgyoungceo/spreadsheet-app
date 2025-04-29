@@ -70,8 +70,9 @@ export const romaConGolfCart = [
         "9-11": 55,
         "12-14": 63,
       }),
-      new ServizioGuidaOre("Servizio guida (ore)", "roma-con-golf-cart", 
-        80),
+      new ServizioGuidaOre("Servizio guida (ore)", "roma-con-golf-cart",{
+        "prezzo": 80, 
+       }),
       new ServizioPax("Vaticano (pax)", "roma-con-golf-cart", {
         "adulti": 47,
         "minori": 40,

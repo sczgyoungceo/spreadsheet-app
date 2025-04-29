@@ -235,16 +235,24 @@ export class ServizioGuidaOre extends Servizio {
   }
 
   getTariffa() {
-    if (this.persone >= 1 && this.persone <= 14) return this.tariffe;
+    if (this.tariffe && this.tariffe["prezzo"]) {
+      return this.tariffe["prezzo"];
+    }
+  
     return 0;
   }
 
   calcolaTotale() {
     const tariffaGuide = 1.75;
-    const ore = this.ore;
-    let tariffaBase = this.getTariffa();
+    const ore = this.ore || 0; 
+    const tariffaBase = this.getTariffa();
+  
+
+    if (tariffaBase === 0) {
+      return 0;
+    }
+  
     const totale = ore * (tariffaBase * tariffaGuide);
-    this.ore = ore;
     return totale;
   }
 
