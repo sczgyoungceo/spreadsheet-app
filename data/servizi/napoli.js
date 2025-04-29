@@ -6,58 +6,58 @@ import {
 } from "../../models/modelli.js"
 
 export const napoli = [
-    new ServizioTrasporto("Da Porto o Napoli/Sorrento a Pompei (mezzi)", "napoli", {
+    new ServizioTrasporto("Da Porto o Napoli/Sorrento a Pompei/Ercolano (mezzi)", "napoli", {
         "1-2":  90,
         "3-5": 120,
         "6-7": 140,
         "8-10": 140,
         "11-14": 140,
       }),
-    new ServizioTrasporto("Da Pompei a Porto o Napoli/Sorrento (mezzi)", "napoli", {
+    new ServizioTrasporto("Da Pompei/Ercolano a Porto o Napoli/Sorrento (mezzi)", "napoli", {
         "1-2":  90,
         "3-5": 120,
         "6-7": 140,
         "8-10": 140,
         "11-14": 140,
       }),
-    new ServizioTrasporto("Da Porto o Napoli/Sorrento a Ercolano (mezzi)", "napoli", {
-        "1-2":  70,
-        "3-5": 100,
-        "6-7": 120,
-        "8-10": 120,
-        "11-14": 120,
+    new ServizioTrasporto("Da Napoli a Sorrento (mezzi)", "napoli", {
+        "1-2":  135,
+        "3-5": 170,
+        "6-7": 190,
+        "8-10": 155,
+        "11-14": 170,
       }),
-    new ServizioTrasporto("Da Ercolano a Porto o Napoli/Sorrento (mezzi)", "napoli", {
-        "1-2":  70,
-        "3-5": 100,
-        "6-7": 120,
-        "8-10": 120,
-        "11-14": 120,
+    new ServizioTrasporto("Da Sorrento a Napoli (mezzi)", "napoli", {
+        "1-2":  135,
+        "3-5": 170,
+        "6-7": 190,
+        "8-10": 155,
+        "11-14": 170,
       }),
     new ServizioTrasporto("Da Napoli o Pompei ad Amalfi/Positano (mezzi)", "napoli", {
-        "1-2":  200,
-        "3-5": 230,
-        "6-7": 250,
-        "8-10": 250,
-        "11-14": 250,
+        "1-2":  160,
+        "3-5": 195,
+        "6-7": 215,
+        "8-10": 180,
+        "11-14": 195,
       }),
     new ServizioTrasporto("Da Amalfi/Positano a Napoli o Pompei (mezzi)", "napoli", {
-        "1-2":  200,
-        "3-5": 165,
-        "6-7": 160,
-        "8-10": 110,
-        "11-14": 110,
+        "1-2":  160,
+        "3-5": 195,
+        "6-7": 215,
+        "8-10": 180,
+        "11-14": 195,
       }),
     new ServizioAdOre("Disposizione su Napoli, Ercolano, Pompei, Vesuvio (mezzi e ore)", "napoli", {
         "1-2":  50,
-        "3-5":  60,
+        "3-5":  55,
         "6-7":  70,
         "8-10": 70,
         "11-14": 70,
       }),
     new ServizioAdOre("Disposizione su Sorrento e Costiera (mezzi e ore)", "napoli", {
         "1-2":  60,
-        "3-5":  80,
+        "3-5":  75,
         "6-7":  90,
         "8-10": 90,
         "11-14": 90,
@@ -65,9 +65,9 @@ export const napoli = [
     new ServizioAdOre("Disposizione su altre città in Campania (mezzi e ore)", "napoli", {
         "1-2":  60,
         "3-5":  80,
-        "6-7":  90,
-        "8-10": 90,
-        "11-14": 90,
+        "6-7":  95,
+        "8-10": 95,
+        "11-14": 95,
       }),      
     new ServizioGuidaOre("Servizio Guida (ore)", "napoli", {
         "prezzo": 70, 
