@@ -193,12 +193,7 @@ export class ServizioAdOre extends Servizio {
     let ore = this.ore;
     let tariffaBase = this.getTariffa();
 
-    let sogliaDueMezzi = 9;
-    if (this.tipo === "roma-con-golf-cart") sogliaDueMezzi = 8;
-    if (this.tipo === "napoli") sogliaDueMezzi = 9;
-    if (this.tipo === "firenze") sogliaDueMezzi = 8;
-
-    if (this.persone >= sogliaDueMezzi) mezzi = 2;
+    if (this.persone >= 8) mezzi = 2;
 
     if (this.persone >= 15) {
       console.log(`⚠️ Numero persone superiore al limite: ${this.persone}`);
