@@ -10,6 +10,7 @@ import {
   closeSezioni,
   exportPDF,
   aggiornaTuttiServizi,
+  mostraSezioniTransfer,
 } from "./script.js";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -38,6 +39,10 @@ window.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".section").forEach((section) => {
     section.addEventListener("click", () => mostraSezioni(section));
   });
+
+  // Evento per la sezione transfer
+  const sectionTransfer = document.getElementById("transfer");
+  sectionTransfer.addEventListener("click", () => mostraSezioniTransfer());
 
   // Evento per pulsante cancella tutto
   document.addEventListener("click", (e) => {

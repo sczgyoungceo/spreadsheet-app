@@ -223,7 +223,6 @@ export function calcolaTotale(id) {
   const adulti = Number(adultiInput.value);
   const minori = Number(minoriInput.value);
 
-
   if (isNaN(ore) || isNaN(adulti) || isNaN(minori)) {
     alert("Errore: Assicurati che tutti i valori siano numerici.");
     return;
@@ -239,7 +238,9 @@ export function calcolaTotale(id) {
   // Controllo per il servizio "Golf"
   if (nomeServizio.includes("Golf")) {
     if (adulti + minori > 13) {
-      alert("La somma tra Adulti e Minori non può superare 13 per il servizio Golf.");
+      alert(
+        "La somma tra Adulti e Minori non può superare 13 per il servizio Golf."
+      );
     }
   }
 
@@ -387,6 +388,11 @@ export function mostraPopup(message) {
 export function mostraSezioni(clickedSection) {
   const contenitoreAttivo = document.getElementById("contenuto-attivo");
   const container = clickedSection.querySelector(".container");
+
+  if (!container) {
+    return;
+  }
+
   if (!contenitoreAttivo.contains(container)) {
     contenitoreAttivo.innerHTML = "";
     container.classList.remove("none");
@@ -397,6 +403,231 @@ export function mostraSezioni(clickedSection) {
     contenitoreAttivo.classList.remove("none");
     contenitoreAttivo.style.zIndex = "10";
   }
+}
+
+export function mostraSezioniTransfer() {
+  const select = document.getElementById("transfer-select");
+  const content = document.getElementById("transfer-content");
+
+  if (!select) {
+    console.error("Elemento con id 'transfer-select' non trovato.");
+    return;
+  }
+
+  // Effettua il fetch per ottenere i dati relativi ai transfer
+  fetch("/servizi/lista")
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Errore nel recupero dei dati dei transfer.");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      const transferList = data.servizi.filter(
+        (servizio) => servizio.tipo === "transfer"
+      );
+
+      // Aggiungi l'evento change alla select
+      select.addEventListener("change", () => {
+        const selectedOption = select.value;
+
+        // Filtra i servizi in transferList che contengono la stringa selezionata nel nome
+        const serviziFiltrati = transferList.filter((servizio) =>
+          servizio.nome.toLowerCase().includes(selectedOption.toLowerCase())
+        );
+
+        // Pulisci il contenuto precedente
+        content.innerHTML = "";
+
+        // Crea la tabella
+        const table = document.createElement("table");
+        table.classList.add("transfer-table");
+
+        // Crea l'intestazione della tabella
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+
+        const headers = [
+          "Service Name",
+          "Vehicles",
+          "Hours",
+          "Adults",
+          "Minors",
+          "Total",
+          "Select",
+          "Actions",
+        ];
+        headers.forEach((headerText) => {
+          const th = document.createElement("th");
+          th.textContent = headerText;
+          headerRow.appendChild(th);
+        });
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Crea il corpo della tabella
+        const tbody = document.createElement("tbody");
+
+        serviziFiltrati.forEach((servizio) => {
+          const row = document.createElement("tr");
+          row.setAttribute("data-id", servizio.id);
+          row.setAttribute("data-tipo", servizio.tipo);
+          row.setAttribute("data-nome", servizio.nome);
+
+          row.id = servizio.id;
+          if (row.id % 2 === 0) {
+            row.classList.add("even");
+          } else {
+            row.classList.add("odd");
+          }
+
+          row.classList.add("row");
+
+          const nomeServizioCell = document.createElement("td");
+          nomeServizioCell.textContent = DOMPurify.sanitize(servizio.nome);
+          nomeServizioCell.id = servizio.id;
+
+          nomeServizioCell.addEventListener("mouseover", () => {
+            const tariffe = Object.entries(
+              servizio.tariffe || { "": servizio.prezzo }
+            )
+              .sort(([rangeA], [rangeB]) => {
+                const numA =
+                  parseInt(rangeA.split("-")[0]) || parseInt(rangeA) || 0;
+                const numB =
+                  parseInt(rangeB.split("-")[0]) || parseInt(rangeB) || 0;
+                return numA - numB;
+              })
+              .map(([range, prezzo]) => {
+                if (range === "prezzo") {
+                  return `Prezzo fisso: €${prezzo}`;
+                }
+                return `${range}: €${prezzo}`;
+              })
+              .join("\n");
+
+            nomeServizioCell.setAttribute("title", tariffe); // Imposta il valore ordinato come title
+          });
+
+          if (nomeServizioCell.id % 2 === 0) {
+            nomeServizioCell.classList.add("even");
+          } else {
+            nomeServizioCell.classList.add("odd");
+          }
+
+          row.appendChild(nomeServizioCell);
+
+          const mezziInputCell = document.createElement("td");
+          const mezziInput = document.createElement("input");
+          mezziInput.type = "number";
+          mezziInput.id = `mezzi-${servizio.id}`;
+          mezziInput.value = 0;
+          mezziInput.min = 0;
+          mezziInput.max = 5;
+          mezziInput.addEventListener("change", () =>
+            calcolaTotale(servizio.id)
+          );
+          mezziInputCell.appendChild(mezziInput);
+          row.appendChild(mezziInputCell);
+
+          const oreInputCell = document.createElement("td");
+          const oreInput = document.createElement("input");
+          oreInput.type = "number";
+          oreInput.id = `ore-${servizio.id}`;
+          oreInput.value = 0;
+          oreInput.min = 0;
+          oreInput.max = 24;
+          oreInput.addEventListener("change", () => calcolaTotale(servizio.id));
+          oreInputCell.appendChild(oreInput);
+          row.appendChild(oreInputCell);
+
+          const adultiInputCell = document.createElement("td");
+          const adultiInput = document.createElement("input");
+          adultiInput.type = "number";
+          adultiInput.id = `adulti-${servizio.id}`;
+          adultiInput.value = 0;
+          adultiInput.min = 0;
+          adultiInput.max = 14;
+          adultiInput.addEventListener("change", () => {
+            const adulti = parseInt(adultiInput.value);
+            const minori = parseInt(
+              document.getElementById(`minori-${servizio.id}`).value
+            );
+
+            if (adulti + minori > 14) {
+              alert("La somma tra Adulti e Minori non può superare 14.");
+              adultiInput.value = 14 - minori;
+            }
+
+            calcolaTotale(servizio.id);
+          });
+          adultiInputCell.appendChild(adultiInput);
+          row.appendChild(adultiInputCell);
+
+          const minoriInputCell = document.createElement("td");
+          const minoriInput = document.createElement("input");
+          minoriInput.type = "number";
+          minoriInput.id = `minori-${servizio.id}`;
+          minoriInput.value = 0;
+          minoriInput.min = 0;
+          minoriInput.max = 14;
+          minoriInput.addEventListener("change", () => {
+            const adulti = parseInt(
+              document.getElementById(`adulti-${servizio.id}`).value
+            );
+            const minori = parseInt(minoriInput.value);
+
+            if (adulti + minori > 14) {
+              alert("La somma tra Adulti e Minori non può superare 14.");
+              minoriInput.value = 14 - adulti;
+            }
+            calcolaTotale(servizio.id);
+          });
+          minoriInputCell.appendChild(minoriInput);
+          row.appendChild(minoriInputCell);
+
+          const totaleCell = document.createElement("td");
+          const totaleSpan = document.createElement("span");
+          totaleSpan.id = `totale-${servizio.id}`;
+          totaleSpan.textContent = `€0.00`;
+          totaleCell.appendChild(totaleSpan);
+          row.appendChild(totaleCell);
+
+          const selectCell = document.createElement("td");
+          const selectCheckbox = document.createElement("input");
+          selectCheckbox.type = "checkbox";
+          selectCheckbox.id = `select-${servizio.id}`;
+          selectCheckbox.addEventListener("change", (event) => {
+            if (!event.target.checked) {
+              row.classList.remove("selected");
+            } else {
+              row.classList.add("selected");
+            }
+          });
+          selectCell.appendChild(selectCheckbox);
+          row.appendChild(selectCell);
+
+          const actionsCell = document.createElement("td");
+          const copyButton = document.createElement("button");
+          copyButton.textContent = "Copy";
+          copyButton.addEventListener("click", () =>
+            copyToClipboard(servizio.id)
+          );
+          actionsCell.appendChild(copyButton);
+          row.appendChild(actionsCell);
+
+          tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        content.appendChild(table);
+      });
+    })
+    .catch((error) => {
+      console.error("Errore durante il fetch dei dati dei transfer:", error);
+      content.textContent = "Errore nel caricamento dei dati.";
+    });
 }
 
 export function closeSezioni() {

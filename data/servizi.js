@@ -5,6 +5,7 @@ import { firenze } from "./servizi/firenze.js";
 import { milano } from "./servizi/milano.js";
 import { venezia } from "./servizi/venezia.js";
 import { como } from "./servizi/como.js";
+import { transfer } from "./servizi/transfer.js";
 
 export const servizi = [
   ...romaNoGolfCart,
@@ -14,4 +15,5 @@ export const servizi = [
   ...milano,
   ...venezia,
   ...como,
+  ...transfer,
 ];

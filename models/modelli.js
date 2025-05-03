@@ -72,6 +72,15 @@ export class ServizioTrasporto extends Servizio {
     return 0;
   }
 
+  getTariffaTransfer() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
+    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
+    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
+    return 0;
+  }
+
   //getTariffaNoGuida
   //Tariffe senza guida 1-3 4-67-8  9-11 12-16 2 van 17-24 3 van
 
@@ -86,6 +95,8 @@ export class ServizioTrasporto extends Servizio {
         return this.getTariffaNapoli();
       case "firenze":
         return this.getTariffaFirenze();
+      case "transfer":
+        return this.getTariffaTransfer();
       default:
         return 0;
     }

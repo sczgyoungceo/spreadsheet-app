@@ -133,6 +133,14 @@ section:hover {
   align-items: center;
 }
 
+.container-transfer {
+  width: 100%;
+  padding: 20px 20px 100px 20px;
+  background-color: #1e1e1e;
+  flex-direction: column;
+  align-items: center;
+}
+
 .titolo-wrapper {
   display: flex;
   align-items: center;
@@ -169,7 +177,7 @@ section:hover {
   border-spacing: 0 10px;
 }
 
-.lista-servizi th {
+th {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -183,7 +191,7 @@ section:hover {
   z-index: 10;
 }
 
-.lista-servizi td {
+td {
   padding: 8px 10px;
 }
 
@@ -522,6 +530,10 @@ i {
 .popup.danger {
   background-color: #f44336;
 }
+
+/* TRANSFER STYLE */
+/* aggiungere stile 100% */
+/* TRANSFER STYLE */
 
 @keyframes fadeInOut {
   0% {
