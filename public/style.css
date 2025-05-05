@@ -133,14 +133,6 @@ section:hover {
   align-items: center;
 }
 
-.container-transfer {
-  width: 100%;
-  padding: 20px 20px 100px 20px;
-  background-color: #1e1e1e;
-  flex-direction: column;
-  align-items: center;
-}
-
 .titolo-wrapper {
   display: flex;
   align-items: center;
@@ -532,10 +524,60 @@ i {
 }
 
 /* TRANSFER STYLE */
+.container-transfer {
+  width: 100%;
+  padding: 20px 20px 100px 20px;
+  background-color: #1e1e1e;
+  flex-direction: column;
+  align-items: center;
+}
 
-#transfer-content-wrapper{
+#transfer-content-wrapper {
   width: 100%;
 }
+
+#select-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+#transfer-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #1c1c1e;
+  color: #ffffff;
+  border: 1px solid #3a3a3c;
+  border-radius: 10px;
+  padding: 12px 16px;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 260px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: border 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  text-align: center;
+  text-align-last: center;
+}
+
+#transfer-select:hover {
+  border-color: #636366;
+}
+
+#transfer-select:focus {
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+}
+
+#transfer-select option {
+  color: #ffffff;
+  background-color: #1c1c1e;
+  text-align: center;
+}
+
+
 
 /* TRANSFER STYLE */
 

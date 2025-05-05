@@ -189,6 +189,17 @@ export class ServizioAdOre extends Servizio {
     return 0;
   }
 
+  getTariffaTransfer() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
+    if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
+    if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
+    if (this.persone >= 12 && this.persone <= 16) return this.tariffe["12-16"];
+    if (this.persone >= 17 && this.persone <= 24) return this.tariffe["17-24"];
+    return 0;
+  }
+
+
   // Funzione per ottenere la tariffa in base al tipo di servizio
   getTariffa() {
     switch (this.tipo) {
@@ -200,6 +211,8 @@ export class ServizioAdOre extends Servizio {
         return this.getTariffaNapoli();
       case "firenze":
         return this.getTariffaFirenze();
+      case "transfer":
+        return this.getTariffaTransfer();
       default:
         return 0;
     }
@@ -211,10 +224,18 @@ export class ServizioAdOre extends Servizio {
     let ore = this.ore;
     let tariffaBase = this.getTariffa();
 
-    if (this.persone >= 8) mezzi = 2;
-
-    if (this.persone >= 15) {
-      console.log(`⚠️ Numero persone superiore al limite: ${this.persone}`);
+    if (this.tipo === "transfer") {
+      if (this.persone >= 17) {
+        mezzi = 3;
+      } else if (this.persone >= 9) {
+        mezzi = 2;
+      } else {
+        mezzi = 1;
+      }
+    } else if (this.persone >= 8) {
+      mezzi = 2;
+    } else {
+      mezzi = 1;
     }
 
     const totale = ore * (tariffaBase * tariffaOre) * mezzi;
@@ -372,5 +393,3 @@ export class ServizioGolf extends Servizio {
     return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}, ID: ${this.id}`;
   }
 }
-
-//altra classe SoloTransfer con le tariffe nuove:

@@ -477,7 +477,17 @@ export function calcolaTotale(id) {
     }
   }
 
-  if (["(ore)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
+  //forse devo add anche (mezzi citta)?
+  if (
+    [
+      "(ore)",
+      "(mezzi e ore)",
+      "(mezzi e ore rome)",
+      "(mezzi e ore florence)",
+      "(mezzi e ore naples)",
+      "(ore rome)"
+    ].some((str) => nomeServizio.includes(str))
+  ) {
     const oreInput = document.getElementById(`ore-${id}`);
     if (persone >= 1) {
       oreInput.classList.add("vibrato-border");
@@ -505,14 +515,20 @@ export function calcolaTotale(id) {
   }
 
   if (
-    ["(mezzi milan)", "(mezzi rome)"].some((str) => nomeServizio.includes(str))
+    [
+      "(mezzi florence)",
+      "(mezzi rome)",
+      "(mezzi e ore rome)",
+      "(mezzi e ore florence)",
+      "(mezzi e ore naples)",
+    ].some((str) => nomeServizio.includes(str))
   ) {
     if (persone >= 17) {
       mezzi = 3;
     } else if (persone >= 9) {
       mezzi = 2;
     } else {
-      mezzi = 1; 
+      mezzi = 1;
     }
   }
 
