@@ -396,7 +396,7 @@
             <h2>CHOOSE YOUR TRANSFER</h2>
           </div>
           <h3>Select the city</h3>
-          <div id="transfer">
+          <div id="transfer-content-wrapper">
             <select id="transfer-select">
               <option value="" disabled selected hidden>— Seleziona un’opzione —</option>
               <option value="milan" data-tipo="transfer">Milano</option>
@@ -410,19 +410,19 @@
               <label for="nome-transfer">Nome Cliente</label>
               <input type="text" name="nome" id="nome-transfer" data-tipo="transfer" />
             </div>
-
+      
             <div class="toolbar">
               <label for="adulti-transfer">Adulti:</label>
               <input id="adulti-transfer" type="number" class="adulti-input" min="0" max="14" data-tipo="transfer" />
-
+      
               <label for="minori-transfer">Minori:</label>
               <input id="minori-transfer" type="number" class="minori-input" min="0" max="14" data-tipo="transfer" />
-
+      
               <button class="apply-to-selected" data-tipo="transfer">
                 Apply to selected services
               </button>
             </div>
-
+      
             <div class="footer-totale">
               <span class="totale-generale" data-tipo="transfer">€0.00</span>
               <i class="fa-solid fa-copy" title="Copy"></i>

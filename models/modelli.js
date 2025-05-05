@@ -13,6 +13,7 @@ export class Servizio {
     return this.currentId++;
   }
 
+
   calcolaTotale() {
     throw new Error("Metodo calcolaTotale non implementato");
   }
@@ -77,7 +78,8 @@ export class ServizioTrasporto extends Servizio {
     if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
     if (this.persone >= 7 && this.persone <= 8) return this.tariffe["7-8"];
     if (this.persone >= 9 && this.persone <= 11) return this.tariffe["9-11"];
-    if (this.persone >= 12 && this.persone <= 14) return this.tariffe["12-14"];
+    if (this.persone >= 12 && this.persone <= 16) return this.tariffe["12-16"];
+    if (this.persone >= 17 && this.persone <= 24) return this.tariffe["17-24"];
     return 0;
   }
 
@@ -106,15 +108,19 @@ export class ServizioTrasporto extends Servizio {
     const tariffaMezzi = 1.6;
     let mezzi = 1;
     const tariffaBase = this.getTariffa();
-
-    let sogliaDueMezzi = 8;
-
-    if (this.persone >= sogliaDueMezzi) mezzi = 2;
-
-    if (this.persone >= 15) {
+  
+    if (this.persone >= 17) {
+      mezzi = 3; // Assegna 3 mezzi per 17 o più persone
+    } else if (this.persone >= 8) {
+      mezzi = 2; // Assegna 2 mezzi per 8 o più persone
+    } else {
+      mezzi = 1; // Assegna 1 mezzo per meno di 8 persone
+    }
+  
+    if (this.persone >= 25) {
       console.log(`⚠️ Numero persone superiore al limite: ${this.persone}`);
     }
-
+  
     const totale = mezzi * (tariffaBase * tariffaMezzi);
     this.mezzi = mezzi;
     return totale;

@@ -190,259 +190,6 @@ export function mostraServizi() {
     .catch((error) => console.error("Error:", error));
 }
 
-export function aggiornaTuttiServizi(tipo) {
-  const adulti = document.querySelector(
-    `.adulti-input[data-tipo="${tipo}"]`
-  ).value;
-  const minori = document.querySelector(
-    `.minori-input[data-tipo="${tipo}"]`
-  ).value;
-
-  if (isNaN(adulti) || isNaN(minori)) {
-    alert("Inserisci valori numerici validi per Adulti e Minori.");
-    return;
-  }
-
-  document
-    .querySelectorAll(
-      `table[data-tipo="${tipo}"] input[type="checkbox"]:checked`
-    )
-    .forEach((checkbox) => {
-      const id = checkbox.id.replace("select-", "");
-      document.getElementById(`adulti-${id}`).value = adulti;
-      document.getElementById(`minori-${id}`).value = minori;
-
-      calcolaTotale(id);
-    });
-}
-
-export function calcolaTotale(id) {
-  const ore = Number(document.getElementById(`ore-${id}`).value);
-  const adultiInput = document.getElementById(`adulti-${id}`);
-  const minoriInput = document.getElementById(`minori-${id}`);
-  const adulti = Number(adultiInput.value);
-  const minori = Number(minoriInput.value);
-
-  if (isNaN(ore) || isNaN(adulti) || isNaN(minori)) {
-    alert("Errore: Assicurati che tutti i valori siano numerici.");
-    return;
-  }
-
-  let persone = adulti + minori;
-
-  const row = document.querySelector(`tr[data-id="${id}"]`);
-  const nomeServizio = row?.dataset?.nome || "";
-
-  let mezzi = 0;
-
-  // Controllo per il servizio "Golf"
-  if (nomeServizio.includes("Golf")) {
-    if (adulti + minori > 13) {
-      alert(
-        "La somma tra Adulti e Minori non può superare 13 per il servizio Golf."
-      );
-    }
-  }
-
-  if (["(ore)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
-    const oreInput = document.getElementById(`ore-${id}`);
-    if (persone >= 1) {
-      oreInput.classList.add("vibrato-border");
-      setTimeout(() => oreInput.classList.remove("vibrato-border"), 1500);
-    }
-    if (oreInput.value >= 1) {
-      oreInput.classList.remove("vibrato-border");
-    }
-  }
-
-  if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
-    if (persone >= 8) {
-      mezzi = 2;
-    } else {
-      mezzi = 1;
-    }
-
-    if (nomeServizio.includes("Golf")) {
-      if (persone >= 7) {
-        mezzi = 2;
-      } else {
-        mezzi = 1;
-      }
-    }
-  }
-
-  if (
-    ["(mezzi milan)", "(mezzi rome)"].some((str) => nomeServizio.includes(str))
-  ) {
-    if (persone >= 9) {
-      mezzi = 2;
-    } else if (persone >= 17) {
-      mezzi = 3;
-    } else {
-      mezzi = 1;
-    }
-  }
-
-  const mezziInput = document.getElementById(`mezzi-${id}`);
-  if (mezziInput) mezziInput.value = mezzi;
-
-  const payload = { mezzi, ore, adulti, minori };
-
-  fetch(`/servizi/aggiorna/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const err = await res.json();
-        console.error("❌ Errore risposta server:", err);
-        throw new Error(err.message || "Errore generico");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      const totale = parseFloat(data.totale);
-      if (isNaN(totale)) {
-        throw new Error("Errore nel calcolo del totale.");
-      }
-      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(
-        2
-      )}`;
-      aggiornaTotaleGenerale();
-    })
-    .catch((error) => console.error("❗Errore:", error.message));
-}
-
-export function aggiornaTotaleGenerale() {
-  const totaliPerSezione = {};
-
-  // 1. Itera su tutti gli elementi con ID che iniziano con 'totale-'
-  document.querySelectorAll("[id^='totale-']").forEach((span) => {
-    const id = span.id.replace("totale-", ""); // Rimuove 'totale-' dall'ID per ottenere l'ID del servizio
-    const input = document.getElementById(`adulti-${id}`); // Trova l'input associato agli adulti per questo servizio
-    if (!input) return; // Se l'input non esiste, salta questo elemento
-
-    const tabella = input.closest("table[data-tipo]"); // Trova la tabella che contiene questo servizio
-    if (!tabella) return; // Se la tabella non esiste, salta questo elemento
-
-    const tipo = tabella.dataset.tipo; // Ottiene il tipo di servizio dalla tabella
-    const valore = parseFloat(span.textContent.replace("€", "")) || 0; // Converte il valore del totale in un numero
-
-    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0; // Inizializza il totale per questa sezione, se non esiste
-    totaliPerSezione[tipo] += valore; // Aggiunge il valore al totale della sezione
-  });
-
-  // 2. Gestisci la sezione "Transfer" separatamente
-  const transferContent = document.getElementById("transfer-content");
-  if (transferContent) {
-    const tipo = "transfer"; // Tipo fisso per la sezione transfer
-    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0;
-
-    // Itera su tutti gli elementi della sezione transfer
-    transferContent.querySelectorAll(".transfer-item").forEach((item) => {
-      const totaleSpan = item.querySelector(".totale-transfer");
-      console.log("Transfer item:", item, "Totale:", totaleSpan?.textContent);
-      if (totaleSpan) {
-        const valore = parseFloat(totaleSpan.textContent.replace("€", "")) || 0;
-        totaliPerSezione[tipo] += valore;
-      }
-    });
-  }
-
-  // 3. Aggiorna i totali generali per ogni sezione
-  Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
-    console.log(`Tipo: ${tipo}, Somma: ${somma}`);
-    document
-      .querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`)
-      .forEach((span) => {
-        span.textContent = `€${somma.toFixed(2)}`; // Aggiorna il testo del totale generale per questa sezione
-      });
-  });
-
-  return totaliPerSezione; // Restituisce un oggetto con i totali per ogni sezione
-}
-
-export function cancellaTutto() {
-  const container = document.querySelector("#contenuto-attivo .container.flex");
-  if (!container) return;
-
-  // Impostare tutti i valori degli input di tipo 'number' a 0
-  container
-    .querySelectorAll("input[type='number']")
-    .forEach((input) => (input.value = 0));
-
-  // Impostare tutti i valori di "totale" a €0.00
-  container
-    .querySelectorAll("[id^='totale-']")
-    .forEach((el) => (el.textContent = "€0.00"));
-
-  // Deselezionare tutte le checkbox
-  container
-    .querySelectorAll("input[type='checkbox']")
-    .forEach((checkbox) => (checkbox.checked = false));
-  // Rimuovi la classe "selected" da tutti gli elementi della pagina
-  document.querySelectorAll(".selected").forEach((element) => {
-    element.classList.remove("selected");
-  });
-
-  // Mostra il messaggio di popup
-  mostraPopup("🗑️Celle Svuotate");
-
-  // Aggiornare il totale generale
-  aggiornaTotaleGenerale();
-}
-
-export function copiaSommaTotale(event) {
-  const container = event.target.closest(".container");
-  const tipo = container.querySelector("table[data-tipo]").dataset.tipo;
-  const textToCopy = container.querySelector(
-    `.totale-generale[data-tipo="${tipo}"]`
-  ).textContent;
-  navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => mostraPopup(`📋 Copiato ${textToCopy}`))
-    .catch((err) => console.error("Errore nella copia:", err));
-}
-
-export function copyToClipboard(id) {
-  const text = document.getElementById(`totale-${id}`).textContent;
-  navigator.clipboard
-    .writeText(text)
-    .then(() => mostraPopup("📋Copiato"))
-    .catch((err) => console.error("Errore nella copia:", err));
-}
-
-export function mostraPopup(message) {
-  const container = document.querySelector("#contenuto-attivo");
-  const popup = document.createElement("div");
-  popup.classList.add("popup");
-  popup.textContent = message;
-  popup.classList.add(message.includes("🗑️") ? "danger" : "success");
-  container.appendChild(popup);
-  setTimeout(() => popup.remove(), 2500);
-}
-
-export function mostraSezioni(clickedSection) {
-  const contenitoreAttivo = document.getElementById("contenuto-attivo");
-  const container = clickedSection.querySelector(".container");
-
-  if (!container) {
-    return;
-  }
-
-  if (!contenitoreAttivo.contains(container)) {
-    contenitoreAttivo.innerHTML = "";
-    container.classList.remove("none");
-    container.classList.add("flex");
-    container.setAttribute("data-section", clickedSection.id);
-    contenitoreAttivo.appendChild(container);
-    contenitoreAttivo.classList.add("flex");
-    contenitoreAttivo.classList.remove("none");
-    contenitoreAttivo.style.zIndex = "10";
-  }
-}
-
 export function mostraSezioniTransfer() {
   const select = document.getElementById("transfer-select");
   const content = document.getElementById("transfer-content");
@@ -480,6 +227,7 @@ export function mostraSezioniTransfer() {
         // Crea la tabella
         const table = document.createElement("table");
         table.classList.add("transfer-table");
+        table.setAttribute("data-tipo", "transfer");
 
         // Crea l'intestazione della tabella
         const thead = document.createElement("thead");
@@ -586,16 +334,16 @@ export function mostraSezioniTransfer() {
           adultiInput.id = `adulti-${servizio.id}`;
           adultiInput.value = 0;
           adultiInput.min = 0;
-          adultiInput.max = 14;
+          adultiInput.max = 24;
           adultiInput.addEventListener("change", () => {
             const adulti = parseInt(adultiInput.value);
             const minori = parseInt(
               document.getElementById(`minori-${servizio.id}`).value
             );
 
-            if (adulti + minori > 14) {
-              alert("La somma tra Adulti e Minori non può superare 14.");
-              adultiInput.value = 14 - minori;
+            if (adulti + minori > 24) {
+              alert("La somma tra Adulti e Minori non può superare 24.");
+              adultiInput.value = 24 - minori;
             }
 
             calcolaTotale(servizio.id);
@@ -609,16 +357,16 @@ export function mostraSezioniTransfer() {
           minoriInput.id = `minori-${servizio.id}`;
           minoriInput.value = 0;
           minoriInput.min = 0;
-          minoriInput.max = 14;
+          minoriInput.max = 23;
           minoriInput.addEventListener("change", () => {
             const adulti = parseInt(
               document.getElementById(`adulti-${servizio.id}`).value
             );
             const minori = parseInt(minoriInput.value);
 
-            if (adulti + minori > 14) {
-              alert("La somma tra Adulti e Minori non può superare 14.");
-              minoriInput.value = 14 - adulti;
+            if (adulti + minori > 24) {
+              alert("La somma tra Adulti e Minori non può superare 24.");
+              minoriInput.value = 24 - adulti;
             }
             calcolaTotale(servizio.id);
           });
@@ -673,6 +421,243 @@ export function mostraSezioniTransfer() {
       console.error("Errore durante il fetch dei dati dei transfer:", error);
       content.textContent = "Errore nel caricamento dei dati.";
     });
+}
+
+export function aggiornaTuttiServizi(tipo) {
+  const adulti = document.querySelector(
+    `.adulti-input[data-tipo="${tipo}"]`
+  ).value;
+  const minori = document.querySelector(
+    `.minori-input[data-tipo="${tipo}"]`
+  ).value;
+
+  if (isNaN(adulti) || isNaN(minori)) {
+    alert("Inserisci valori numerici validi per Adulti e Minori.");
+    return;
+  }
+
+  document
+    .querySelectorAll(
+      `table[data-tipo="${tipo}"] input[type="checkbox"]:checked`
+    )
+    .forEach((checkbox) => {
+      const id = checkbox.id.replace("select-", "");
+      document.getElementById(`adulti-${id}`).value = adulti;
+      document.getElementById(`minori-${id}`).value = minori;
+
+      calcolaTotale(id);
+    });
+}
+
+export function calcolaTotale(id) {
+  const ore = Number(document.getElementById(`ore-${id}`).value);
+  const adultiInput = document.getElementById(`adulti-${id}`);
+  const minoriInput = document.getElementById(`minori-${id}`);
+  const adulti = Number(adultiInput.value);
+  const minori = Number(minoriInput.value);
+
+  if (isNaN(ore) || isNaN(adulti) || isNaN(minori)) {
+    alert("Errore: Assicurati che tutti i valori siano numerici.");
+    return;
+  }
+
+  let persone = adulti + minori;
+
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  const nomeServizio = row?.dataset?.nome || "";
+
+  let mezzi = 0;
+
+  // Controllo per il servizio "Golf"
+  if (nomeServizio.includes("Golf")) {
+    if (adulti + minori > 13) {
+      alert(
+        "La somma tra Adulti e Minori non può superare 13 per il servizio Golf."
+      );
+    }
+  }
+
+  if (["(ore)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
+    const oreInput = document.getElementById(`ore-${id}`);
+    if (persone >= 1) {
+      oreInput.classList.add("vibrato-border");
+      setTimeout(() => oreInput.classList.remove("vibrato-border"), 1500);
+    }
+    if (oreInput.value >= 1) {
+      oreInput.classList.remove("vibrato-border");
+    }
+  }
+
+  if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
+    if (persone >= 8) {
+      mezzi = 2;
+    } else {
+      mezzi = 1;
+    }
+
+    if (nomeServizio.includes("Golf")) {
+      if (persone >= 7) {
+        mezzi = 2;
+      } else {
+        mezzi = 1;
+      }
+    }
+  }
+
+  if (
+    ["(mezzi milan)", "(mezzi rome)"].some((str) => nomeServizio.includes(str))
+  ) {
+    if (persone >= 17) {
+      mezzi = 3;
+    } else if (persone >= 9) {
+      mezzi = 2;
+    } else {
+      mezzi = 1; 
+    }
+  }
+
+  const mezziInput = document.getElementById(`mezzi-${id}`);
+  if (mezziInput) mezziInput.value = mezzi;
+
+  const payload = { mezzi, ore, adulti, minori };
+
+  fetch(`/servizi/aggiorna/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const err = await res.json();
+        console.error("❌ Errore risposta server:", err);
+        throw new Error(err.message || "Errore generico");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      const totale = parseFloat(data.totale);
+      if (isNaN(totale)) {
+        throw new Error("Errore nel calcolo del totale.");
+      }
+      document.getElementById(`totale-${id}`).textContent = `€${totale.toFixed(
+        2
+      )}`;
+
+      aggiornaTotaleGenerale();
+    })
+    .catch((error) => console.error("❗Errore:", error.message));
+}
+
+export function aggiornaTotaleGenerale() {
+  const totaliPerSezione = {};
+
+  // 1. Itera su tutti gli elementi con ID che iniziano con 'totale-'
+  document.querySelectorAll("[id^='totale-']").forEach((span) => {
+    const id = span.id.replace("totale-", ""); // Rimuove 'totale-' dall'ID per ottenere l'ID del servizio
+    const input = document.getElementById(`adulti-${id}`); // Trova l'input associato agli adulti per questo servizio
+    if (!input) return; // Se l'input non esiste, salta questo elemento
+
+    const tabella = input.closest("table[data-tipo]"); // Trova la tabella che contiene questo servizio
+    if (!tabella) return; // Se la tabella non esiste, salta questo elemento
+
+    const tipo = tabella.dataset.tipo; // Ottiene il tipo di servizio dalla tabella
+
+    const valore = parseFloat(span.textContent.replace("€", "")) || 0; // Converte il valore del totale in un numero
+
+    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0; // Inizializza il totale per questa sezione, se non esiste
+    totaliPerSezione[tipo] += valore; // Aggiunge il valore al totale della sezione
+  });
+
+  // 3. Aggiorna i totali generali per ogni sezione
+  Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
+    document
+      .querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`)
+      .forEach((span) => {
+        span.textContent = `€${somma.toFixed(2)}`; // Aggiorna il testo del totale generale per questa sezione
+      });
+  });
+
+  return totaliPerSezione; // Restituisce un oggetto con i totali per ogni sezione
+}
+
+export function cancellaTutto() {
+  const container = document.querySelector("#contenuto-attivo .container.flex");
+  if (!container) return;
+
+  // Impostare tutti i valori degli input di tipo 'number' a 0
+  container
+    .querySelectorAll("input[type='number']")
+    .forEach((input) => (input.value = 0));
+
+  // Impostare tutti i valori di "totale" a €0.00
+  container
+    .querySelectorAll("[id^='totale-']")
+    .forEach((el) => (el.textContent = "€0.00"));
+
+  // Deselezionare tutte le checkbox
+  container
+    .querySelectorAll("input[type='checkbox']")
+    .forEach((checkbox) => (checkbox.checked = false));
+  // Rimuovi la classe "selected" da tutti gli elementi della pagina
+  document.querySelectorAll(".selected").forEach((element) => {
+    element.classList.remove("selected");
+  });
+
+  // Mostra il messaggio di popup
+  mostraPopup("🗑️Celle Svuotate");
+
+  // Aggiornare il totale generale
+  aggiornaTotaleGenerale();
+}
+
+export function copiaSommaTotale(event) {
+  const container = event.target.closest(".container");
+  const tipo = container.querySelector("table[data-tipo]").dataset.tipo;
+  const textToCopy = container.querySelector(
+    `.totale-generale[data-tipo="${tipo}"]`
+  ).textContent;
+  navigator.clipboard
+    .writeText(textToCopy)
+    .then(() => mostraPopup(`📋 Copiato ${textToCopy}`))
+    .catch((err) => console.error("Errore nella copia:", err));
+}
+
+export function copyToClipboard(id) {
+  const text = document.getElementById(`totale-${id}`).textContent;
+  navigator.clipboard
+    .writeText(text)
+    .then(() => mostraPopup("📋Copiato"))
+    .catch((err) => console.error("Errore nella copia:", err));
+}
+
+export function mostraPopup(message) {
+  const container = document.querySelector("#contenuto-attivo");
+  const popup = document.createElement("div");
+  popup.classList.add("popup");
+  popup.textContent = message;
+  popup.classList.add(message.includes("🗑️") ? "danger" : "success");
+  container.appendChild(popup);
+  setTimeout(() => popup.remove(), 2500);
+}
+
+export function mostraSezioni(clickedSection) {
+  const contenitoreAttivo = document.getElementById("contenuto-attivo");
+  const container = clickedSection.querySelector(".container");
+
+  if (!container) {
+    return;
+  }
+
+  if (!contenitoreAttivo.contains(container)) {
+    contenitoreAttivo.innerHTML = "";
+    container.classList.remove("none");
+    container.classList.add("flex");
+    container.setAttribute("data-section", clickedSection.id);
+    contenitoreAttivo.appendChild(container);
+    contenitoreAttivo.classList.add("flex");
+    contenitoreAttivo.classList.remove("none");
+    contenitoreAttivo.style.zIndex = "10";
+  }
 }
 
 export function closeSezioni() {
