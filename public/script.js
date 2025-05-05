@@ -271,6 +271,18 @@ export function calcolaTotale(id) {
     }
   }
 
+  if (
+    ["(mezzi milan)", "(mezzi rome)"].some((str) => nomeServizio.includes(str))
+  ) {
+    if (persone >= 9) {
+      mezzi = 2;
+    } else if (persone >= 17) {
+      mezzi = 3;
+    } else {
+      mezzi = 1;
+    }
+  }
+
   const mezziInput = document.getElementById(`mezzi-${id}`);
   if (mezziInput) mezziInput.value = mezzi;
 
@@ -304,25 +316,51 @@ export function calcolaTotale(id) {
 
 export function aggiornaTotaleGenerale() {
   const totaliPerSezione = {};
+
+  // 1. Itera su tutti gli elementi con ID che iniziano con 'totale-'
   document.querySelectorAll("[id^='totale-']").forEach((span) => {
-    const id = span.id.replace("totale-", "");
-    const input = document.getElementById(`adulti-${id}`);
-    if (!input) return;
-    const tabella = input.closest("table[data-tipo]");
-    if (!tabella) return;
-    const tipo = tabella.dataset.tipo;
-    const valore = parseFloat(span.textContent.replace("€", "")) || 0;
-    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0;
-    totaliPerSezione[tipo] += valore;
+    const id = span.id.replace("totale-", ""); // Rimuove 'totale-' dall'ID per ottenere l'ID del servizio
+    const input = document.getElementById(`adulti-${id}`); // Trova l'input associato agli adulti per questo servizio
+    if (!input) return; // Se l'input non esiste, salta questo elemento
+
+    const tabella = input.closest("table[data-tipo]"); // Trova la tabella che contiene questo servizio
+    if (!tabella) return; // Se la tabella non esiste, salta questo elemento
+
+    const tipo = tabella.dataset.tipo; // Ottiene il tipo di servizio dalla tabella
+    const valore = parseFloat(span.textContent.replace("€", "")) || 0; // Converte il valore del totale in un numero
+
+    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0; // Inizializza il totale per questa sezione, se non esiste
+    totaliPerSezione[tipo] += valore; // Aggiunge il valore al totale della sezione
   });
+
+  // 2. Gestisci la sezione "Transfer" separatamente
+  const transferContent = document.getElementById("transfer-content");
+  if (transferContent) {
+    const tipo = "transfer"; // Tipo fisso per la sezione transfer
+    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0;
+
+    // Itera su tutti gli elementi della sezione transfer
+    transferContent.querySelectorAll(".transfer-item").forEach((item) => {
+      const totaleSpan = item.querySelector(".totale-transfer");
+      console.log("Transfer item:", item, "Totale:", totaleSpan?.textContent);
+      if (totaleSpan) {
+        const valore = parseFloat(totaleSpan.textContent.replace("€", "")) || 0;
+        totaliPerSezione[tipo] += valore;
+      }
+    });
+  }
+
+  // 3. Aggiorna i totali generali per ogni sezione
   Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
+    console.log(`Tipo: ${tipo}, Somma: ${somma}`);
     document
       .querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`)
       .forEach((span) => {
-        span.textContent = `€${somma.toFixed(2)}`;
+        span.textContent = `€${somma.toFixed(2)}`; // Aggiorna il testo del totale generale per questa sezione
       });
   });
-  return totaliPerSezione;
+
+  return totaliPerSezione; // Restituisce un oggetto con i totali per ogni sezione
 }
 
 export function cancellaTutto() {
@@ -595,27 +633,34 @@ export function mostraSezioniTransfer() {
           row.appendChild(totaleCell);
 
           const selectCell = document.createElement("td");
+          selectCell.classList.add("select-cell");
           const selectCheckbox = document.createElement("input");
           selectCheckbox.type = "checkbox";
+          selectCheckbox.classList.add("checkbox");
           selectCheckbox.id = `select-${servizio.id}`;
+          selectCell.appendChild(selectCheckbox);
           selectCheckbox.addEventListener("change", (event) => {
             if (!event.target.checked) {
+              nomeServizioCell.classList.remove("selected");
               row.classList.remove("selected");
             } else {
+              nomeServizioCell.classList.add("selected");
               row.classList.add("selected");
             }
           });
-          selectCell.appendChild(selectCheckbox);
+
           row.appendChild(selectCell);
 
-          const actionsCell = document.createElement("td");
-          const copyButton = document.createElement("button");
-          copyButton.textContent = "Copy";
-          copyButton.addEventListener("click", () =>
+          const copyCell = document.createElement("td");
+          copyCell.classList.add("clipboard");
+          copyCell.id = `copy-${servizio.id}`;
+          const iconCopy = document.createElement("i");
+          iconCopy.classList.add("fa-solid", "fa-copy");
+          copyCell.appendChild(iconCopy);
+          copyCell.addEventListener("click", () =>
             copyToClipboard(servizio.id)
           );
-          actionsCell.appendChild(copyButton);
-          row.appendChild(actionsCell);
+          row.appendChild(copyCell);
 
           tbody.appendChild(row);
         });

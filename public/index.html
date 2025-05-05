@@ -1,587 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./assets/img/favicon.ico" type="image/png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
-      integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <link rel="stylesheet" href="/style.css" />
-    <script type="module" src="./main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
-    <title>TourCostify</title>
-  </head>
 
-  <body>
-    <div class="body-wrapper">
-      <header>
-        <img src="assets/img/logo_white.png" alt="logo TourCostify" class="img"/>
-      </header>
-      <div id="section-wrapper">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./assets/img/favicon.ico" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+    integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="/style.css" />
+  <script type="module" src="./main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+  <title>TourCostify</title>
+</head>
 
-        <section class="section" id="roma-no-golf-cart">
-          <h2>Rome No Golf Cart</h2>
-          <div class="container none">
-            
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM ROME TOUR WITHOUT GOLF CART</h2>
+<body>
+  <div class="body-wrapper">
+    <header>
+      <img src="assets/img/logo_white.png" alt="logo TourCostify" class="img" />
+    </header>
+    <div id="section-wrapper">
+
+      <section class="section" id="roma-no-golf-cart">
+        <h2>Rome No Golf Cart</h2>
+        <div class="container none">
+
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM ROME TOUR WITHOUT GOLF CART</h2>
+          </div>
+
+          <table class="lista-servizi" data-tipo="roma-no-golf-cart">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-roma-no-golf-cart">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-roma-no-golf-cart" data-tipo="roma-no-golf-cart" />
             </div>
 
-            <table class="lista-servizi" data-tipo="roma-no-golf-cart">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
+            <div class="toolbar">
+              <label for="adulti-roma-no-golf-cart">Adulti:</label>
+              <input id="adulti-roma-no-golf-cart" type="number" class="adulti-input" min="0" max="14"
+                data-tipo="roma-no-golf-cart" />
 
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-roma-no-golf-cart">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-roma-no-golf-cart" data-tipo="roma-no-golf-cart" />
-              </div>
+              <label for="minori-roma-no-golf-cart">Minori:</label>
+              <input id="minori-roma-no-golf-cart" type="number" class="minori-input" min="0" max="14"
+                data-tipo="roma-no-golf-cart" />
 
-              <div class="toolbar">
-                <label for="adulti-roma-no-golf-cart">Adulti:</label>
-                <input
-                  id="adulti-roma-no-golf-cart"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="roma-no-golf-cart"
-                />
+              <button class="apply-to-selected" data-tipo="roma-no-golf-cart">
+                Apply to selected services
+              </button>
+            </div>
 
-                <label for="minori-roma-no-golf-cart">Minori:</label>
-                <input
-                  id="minori-roma-no-golf-cart"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="roma-no-golf-cart"
-                />
-
-                <button class="apply-to-selected" data-tipo="roma-no-golf-cart">
-                  Apply to selected services
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="roma-no-golf-cart">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="roma-no-golf-cart"
-                  >€0.00</span
-                >
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section" id="roma-con-golf-cart">
-          <h2>Rome With Golf Cart</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM ROME TOUR WITH GOLF CART</h2>
+      <section class="section" id="roma-con-golf-cart">
+        <h2>Rome With Golf Cart</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM ROME TOUR WITH GOLF CART</h2>
+          </div>
+          <table class="lista-servizi" data-tipo="roma-con-golf-cart">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-roma-con-golf-cart">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-roma-con-golf-cart" data-tipo="roma-con-golf-cart" />
             </div>
-            <table class="lista-servizi" data-tipo="roma-con-golf-cart">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-roma-con-golf-cart">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-roma-con-golf-cart" data-tipo="roma-con-golf-cart" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-roma-con-golf-cart">Adulti:</label>
-                <input
-                  id="adulti-roma-con-golf-cart"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="roma-con-golf-cart"
-                />
+            <div class="toolbar">
+              <label for="adulti-roma-con-golf-cart">Adulti:</label>
+              <input id="adulti-roma-con-golf-cart" type="number" class="adulti-input" min="0" max="14"
+                data-tipo="roma-con-golf-cart" />
 
-                <label for="minori-roma-con-golf-cart">Minori:</label>
-                <input
-                  id="minori-roma-con-golf-cart"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="roma-con-golf-cart"
-                />
+              <label for="minori-roma-con-golf-cart">Minori:</label>
+              <input id="minori-roma-con-golf-cart" type="number" class="minori-input" min="0" max="14"
+                data-tipo="roma-con-golf-cart" />
 
-                <button
-                  class="apply-to-selected"
-                  data-tipo="roma-con-golf-cart"
-                >
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="roma-con-golf-cart">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="roma-con-golf-cart">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="roma-con-golf-cart"
-                  >€0.00</span
-                >
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section" id="napoli">
-          <h2>Naples</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM NAPLES TOUR</h2>
+      <section class="section" id="napoli">
+        <h2>Naples</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM NAPLES TOUR</h2>
+          </div>
+          <table class="lista-servizi" data-tipo="napoli">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-napoli">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-napoli" data-tipo="napoli" />
             </div>
-            <table class="lista-servizi" data-tipo="napoli">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-napoli">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-napoli" data-tipo="napoli" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-napoli">Adulti:</label>
-                <input
-                  id="adulti-napoli"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="napoli"
-                />
+            <div class="toolbar">
+              <label for="adulti-napoli">Adulti:</label>
+              <input id="adulti-napoli" type="number" class="adulti-input" min="0" max="14" data-tipo="napoli" />
 
-                <label for="minori-napoli">Minori:</label>
-                <input
-                  id="minori-napoli"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="napoli"
-                />
+              <label for="minori-napoli">Minori:</label>
+              <input id="minori-napoli" type="number" class="minori-input" min="0" max="14" data-tipo="napoli" />
 
-                <button class="apply-to-selected" data-tipo="napoli">
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="napoli">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="napoli">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="napoli">€0.00</span>
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section" id="firenze">
-          <h2>Florence</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM FLORENCE TOUR</h2>
+      <section class="section" id="firenze">
+        <h2>Florence</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM FLORENCE TOUR</h2>
+          </div>
+          <table class="lista-servizi" data-tipo="firenze">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-firenze">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-firenze" data-tipo="firenze" />
             </div>
-            <table class="lista-servizi" data-tipo="firenze">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-firenze">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-firenze" data-tipo="firenze" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-firenze">Adulti:</label>
-                <input
-                  id="adulti-firenze"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="firenze"
-                />
+            <div class="toolbar">
+              <label for="adulti-firenze">Adulti:</label>
+              <input id="adulti-firenze" type="number" class="adulti-input" min="0" max="14" data-tipo="firenze" />
 
-                <label for="minori-firenze">Minori:</label>
-                <input
-                  id="minori-firenze"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="firenze"
-                />
+              <label for="minori-firenze">Minori:</label>
+              <input id="minori-firenze" type="number" class="minori-input" min="0" max="14" data-tipo="firenze" />
 
-                <button class="apply-to-selected" data-tipo="firenze">
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="firenze">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="firenze">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="firenze">€0.00</span>
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section" id="milano">
-          <h2>Milan</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM MILAN TOUR</h2>
+      <section class="section" id="milano">
+        <h2>Milan</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM MILAN TOUR</h2>
+          </div>
+          <table class="lista-servizi" data-tipo="milano">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-milano">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-milano" data-tipo="milano" />
             </div>
-            <table class="lista-servizi" data-tipo="milano">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-milano">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-milano" data-tipo="milano" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-milano">Adulti:</label>
-                <input
-                  id="adulti-milano"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="milano"
-                />
+            <div class="toolbar">
+              <label for="adulti-milano">Adulti:</label>
+              <input id="adulti-milano" type="number" class="adulti-input" min="0" max="14" data-tipo="milano" />
 
-                <label for="minori-milano">Minori:</label>
-                <input
-                  id="minori-milano"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="milano"
-                />
+              <label for="minori-milano">Minori:</label>
+              <input id="minori-milano" type="number" class="minori-input" min="0" max="14" data-tipo="milano" />
 
-                <button class="apply-to-selected" data-tipo="milano">
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="milano">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="milano">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="milano">€0.00</span>
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section" id="venezia">
-          <h2>Venice</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM VENICE TOUR</h2>
+      <section class="section" id="venezia">
+        <h2>Venice</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM VENICE TOUR</h2>
+          </div>
+          <table class="lista-servizi" data-tipo="venezia">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-venezia">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-venezia" data-tipo="venezia" />
             </div>
-            <table class="lista-servizi" data-tipo="venezia">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-venezia">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-venezia" data-tipo="venezia" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-venezia">Adulti:</label>
-                <input
-                  id="adulti-venezia"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="venezia"
-                />
+            <div class="toolbar">
+              <label for="adulti-venezia">Adulti:</label>
+              <input id="adulti-venezia" type="number" class="adulti-input" min="0" max="14" data-tipo="venezia" />
 
-                <label for="minori-venezia">Minori:</label>
-                <input
-                  id="minori-venezia"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="venezia"
-                />
+              <label for="minori-venezia">Minori:</label>
+              <input id="minori-venezia" type="number" class="minori-input" min="0" max="14" data-tipo="venezia" />
 
-                <button class="apply-to-selected" data-tipo="venezia">
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="venezia">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="venezia">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="venezia">€0.00</span>
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section" id="como">
-          <h2>Como</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CUSTOM COMO TOUR</h2>
+      <section class="section" id="como">
+        <h2>Como</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CUSTOM COMO TOUR</h2>
+          </div>
+          <table class="lista-servizi" data-tipo="como">
+            <tr>
+              <th>Service Name</th>
+              <th>Vehicles</th>
+              <th>Hours</th>
+              <th>Adults</th>
+              <th>Minors</th>
+              <th>Total</th>
+            </tr>
+          </table>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-como">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-como" data-tipo="como" />
             </div>
-            <table class="lista-servizi" data-tipo="como">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-como">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-como" data-tipo="como" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-como">Adulti:</label>
-                <input
-                  id="adulti-como"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="como"
-                />
+            <div class="toolbar">
+              <label for="adulti-como">Adulti:</label>
+              <input id="adulti-como" type="number" class="adulti-input" min="0" max="14" data-tipo="como" />
 
-                <label for="minori-como">Minori:</label>
-                <input
-                  id="minori-como"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="como"
-                />
+              <label for="minori-como">Minori:</label>
+              <input id="minori-como" type="number" class="minori-input" min="0" max="14" data-tipo="como" />
 
-                <button class="apply-to-selected" data-tipo="como">
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="como">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="como">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="como">€0.00</span>
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- <section class="section" id="transfer">
-          <h2>Transfer</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>Transfer</h2>
+      <section class="section" id="transfer">
+        <h2>Transfer</h2>
+        <div class="container none">
+          <div class="titolo-wrapper">
+            <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+            <h2>CHOOSE YOUR TRANSFER</h2>
+          </div>
+          <h3>Select the city</h3>
+          <div id="transfer">
+            <select id="transfer-select">
+              <option value="" disabled selected hidden>— Seleziona un’opzione —</option>
+              <option value="milan" data-tipo="transfer">Milano</option>
+              <option value="rome" data-tipo="transfer">Roma</option>
+              <option value="como" data-tipo="transfer">Como</option>
+            </select>
+            <div id="transfer-content"></div>
+          </div>
+          <div class="footer-bar">
+            <div class="nome-cliente">
+              <label for="nome-transfer">Nome Cliente</label>
+              <input type="text" name="nome" id="nome-transfer" data-tipo="transfer" />
             </div>
-            <table class="lista-servizi" data-tipo="transfer">
-              <tr>
-                <th>Service Name</th>
-                <th>Vehicles</th>
-                <th>Hours</th>
-                <th>Adults</th>
-                <th>Minors</th>
-                <th>Total</th>
-              </tr>
-            </table>
-            <div class="footer-bar">
-              <div class="nome-cliente">
-                <label for="nome-transfer">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-transfer" data-tipo="transfer" />
-              </div>
 
-              <div class="toolbar">
-                <label for="adulti-transfer">Adulti:</label>
-                <input
-                  id="adulti-transfer"
-                  type="number"
-                  class="adulti-input"
-                  min="0"
-                  max="14"
-                  data-tipo="transfer"
-                />
+            <div class="toolbar">
+              <label for="adulti-transfer">Adulti:</label>
+              <input id="adulti-transfer" type="number" class="adulti-input" min="0" max="14" data-tipo="transfer" />
 
-                <label for="minori-transfer">Minori:</label>
-                <input
-                  id="minori-transfer"
-                  type="number"
-                  class="minori-input"
-                  min="0"
-                  max="14"
-                  data-tipo="transfer"
-                />
+              <label for="minori-transfer">Minori:</label>
+              <input id="minori-transfer" type="number" class="minori-input" min="0" max="14" data-tipo="transfer" />
 
-                <button class="apply-to-selected" data-tipo="transfer">
-                  Apply to selected services
+              <button class="apply-to-selected" data-tipo="transfer">
+                Apply to selected services
+              </button>
+            </div>
+
+            <div class="footer-totale">
+              <span class="totale-generale" data-tipo="transfer">€0.00</span>
+              <i class="fa-solid fa-copy" title="Copy"></i>
+              <button id="esporta-pdf" title="Export PDF">
+                <i class="fa-solid fa-file-pdf"></i>
+              </button>
+              <div class="del-button">
+                <button id="cancella-tutto" title="Clear" data-color="red">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-              </div>
-
-              <div class="footer-totale">
-                <span class="totale-generale" data-tipo="transfer">€0.00</span>
-                <i class="fa-solid fa-copy" title="Copy"></i>
-                <button id="esporta-pdf" title="Export PDF">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </button>
-                <div class="del-button">
-                  <button id="cancella-tutto" title="Clear" data-color="red">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </section> -->
+        </div>
+      </section>
 
-        <section class="section" id="transfer">
-          <h2>Transfer</h2>
-          <div class="container none">
-            <div class="titolo-wrapper">
-              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
-              <h2>CHOOSE YOUR TRANSFER</h2>
-            </div>
-            <h3>Select the city</h3>
-            <div id="transfer">
-              <select id="transfer-select">
-                <option value="" disabled selected hidden>— Seleziona un’opzione —</option>
-                <option value="milan" data-tipo="transfer" >Milano</option>
-                <option value="rome" data-tipo="transfer">Roma</option>
-                <option value="como" data-tipo="transfer">Como</option>
-              </select>
-              <div id="transfer-content"></div>
-            </div>
-          </div>
-        </section>
-
-      </div>
-      <div id="contenuto-attivo"></div>
     </div>
-  </body>
+    <div id="contenuto-attivo"></div>
+  </div>
+</body>
+
 </html>

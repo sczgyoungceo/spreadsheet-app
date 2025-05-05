@@ -532,7 +532,11 @@ i {
 }
 
 /* TRANSFER STYLE */
-/* aggiungere stile 100% */
+
+#transfer{
+  width: 100%;
+}
+
 /* TRANSFER STYLE */
 
 @keyframes fadeInOut {
