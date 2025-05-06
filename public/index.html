@@ -26,14 +26,16 @@
   <body>
     <div class="body-wrapper">
       <header>
-        <img src="assets/img/logo_white.png" alt="logo TourCostify" class="img"/>
+        <img
+          src="assets/img/logo_white.png"
+          alt="logo TourCostify"
+          class="img"
+        />
       </header>
       <div id="section-wrapper">
-
         <section class="section" id="roma-no-golf-cart">
           <h2>Rome No Golf Cart</h2>
           <div class="container none">
-            
             <div class="titolo-wrapper">
               <i class="fa-solid fa-xmark close-icon" title="Close"></i>
               <h2>CUSTOM ROME TOUR WITHOUT GOLF CART</h2>
@@ -53,7 +55,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-roma-no-golf-cart">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-roma-no-golf-cart" data-tipo="roma-no-golf-cart" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-roma-no-golf-cart"
+                  data-tipo="roma-no-golf-cart"
+                />
               </div>
 
               <div class="toolbar">
@@ -120,7 +127,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-roma-con-golf-cart">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-roma-con-golf-cart" data-tipo="roma-con-golf-cart" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-roma-con-golf-cart"
+                  data-tipo="roma-con-golf-cart"
+                />
               </div>
 
               <div class="toolbar">
@@ -190,7 +202,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-napoli">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-napoli" data-tipo="napoli" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-napoli"
+                  data-tipo="napoli"
+                />
               </div>
 
               <div class="toolbar">
@@ -255,7 +272,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-firenze">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-firenze" data-tipo="firenze" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-firenze"
+                  data-tipo="firenze"
+                />
               </div>
 
               <div class="toolbar">
@@ -320,7 +342,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-milano">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-milano" data-tipo="milano" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-milano"
+                  data-tipo="milano"
+                />
               </div>
 
               <div class="toolbar">
@@ -385,7 +412,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-venezia">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-venezia" data-tipo="venezia" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-venezia"
+                  data-tipo="venezia"
+                />
               </div>
 
               <div class="toolbar">
@@ -450,7 +482,12 @@
             <div class="footer-bar">
               <div class="nome-cliente">
                 <label for="nome-como">Nome Cliente</label>
-                <input type="text" name="nome" id="nome-como" data-tipo="como" />
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-como"
+                  data-tipo="como"
+                />
               </div>
 
               <div class="toolbar">
@@ -495,6 +532,81 @@
           </div>
         </section>
 
+        <section class="section" id="transfer">
+          <h2>Transfer</h2>
+          <div class="container none">
+            <div class="titolo-wrapper">
+              <i class="fa-solid fa-xmark close-icon" title="Close"></i>
+              <h2>CHOOSE YOUR TRANSFER</h2>
+            </div>
+            <h3>Select the city</h3>
+            <div id="transfer-content-wrapper">
+              <div id="select-wrapper">
+                <select id="transfer-select">
+                  <option value="" disabled selected hidden>
+                    Select Option
+                  </option>
+                  <option value="naples" data-tipo="transfer">Naples</option>
+                  <option value="rome" data-tipo="transfer">Rome</option>
+                  <option value="florence" data-tipo="transfer">
+                    Florence
+                  </option>
+                </select>
+              </div>
+              <div id="transfer-content"></div>
+            </div>
+            <div class="footer-bar">
+              <div class="nome-cliente">
+                <label for="nome-transfer">Nome Cliente</label>
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome-transfer"
+                  data-tipo="transfer"
+                />
+              </div>
+
+              <div class="toolbar">
+                <label for="adulti-transfer">Adulti:</label>
+                <input
+                  id="adulti-transfer"
+                  type="number"
+                  class="adulti-input"
+                  min="0"
+                  max="14"
+                  data-tipo="transfer"
+                />
+
+                <label for="minori-transfer">Minori:</label>
+                <input
+                  id="minori-transfer"
+                  type="number"
+                  class="minori-input"
+                  min="0"
+                  max="14"
+                  data-tipo="transfer"
+                />
+
+                <button class="apply-to-selected" data-tipo="transfer">
+                  Apply to selected services
+                </button>
+              </div>
+
+              <div class="footer-totale">
+                <span class="totale-generale" data-tipo="transfer">€0.00</span>
+                <i class="fa-solid fa-copy" title="Copy"></i>
+                <button id="esporta-pdf" title="Export PDF">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </button>
+                <div class="del-button">
+                  <button id="cancella-tutto" title="Clear" data-color="red">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
       <div id="contenuto-attivo"></div>
     </div>
