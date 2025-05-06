@@ -82,10 +82,10 @@ export class ServizioTrasporto extends Servizio {
     return 0;
   }
 
-  //getTariffaNoGuida
-  //Tariffe senza guida 1-3 4-67-8  9-11 12-16 2 van 17-24 3 van
+  //getTariffaVenezia
 
-  // Funzione per ottenere la tariffa in base al tipo di servizio
+  
+
   getTariffa() {
     switch (this.tipo) {
       case "roma-no-golf-cart":
@@ -393,3 +393,10 @@ export class ServizioGolf extends Servizio {
     return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}, ID: ${this.id}`;
   }
 }
+
+
+//servizio boat dispo "1-3"140euro (guida inclusa quindi 4) 
+// "4-7"180 (guida inclusa quindi 8) sempre 1 mezzo
+// "8-15"*2 di 180 (guida inclusa quindi 16) 2 mezzi peche la guida va su una sola barca
+
+//servizioTrasportoBoat 

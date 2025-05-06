@@ -127,7 +127,7 @@ section:hover {
 #transfer::before {
   content: "";
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
   inset: 0;  
   z-index: 1;
 }

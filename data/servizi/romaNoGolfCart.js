@@ -55,7 +55,7 @@ export const romaNoGolfCart = [
       "8-10": 48,
       "11-14": 55,
     }),
-    new ServizioAdOre("Disposizione su Tivoli (ore) (non si calcola il transfer, solo dispo)", "roma-no-golf-cart", {
+    new ServizioAdOre("Disposizione su Tivoli (non si calcola il transfer, solo dispo) (mezzi e ore)", "roma-no-golf-cart", {
       "1-2": 48,
       "3-5": 58,
       "6-7": 63,
