@@ -21,11 +21,11 @@ export const firenze = [
       "11-14": 250,
     }),
     new ServizioTrasporto("Da Aeroporto a Firenze (mezzi)", "firenze", {
-      "1-2":   65,
-      "3-5":   70,
-      "6-7":   70,
-      "8-10":  70,
-      "11-14": 70,
+      "1-2":   100,
+      "3-5":   140,
+      "6-7":   150,
+      "8-10":  130,
+      "11-14": 140,
     }),
     new ServizioTrasporto("Da Firenze ad Aeroporto (mezzi)", "firenze", {
       "1-2":   65,
