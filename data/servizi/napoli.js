@@ -68,7 +68,7 @@ export const napoli = [
         "6-7":  90,
         "8-10": 90,
         "11-14": 90,
-      }),      
+      }),
     new ServizioGuidaOre("Servizio Guida (ore)", "napoli", {
         "prezzo": 70, 
        }),

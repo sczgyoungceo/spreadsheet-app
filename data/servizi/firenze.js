@@ -34,12 +34,12 @@ export const firenze = [
       "8-10":  70,
       "11-14": 70,
     }),
-    new ServizioTrasporto("Shore Excursion Include Transfer e Dispo (Livorno>Firenze>Pisa>Livorno) (mezzi)", "firenze", {
-      "1-2":   650,
-      "3-5":   680,
-      "6-7":   680,
-      "8-10":  650,
-      "11-14": 620,
+    new ServizioTrasporto("Shore Excursion Include Transfer e Dispo (Livorno>Firenze>*Pisa*>Livorno) (mezzi)", "firenze", {
+      "1-2":   550,
+      "3-5":   580,
+      "6-7":   580,
+      "8-10":  570,
+      "11-14": 580,
     }),
     new ServizioAdOre("Disposizione su Firenze (mezzi e ore)", "firenze", {
       "1-2":   50,
