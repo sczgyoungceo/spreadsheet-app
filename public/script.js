@@ -199,7 +199,6 @@ export function mostraSezioniTransfer() {
     return;
   }
 
-  // Effettua il fetch per ottenere i dati relativi ai transfer
   fetch("/servizi/lista")
     .then((res) => {
       if (!res.ok) {
@@ -212,24 +211,19 @@ export function mostraSezioniTransfer() {
         (servizio) => servizio.tipo === "transfer"
       );
 
-      // Aggiungi l'evento change alla select
       select.addEventListener("change", () => {
         const selectedOption = select.value;
 
-        // Filtra i servizi in transferList che contengono la stringa selezionata nel nome
         const serviziFiltrati = transferList.filter((servizio) =>
           servizio.nome.toLowerCase().includes(selectedOption.toLowerCase())
         );
 
-        // Pulisci il contenuto precedente
         content.innerHTML = "";
 
-        // Crea la tabella
         const table = document.createElement("table");
         table.classList.add("transfer-table");
         table.setAttribute("data-tipo", "transfer");
 
-        // Crea l'intestazione della tabella
         const thead = document.createElement("thead");
         const headerRow = document.createElement("tr");
 
@@ -252,7 +246,6 @@ export function mostraSezioniTransfer() {
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // Crea il corpo della tabella
         const tbody = document.createElement("tbody");
 
         serviziFiltrati.forEach((servizio) => {
@@ -293,7 +286,7 @@ export function mostraSezioniTransfer() {
               })
               .join("\n");
 
-            nomeServizioCell.setAttribute("title", tariffe); // Imposta il valore ordinato come title
+            nomeServizioCell.setAttribute("title", tariffe);
           });
 
           if (nomeServizioCell.id % 2 === 0) {
@@ -485,7 +478,7 @@ export function calcolaTotale(id) {
       "(mezzi e ore rome)",
       "(mezzi e ore florence)",
       "(mezzi e ore naples)",
-      "(ore rome)"
+      "(ore rome)",
     ].some((str) => nomeServizio.includes(str))
   ) {
     const oreInput = document.getElementById(`ore-${id}`);
@@ -567,62 +560,55 @@ export function calcolaTotale(id) {
 export function aggiornaTotaleGenerale() {
   const totaliPerSezione = {};
 
-  // 1. Itera su tutti gli elementi con ID che iniziano con 'totale-'
   document.querySelectorAll("[id^='totale-']").forEach((span) => {
-    const id = span.id.replace("totale-", ""); // Rimuove 'totale-' dall'ID per ottenere l'ID del servizio
-    const input = document.getElementById(`adulti-${id}`); // Trova l'input associato agli adulti per questo servizio
-    if (!input) return; // Se l'input non esiste, salta questo elemento
+    const id = span.id.replace("totale-", "");
+    const input = document.getElementById(`adulti-${id}`);
+    if (!input) return;
 
-    const tabella = input.closest("table[data-tipo]"); // Trova la tabella che contiene questo servizio
-    if (!tabella) return; // Se la tabella non esiste, salta questo elemento
+    const tabella = input.closest("table[data-tipo]");
+    if (!tabella) return;
 
-    const tipo = tabella.dataset.tipo; // Ottiene il tipo di servizio dalla tabella
+    const tipo = tabella.dataset.tipo;
 
-    const valore = parseFloat(span.textContent.replace("€", "")) || 0; // Converte il valore del totale in un numero
+    const valore = parseFloat(span.textContent.replace("€", "")) || 0;
 
-    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0; // Inizializza il totale per questa sezione, se non esiste
-    totaliPerSezione[tipo] += valore; // Aggiunge il valore al totale della sezione
+    if (!totaliPerSezione[tipo]) totaliPerSezione[tipo] = 0;
+    totaliPerSezione[tipo] += valore;
   });
 
-  // 3. Aggiorna i totali generali per ogni sezione
   Object.entries(totaliPerSezione).forEach(([tipo, somma]) => {
     document
       .querySelectorAll(`.totale-generale[data-tipo="${tipo}"]`)
       .forEach((span) => {
-        span.textContent = `€${somma.toFixed(2)}`; // Aggiorna il testo del totale generale per questa sezione
+        span.textContent = `€${somma.toFixed(2)}`;
       });
   });
 
-  return totaliPerSezione; // Restituisce un oggetto con i totali per ogni sezione
+  return totaliPerSezione;
 }
 
 export function cancellaTutto() {
   const container = document.querySelector("#contenuto-attivo .container.flex");
   if (!container) return;
 
-  // Impostare tutti i valori degli input di tipo 'number' a 0
   container
     .querySelectorAll("input[type='number']")
     .forEach((input) => (input.value = 0));
 
-  // Impostare tutti i valori di "totale" a €0.00
   container
     .querySelectorAll("[id^='totale-']")
     .forEach((el) => (el.textContent = "€0.00"));
 
-  // Deselezionare tutte le checkbox
   container
     .querySelectorAll("input[type='checkbox']")
     .forEach((checkbox) => (checkbox.checked = false));
-  // Rimuovi la classe "selected" da tutti gli elementi della pagina
+
   document.querySelectorAll(".selected").forEach((element) => {
     element.classList.remove("selected");
   });
 
-  // Mostra il messaggio di popup
   mostraPopup("🗑️Celle Svuotate");
 
-  // Aggiornare il totale generale
   aggiornaTotaleGenerale();
 }
 

@@ -50,9 +50,10 @@ header .img {
 
 #section-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colonne per riga */
+  grid-template-columns: repeat(2, 1fr); 
   grid-auto-rows: auto;
-  height: calc(100vh - 100px); /* togliamo l'altezza dell'header */
+  height: calc(100vh - 100px);
+  background-color: #121212;
   width: 100vw;
   gap: 20px;
   padding: 20px;
@@ -112,6 +113,30 @@ section:hover {
   background-image: url("assets/img/map7.png");
   background-size: cover;
 }
+
+#transfer {
+  position: relative;
+  background-color: #000;
+  background-image: url("assets/img/mercedes.png");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  overflow: hidden;
+}
+
+#transfer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+#transfer > * {
+  position: relative;
+  z-index: 2;
+}
+
 
 #contenuto-attivo {
   padding: 40px;
@@ -560,6 +585,11 @@ i {
   transition: border 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   text-align: center;
   text-align-last: center;
+  font-size: 18px;
+}
+
+.transfer-table{
+  border-spacing: 0 10px;
 }
 
 #transfer-select:hover {
@@ -576,8 +606,6 @@ i {
   background-color: #1c1c1e;
   text-align: center;
 }
-
-
 
 /* TRANSFER STYLE */
 
