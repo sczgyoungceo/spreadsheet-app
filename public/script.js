@@ -836,17 +836,4 @@ export function exportPDF() {
     });
 }
 
-document.querySelectorAll(".skeleton").forEach((div) => {
-  const bgImage = getComputedStyle(div).backgroundImage;
 
-  // Estrai l'URL dell'immagine di sfondo
-  const url = bgImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
-  if (!url) return;
-
-  // Crea un oggetto immagine per verificare il caricamento
-  const img = new Image();
-  img.src = url;
-  img.onload = () => {
-    div.classList.add("loaded"); // Rimuove lo skeleton
-  };
-});
