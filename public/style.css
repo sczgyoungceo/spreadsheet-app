@@ -609,6 +609,56 @@ i {
 
 /* TRANSFER STYLE */
 
+/* SKELETON */
+/* Skeleton loader */
+.skeleton {
+  width: 100%;
+  height: auto;
+  background-color: #e0e0e0; /* Colore dello skeleton */
+  animation: shimmer 1.5s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effetto shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.skeleton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Quando l'immagine è caricata */
+.skeleton.loaded {
+  background-color: transparent;
+  animation: none;
+}
+
+.skeleton.loaded::before {
+  display: none;
+}
+
+/* SKELETON */
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
