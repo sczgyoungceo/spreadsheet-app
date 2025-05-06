@@ -48,19 +48,26 @@ export const napoli = [
         "8-10": 110,
         "11-14": 110,
       }),
-    new ServizioAdOre("Disposizione su Napoli, Ercolano, Pompei, Vesuvio (mezzi e ore)", "napoli", {
+    new ServizioAdOre("Disposizione/Shore Excursion da Napoli su Napoli, Ercolano, Pompei, Vesuvio (mezzi e ore)", "napoli", {
+        "1-2":  47,
+        "3-5":  55,
+        "6-7":  60,
+        "8-10": 55,
+        "11-14": 60,
+      }),
+    new ServizioAdOre("Disposizione/Shore Excursion da Napoli su Sorrento e Costiera (mezzi e ore)", "napoli", {
         "1-2":  50,
         "3-5":  60,
-        "6-7":  70,
-        "8-10": 70,
-        "11-14": 70,
+        "6-7":  65,
+        "8-10": 55,
+        "11-14": 65,
       }),
-    new ServizioAdOre("Disposizione su Sorrento e Costiera (mezzi e ore)", "napoli", {
-        "1-2":  60,
-        "3-5":  80,
-        "6-7":  90,
-        "8-10": 90,
-        "11-14": 90,
+    new ServizioAdOre("Shore Excursion da Salerno su Pompei e Sorrento/Amalfi Coast (mezzi e ore)", "napoli", {
+        "1-2":  65,
+        "3-5":  75,
+        "6-7":  80,
+        "8-10": 75,
+        "11-14": 80,
       }),
     new ServizioAdOre("Disposizione su altre città in Campania (mezzi e ore)", "napoli", {
         "1-2":  60,
