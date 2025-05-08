@@ -119,7 +119,12 @@ export function mostraServizi() {
 
           if (servizio.tipo === "venezia") {
             adultiInput.max = 15;
-            minoriInput.max = 14;
+            if (adulti + minori > 15) {
+              alert(
+                "La somma tra Adulti e Minori non può superare 15 per i servizi di Venezia."
+              );
+              adultiInput.value = 15 - minori;
+            }
           } else if (adulti + minori > 14) {
             alert("La somma tra Adulti e Minori non può superare 14.");
             adultiInput.value = 14 - minori;
@@ -141,10 +146,18 @@ export function mostraServizi() {
           const adulti = parseInt(adultiInput.value);
           const minori = parseInt(minoriInput.value);
 
-          if (adulti + minori > 14) {
+          if (servizio.tipo === "venezia") {
+            if (adulti + minori > 15) {
+              alert(
+                "La somma tra Adulti e Minori non può superare 15 per i servizi di Venezia."
+              );
+              minoriInput.value = 15 - adulti;
+            }
+          } else if (adulti + minori > 14) {
             alert("La somma tra Adulti e Minori non può superare 14.");
             minoriInput.value = 14 - adulti;
           }
+
           calcolaTotale(servizio.id);
         });
         minoriInputCell.appendChild(minoriInput);
@@ -465,12 +478,13 @@ export function calcolaTotale(id) {
 
   let mezzi = calcolaMezzi(tipo, nomeServizio, persone);
 
-  // Controllo per il servizio "Golf"
   if (nomeServizio.includes("Golf") && persone > 13) {
     alert(
       "La somma tra Adulti e Minori non può superare 13 per il servizio Golf."
     );
   }
+
+  gestisciVibratoOre(id, nomeServizio, persone);
 
   aggiornaInputMezzi(id, mezzi);
 
@@ -488,6 +502,10 @@ function calcolaMezzi(tipo, nomeServizio, persone) {
     return persone >= 8 ? 2 : 1;
   }
 
+  if (nomeServizio.toLowerCase().includes("gondola")) {
+    return persone >= 11 ? 3 : persone >= 6 ? 2 : 1;
+  }
+
   if (
     [
       "(mezzi florence)",
@@ -503,6 +521,28 @@ function calcolaMezzi(tipo, nomeServizio, persone) {
   }
 
   return 0; // Default se nessuna condizione è soddisfatta
+}
+
+function gestisciVibratoOre(id, nomeServizio, persone) {
+  if (
+    [
+      "(ore)",
+      "(mezzi e ore)",
+      "(mezzi e ore rome)",
+      "(mezzi e ore florence)",
+      "(mezzi e ore naples)",
+      "(ore rome)",
+    ].some((str) => nomeServizio.includes(str))
+  ) {
+    const oreInput = document.getElementById(`ore-${id}`);
+    if (persone >= 1) {
+      oreInput.classList.add("vibrato-border");
+      setTimeout(() => oreInput.classList.remove("vibrato-border"), 1500);
+    }
+    if (oreInput.value >= 1) {
+      oreInput.classList.remove("vibrato-border");
+    }
+  }
 }
 
 function aggiornaInputMezzi(id, mezzi) {

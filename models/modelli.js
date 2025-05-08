@@ -106,6 +106,11 @@ export class ServizioTrasporto extends Servizio {
     let mezzi = 1;
     const tariffaBase = this.getTariffa();
 
+    if(this.persone === 0) {
+      this.mezzi = 0;
+      return 0;
+    }
+
     if (this.tipo === "transfer") {
       if (this.persone >= 17) {
         mezzi = 3;
@@ -220,6 +225,11 @@ export class ServizioAdOre extends Servizio {
     let mezzi = 1;
     let ore = this.ore;
     let tariffaBase = this.getTariffa();
+
+    if(this.persone === 0) {
+      this.mezzi = 0;
+      return 0;
+    }
 
     if (this.tipo === "transfer") {
       if (this.persone >= 17) {
@@ -367,6 +377,11 @@ export class ServizioGolf extends Servizio {
     let mezzi = 1;
     let tariffaBase = this.getTariffa();
 
+    if(this.persone === 0) {
+      this.mezzi = 0;
+      return 0;
+    }
+
     if (this.persone >= 7) {
       mezzi = 2;
     }
@@ -405,7 +420,7 @@ export class ServizioTrasportoBoat extends Servizio {
     return this.adulti + this.minori;
   }
 
-  getTariffa() {
+  getTariffaVenezia() {
     if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
     if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
     if (this.persone >= 8 && this.persone <= 9) return this.tariffe["8-9"];
@@ -413,13 +428,44 @@ export class ServizioTrasportoBoat extends Servizio {
     return 0;
   }
 
+  getTariffaGondole() {
+    if (this.persone >= 1 && this.persone <= 5) return this.tariffe["1-5"]; //1 mezzo guida inclusa
+    if (this.persone >= 6 && this.persone <= 10) return this.tariffe["6-10"]; //2 mezzi
+    if (this.persone >= 11 && this.persone <= 15) return this.tariffe["11-15"]; //3 mezzi
+    return 0;
+  }
+
+  getTariffa() {
+    if (this.nome.toLowerCase().includes("gondola")) {
+      return this.getTariffaGondole();
+    }
+    return this.getTariffaVenezia();
+  }
+
   calcolaTotale() {
     const tariffaMezzi = 1.6;
     let mezzi = 1;
     const tariffaBase = this.getTariffa();
 
-    if (this.persone >= 10) {
-      mezzi = 2;
+    if(this.persone === 0) {
+      this.mezzi = 0;
+      return 0;
+    }
+
+    if (this.nome.toLowerCase().includes("gondola")) {
+      if (this.persone >= 11) {
+        mezzi = 3;
+      } else if (this.persone >= 6) {
+        mezzi = 2;
+      } else {
+        mezzi = 1;
+      }
+    } else {
+      if (this.persone >= 10) {
+        mezzi = 2;
+      } else {
+        mezzi = 1;
+      }
     }
 
     const totale = mezzi * (tariffaBase * tariffaMezzi);
@@ -465,6 +511,11 @@ export class ServizioAdOreBoat extends Servizio {
     let mezzi = 1;
     let ore = this.ore;
     let tariffaBase = this.getTariffa();
+
+    if(this.persone === 0) {
+      this.mezzi = 0;
+      return 0;
+    }
 
     if (this.persone >= 8) {
       mezzi = 2;

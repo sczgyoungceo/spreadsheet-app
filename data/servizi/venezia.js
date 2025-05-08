@@ -40,9 +40,10 @@ export const venezia = [
         "adulti": 16,
         "minori": 14,
       }),
-    new ServizioPax("Gondola ride (30 minuti fino a 5 pax) (pax)", "venezia", {
-        "adulti": 120,
-        "minori": 120,
+    new ServizioTrasportoBoat("Gondola ride (30 minuti fino a 5 pax) (pax)", "venezia", {
+        "1-5": 120,
+        "6-10": 120,
+        "11-15": 120,
       }),
     //aggiungere un servizio boat, forse, oppure trova modo di dopo 5 pax 2 gondole!!!
 ]
