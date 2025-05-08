@@ -117,7 +117,15 @@ export function mostraServizi() {
           const adulti = parseInt(adultiInput.value);
           const minori = parseInt(minoriInput.value);
 
-          if (adulti + minori > 14) {
+          if (servizio.tipo === "venezia") {
+            adultiInput.max = 15;
+            if (adulti + minori > 15) {
+              alert(
+                "La somma tra Adulti e Minori non può superare 15 per i servizi di Venezia."
+              );
+              adultiInput.value = 15 - minori;
+            }
+          } else if (adulti + minori > 14) {
             alert("La somma tra Adulti e Minori non può superare 14.");
             adultiInput.value = 14 - minori;
           }
@@ -138,10 +146,18 @@ export function mostraServizi() {
           const adulti = parseInt(adultiInput.value);
           const minori = parseInt(minoriInput.value);
 
-          if (adulti + minori > 14) {
+          if (servizio.tipo === "venezia") {
+            if (adulti + minori > 15) {
+              alert(
+                "La somma tra Adulti e Minori non può superare 15 per i servizi di Venezia."
+              );
+              minoriInput.value = 15 - adulti;
+            }
+          } else if (adulti + minori > 14) {
             alert("La somma tra Adulti e Minori non può superare 14.");
             minoriInput.value = 14 - adulti;
           }
+
           calcolaTotale(servizio.id);
         });
         minoriInputCell.appendChild(minoriInput);
@@ -454,23 +470,60 @@ export function calcolaTotale(id) {
     return;
   }
 
-  let persone = adulti + minori;
+  const persone = adulti + minori;
 
   const row = document.querySelector(`tr[data-id="${id}"]`);
   const nomeServizio = row?.dataset?.nome || "";
+  const tipo = row?.dataset?.tipo || "";
 
-  let mezzi = 0;
+  let mezzi = calcolaMezzi(tipo, nomeServizio, persone);
 
-  // Controllo per il servizio "Golf"
-  if (nomeServizio.includes("Golf")) {
-    if (adulti + minori > 13) {
-      alert(
-        "La somma tra Adulti e Minori non può superare 13 per il servizio Golf."
-      );
-    }
+  if (nomeServizio.includes("Golf") && persone > 13) {
+    alert(
+      "La somma tra Adulti e Minori non può superare 13 per il servizio Golf."
+    );
   }
 
-  //forse devo add anche (mezzi citta)?
+  gestisciVibratoOre(id, nomeServizio, persone);
+
+  aggiornaInputMezzi(id, mezzi);
+
+  const payload = { mezzi, ore, adulti, minori };
+
+  inviaAggiornamentoAlServer(id, payload);
+}
+
+function calcolaMezzi(tipo, nomeServizio, persone) {
+  if (tipo === "venezia" && nomeServizio.includes("(mezzi)")) {
+    return persone >= 10 ? 2 : 1;
+  }
+
+  if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
+    return persone >= 8 ? 2 : 1;
+  }
+
+  if (nomeServizio.toLowerCase().includes("gondola")) {
+    return persone >= 11 ? 3 : persone >= 6 ? 2 : 1;
+  }
+
+  if (
+    [
+      "(mezzi florence)",
+      "(mezzi rome)",
+      "(mezzi e ore rome)",
+      "(mezzi e ore florence)",
+      "(mezzi e ore naples)",
+    ].some((str) => nomeServizio.includes(str))
+  ) {
+    if (persone >= 17) return 3;
+    if (persone >= 9) return 2;
+    return 1;
+  }
+
+  return 0; // Default se nessuna condizione è soddisfatta
+}
+
+function gestisciVibratoOre(id, nomeServizio, persone) {
   if (
     [
       "(ore)",
@@ -490,46 +543,14 @@ export function calcolaTotale(id) {
       oreInput.classList.remove("vibrato-border");
     }
   }
+}
 
-  if (["(mezzi)", "(mezzi e ore)"].some((str) => nomeServizio.includes(str))) {
-    if (persone >= 8) {
-      mezzi = 2;
-    } else {
-      mezzi = 1;
-    }
-
-    if (nomeServizio.includes("Golf")) {
-      if (persone >= 7) {
-        mezzi = 2;
-      } else {
-        mezzi = 1;
-      }
-    }
-  }
-
-  if (
-    [
-      "(mezzi florence)",
-      "(mezzi rome)",
-      "(mezzi e ore rome)",
-      "(mezzi e ore florence)",
-      "(mezzi e ore naples)",
-    ].some((str) => nomeServizio.includes(str))
-  ) {
-    if (persone >= 17) {
-      mezzi = 3;
-    } else if (persone >= 9) {
-      mezzi = 2;
-    } else {
-      mezzi = 1;
-    }
-  }
-
+function aggiornaInputMezzi(id, mezzi) {
   const mezziInput = document.getElementById(`mezzi-${id}`);
   if (mezziInput) mezziInput.value = mezzi;
+}
 
-  const payload = { mezzi, ore, adulti, minori };
-
+function inviaAggiornamentoAlServer(id, payload) {
   fetch(`/servizi/aggiorna/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -835,5 +856,3 @@ export function exportPDF() {
       window.open(url, "_blank");
     });
 }
-
-
