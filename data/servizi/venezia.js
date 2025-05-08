@@ -13,7 +13,11 @@ export const venezia = [
         "8-9": 200,
         "10-15":200,//*2
       }),
-    
+      new ServizioTrasportoBoat("Gondola ride (30 minuti fino a 5 pax) (pax)", "venezia", {
+        "1-5": 120,
+        "6-10": 120,
+        "11-15": 120,
+      }),
     new ServizioAdOreBoat("Disposizione su Venezia/Murano/Burano (mezzi e ore)", "venezia", {
         "1-3": 140,
         "4-7": 180,
@@ -40,10 +44,4 @@ export const venezia = [
         "adulti": 16,
         "minori": 14,
       }),
-    new ServizioTrasportoBoat("Gondola ride (30 minuti fino a 5 pax) (pax)", "venezia", {
-        "1-5": 120,
-        "6-10": 120,
-        "11-15": 120,
-      }),
-    //aggiungere un servizio boat, forse, oppure trova modo di dopo 5 pax 2 gondole!!!
 ]
