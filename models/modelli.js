@@ -84,8 +84,6 @@ export class ServizioTrasporto extends Servizio {
 
   //getTariffaVenezia
 
-  
-
   getTariffa() {
     switch (this.tipo) {
       case "roma-no-golf-cart":
@@ -198,7 +196,6 @@ export class ServizioAdOre extends Servizio {
     if (this.persone >= 17 && this.persone <= 24) return this.tariffe["17-24"];
     return 0;
   }
-
 
   // Funzione per ottenere la tariffa in base al tipo di servizio
   getTariffa() {
@@ -394,9 +391,103 @@ export class ServizioGolf extends Servizio {
   }
 }
 
+export class ServizioTrasportoBoat extends Servizio {
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
+    this.tariffe = tariffe;
+    this.mezzi = 0;
+    this.ore = 0;
+    this.adulti = 0;
+    this.minori = 0;
+  }
 
-//servizio boat dispo "1-3"140euro (guida inclusa quindi 4) 
+  get persone() {
+    return this.adulti + this.minori;
+  }
+
+  getTariffa() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"];
+    if (this.persone >= 8 && this.persone <= 9) return this.tariffe["8-9"];
+    if (this.persone >= 10 && this.persone <= 15) return this.tariffe["10-15"]; //2mezzi
+    return 0;
+  }
+
+  calcolaTotale() {
+    const tariffaMezzi = 1.6;
+    let mezzi = 1;
+    const tariffaBase = this.getTariffa();
+
+    if (this.persone >= 10) {
+      mezzi = 2;
+    }
+
+    const totale = mezzi * (tariffaBase * tariffaMezzi);
+    this.mezzi = mezzi;
+    return totale;
+  }
+
+  aggiornaDati(mezzi, ore, adulti, minori) {
+    this.mezzi = mezzi;
+    this.ore = ore;
+    this.adulti = adulti;
+    this.minori = minori;
+  }
+
+  descrizione() {
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
+  }
+}
+
+export class ServizioAdOreBoat extends Servizio {
+  constructor(nome, tipo, tariffe) {
+    super(undefined, nome, tipo);
+    this.tariffe = tariffe;
+    this.mezzi = 0;
+    this.ore = 0;
+    this.adulti = 0;
+    this.minori = 0;
+  }
+
+  get persone() {
+    return this.adulti + this.minori;
+  }
+
+  getTariffa() {
+    if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
+    if (this.persone >= 4 && this.persone <= 7) return this.tariffe["4-7"]; //1mezzo
+    if (this.persone >= 8 && this.persone <= 15) return this.tariffe["8-15"]; //2mezzi
+    return 0;
+  }
+
+  calcolaTotale() {
+    const tariffaOre = 1.6;
+    let mezzi = 1;
+    let ore = this.ore;
+    let tariffaBase = this.getTariffa();
+
+    if (this.persone >= 8) {
+      mezzi = 2;
+    }
+
+    const totale = ore * (tariffaBase * tariffaOre) * mezzi;
+    this.mezzi = mezzi;
+    this.ore = ore;
+    return totale;
+  }
+
+  aggiornaDati(mezzi, ore, adulti, minori) {
+    this.mezzi = mezzi;
+    this.ore = ore;
+    this.adulti = adulti;
+    this.minori = minori;
+  }
+
+  descrizione() {
+    return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
+  }
+}
+
+//servizio boat dispo "1-3"140euro (guida inclusa quindi 4)
 // "4-7"180 (guida inclusa quindi 8) sempre 1 mezzo
 // "8-15"*2 di 180 (guida inclusa quindi 16) 2 mezzi peche la guida va su una sola barca
-
-//servizioTrasportoBoat 
