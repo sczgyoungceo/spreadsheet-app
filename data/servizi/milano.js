@@ -1,4 +1,4 @@
-import {ServizioTrasporto, ServizioPax, ServizioAdOre } from "../../models/modelli.js";
+import {ServizioTrasporto, ServizioPax, ServizioAdOre, ServizioGuidaOre } from "../../models/modelli.js";
 
 export const milano = [
     new ServizioTrasporto("Transfer Su Milano Andata (mezzi)", "milano", {
@@ -71,6 +71,9 @@ export const milano = [
           "8-10": 80,
           "11-14": 85,
       }),
+      new ServizioGuidaOre("Servizio guida (ore)", "milano",{
+        "prezzo": 65, 
+       }),
       new ServizioPax("CENACOLO (Last Supper Leonardo aggiungere auricolari obbligatori) (pax)", "milano", {
           "adulti": 23,
           "minori": 8,

@@ -1,4 +1,4 @@
-import { ServizioPax } from "../../models/modelli.js";
+import { ServizioPax, ServizioGuidaOre } from "../../models/modelli.js";
 
 export const como = [
     new ServizioPax("Villa Carlotta Como (pax)", "como", {
@@ -9,4 +9,7 @@ export const como = [
         "adulti": 33,
         "minori": 25,
       }),
+    new ServizioGuidaOre("Servizio guida (ore)", "como",{
+        "prezzo": 65, 
+       }),
 ]
