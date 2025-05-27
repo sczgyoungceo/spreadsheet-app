@@ -1,4 +1,4 @@
-import { ServizioTrasportoBoat, ServizioPax, ServizioAdOreBoat } from "../../models/modelli.js";
+import { ServizioTrasportoBoat, ServizioPax, ServizioAdOreBoat, ServizioGuidaOre } from "../../models/modelli.js";
 
 export const venezia = [
     new ServizioTrasportoBoat("Transfer in città Piazzale Roma/Ferrovia (mezzi)", "venezia", {
@@ -23,7 +23,9 @@ export const venezia = [
         "4-7": 180,
         "8-15": 180,
       }),
-      
+    new ServizioGuidaOre("Servizio guida (ore)", "venezia",{
+            "prezzo": 90, 
+      }),  
     new ServizioPax("Basilica San Marco (0 under 6 anni) (pax)", "venezia", {
         "adulti": 6,
         "minori": 9,
