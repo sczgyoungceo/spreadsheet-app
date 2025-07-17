@@ -118,4 +118,8 @@ export const milano = [
           "adulti": 31.25,
           "minori": 20,
         }),
+      new ServizioPax( "Headsets (pax)", "roma-con-golf-cart", {
+        "adulti": 2.5,
+        "minori": 2.5,
+      }),
 ]
