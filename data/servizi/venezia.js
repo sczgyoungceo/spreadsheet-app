@@ -46,7 +46,7 @@ export const venezia = [
         "adulti": 16,
         "minori": 14,
       }),
-    new ServizioPax( "Headsets (pax)", "roma-con-golf-cart", {
+    new ServizioPax( "Headsets (pax)", "venezia", {
         "adulti": 2.5,
         "minori": 2.5,
       }),
