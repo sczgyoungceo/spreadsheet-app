@@ -74,10 +74,6 @@ export const milano = [
       new ServizioGuidaOre("Servizio guida (ore)", "milano",{
         "prezzo": 65, 
        }),
-      new ServizioPax("CENACOLO (Last Supper Leonardo aggiungere auricolari obbligatori) (pax)", "milano", {
-          "adulti": 23,
-          "minori": 8,
-        }),
       new ServizioPax("Duomo + Museo (pax)", "milano", {
           "adulti": 10,
           "minori": 4,
