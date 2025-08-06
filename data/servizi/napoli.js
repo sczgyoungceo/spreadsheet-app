@@ -55,7 +55,7 @@ export const napoli = [
         "8-10": 55,
         "11-14": 60,
       }),
-    new ServizioAdOre("Disposizione/Shore Excursion da Napoli su Sorrento e Costiera (mezzi e ore)", "napoli", {
+    new ServizioAdOre("Disposizione/Shore Excursion da Napoli su Sorrento e Costiera o Caserta (mezzi e ore)", "napoli", {
         "1-2":  50,
         "3-5":  60,
         "6-7":  65,
