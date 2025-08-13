@@ -72,6 +72,16 @@ export class ServizioTrasporto extends Servizio {
     return 0;
   }
 
+  // Funzione per ottenere la tariffa per il tipo "milano"
+  getTariffaMilano() {
+    if (this.persone >= 1 && this.persone <= 2) return this.tariffe["1-2"];
+    if (this.persone >= 3 && this.persone <= 5) return this.tariffe["3-5"];
+    if (this.persone >= 6 && this.persone <= 7) return this.tariffe["6-7"];
+    if (this.persone >= 8 && this.persone <= 10) return this.tariffe["8-10"];
+    if (this.persone >= 11 && this.persone <= 14) return this.tariffe["11-14"];
+    return 0;
+  }
+
   getTariffaTransfer() {
     if (this.persone >= 1 && this.persone <= 3) return this.tariffe["1-3"];
     if (this.persone >= 4 && this.persone <= 6) return this.tariffe["4-6"];
@@ -94,6 +104,8 @@ export class ServizioTrasporto extends Servizio {
         return this.getTariffaNapoli();
       case "firenze":
         return this.getTariffaFirenze();
+      case "milano"
+        return this.getTariffaMilano();
       case "transfer":
         return this.getTariffaTransfer();
       default:
@@ -538,4 +550,5 @@ export class ServizioAdOreBoat extends Servizio {
     return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
   }
 }
+
 
