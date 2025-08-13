@@ -104,7 +104,7 @@ export class ServizioTrasporto extends Servizio {
         return this.getTariffaNapoli();
       case "firenze":
         return this.getTariffaFirenze();
-      case "milano"
+      case "milano":
         return this.getTariffaMilano();
       case "transfer":
         return this.getTariffaTransfer();
@@ -550,5 +550,6 @@ export class ServizioAdOreBoat extends Servizio {
     return `Servizio: ${this.nome}, Mezzi: ${this.mezzi}, Ore: ${this.ore}, Adulti: ${this.adulti}, Minori: ${this.minori}, Totale Persone: ${this.persone}`;
   }
 }
+
 
 
