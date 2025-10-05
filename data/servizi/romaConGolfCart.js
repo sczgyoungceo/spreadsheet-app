@@ -174,7 +174,7 @@ export const romaConGolfCart = [
         "minori": 20,
       }),
       new ServizioPax("Colosseo + Arena (Full Experience) (pax)", "roma-con-golf-cart", {
-        "adulti": 29,
+        "adulti": 30,
         "minori": 15,
       }),
       new ServizioPax( "Degustazioni Food Tour(pax)", "roma-con-golf-cart", {
