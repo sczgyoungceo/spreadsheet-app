@@ -63,7 +63,7 @@ export const romaConGolfCart = [
         "8-10": 48,
         "11-14": 55,
       }),
-      new ServizioAdOre("Disposizione su Tivoli (ore) (non si calcola il transfer, solo dispo)", "roma-con-golf-cart", {
+      new ServizioAdOre("Disposizione su Tivoli (non si calcola il transfer, solo dispo) (mezzi e ore)", "roma-con-golf-cart", {
         "1-2": 48,
         "3-5": 58,
         "6-7": 63,
@@ -174,7 +174,7 @@ export const romaConGolfCart = [
         "minori": 20,
       }),
       new ServizioPax("Colosseo + Arena (Full Experience) (pax)", "roma-con-golf-cart", {
-        "adulti": 29,
+        "adulti": 30,
         "minori": 15,
       }),
       new ServizioPax( "Degustazioni Food Tour(pax)", "roma-con-golf-cart", {
