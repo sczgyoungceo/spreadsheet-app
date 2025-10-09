@@ -77,6 +77,10 @@ export const romaConGolfCart = [
         "adulti": 47,
         "minori": 40,
       }),
+      new ServizioPax("Basilica San Pietro", "roma-con-golf-cart", {
+        "adulti": 6,
+        "minori": 4,
+      }),
       new ServizioPax("Musei Vaticani (tolleranza mezz'ora dopo dell'orario stampato) (pax)", "roma-con-golf-cart", {
         "adulti": 44,
         "minori": 35,
