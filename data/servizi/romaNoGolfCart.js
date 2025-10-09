@@ -69,7 +69,7 @@ export const romaNoGolfCart = [
       "adulti": 47,
       "minori": 40,
     }),
-    new ServizioPax("Basilica San Pietro", "roma-no-golf-cart", {
+    new ServizioPax("Basilica San Pietro (pax)", "roma-no-golf-cart", {
       "adulti": 6,
       "minori": 4,
     }),
