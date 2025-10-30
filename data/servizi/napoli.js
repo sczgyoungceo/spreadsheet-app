@@ -63,11 +63,11 @@ export const napoli = [
         "11-14": 65,
       }),
     new ServizioAdOre("Shore Excursion da Salerno su Pompei e Sorrento/Amalfi Coast (mezzi e ore)", "napoli", {
-        "1-2":  65,
-        "3-5":  75,
-        "6-7":  80,
-        "8-10": 75,
-        "11-14": 80,
+        "1-2":  75,
+        "3-5":  85,
+        "6-7":  90,
+        "8-10": 85,
+        "11-14": 90,
       }),
     new ServizioAdOre("Disposizione su altre città in Campania (mezzi e ore)", "napoli", {
         "1-2":  60,
